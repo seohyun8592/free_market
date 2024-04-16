@@ -1,8 +1,5 @@
-import React from 'react';
+import React from 'react'
 
 export default function BaseButton() {
-  return (
-   <button>버튼</button>
-  );
+  return <button>버튼</button>
 }
-

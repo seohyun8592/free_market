@@ -1,3 +1,14 @@
+// 이 프로젝트에서 사용할 ESLint 규칙 지정
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals", // Next.js에서 제공하는 Core Web Vitals 관련 규칙 세트
+    "airbnb", // Airbnb의 기본 JavaScript 스타일 가이드 규칙 세트
+    "airbnb-typescript", // Airbnb의 TypeScript 스타일 가이드 규칙 세트
+    "airbnb/hooks", // Airbnb의 React Hooks 관련 규칙 세트
+    "prettier" // Prettier와의 충돌을 피하기 위한 규칙 세트
+  ],
+  "parserOptions": { "project": "./tsconfig.json" }, // ESLint가 TypeScript 파일을 올바르게 파싱할 수 있음
+  "rules": {
+    "react/jsx-props-no-spreading": "off" // spread 연산자를 사용한 props 전달을 허용
+  }
 }

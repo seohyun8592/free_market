@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export default function BaseSelect() {
   return (
@@ -7,6 +7,5 @@ export default function BaseSelect() {
       <option>2</option>
       <option>3</option>
     </select>
-  );
+  )
 }
-
