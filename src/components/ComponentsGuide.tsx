@@ -4,9 +4,9 @@ import BaseButton from "./base/Button/Button";
 import BaseInput from "./base/Form/Input";
 
 export default function ComponentsGuide() {
-  const [num, setNum] = useState(0);
-  const [num1, setNum1] = useState(0);
-  const [inputValue, setInputValue] = useState("");
+  const [num, setNum] = useState(1985);
+  const [num1, setNum1] = useState(1991);
+  const [inputValue, setInputValue] = useState("리브 안녕?");
   const increamentCount = () => {
     setNum((num) => num + 1);
     console.log("클릭");
@@ -48,6 +48,7 @@ export default function ComponentsGuide() {
 
       <p>버튼 1: {num}</p>
       <p>버튼 2: {num1}</p>
+      <p>사용자 텍스트 : {inputValue}</p>
     </>
   );
 }
