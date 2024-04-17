@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import BaseInput from "@/components/base/Input";
-import BaseSelect from "@/components/base/Select";
-import BaseButton from "@/components/base/Button";
-import Count from "@/components/Count";
+import BaseInput from "@/components/base/Form/Input";
+import BaseSelect from "@/components/base/Form/Select";
+import BaseButton from "@/components/base/Button/Button";
+import ButtonGuide from "@/components/ButtonGuide";
 export const metadata: Metadata = {
   title: "Free-Market",
   description: "프리마켓에 오신걸 환영합니다.",
@@ -14,9 +14,9 @@ export const metadata: Metadata = {
 export default function MainPage() {
   return (
     <section>
-      <BaseInput />
-      <BaseSelect />
-      <Count />
+      {/* <BaseInput />
+      <BaseSelect /> */}
+      <ButtonGuide />
     </section>
   );
 }

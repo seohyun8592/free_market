@@ -1,0 +1,15 @@
+.btn {
+  min-width: rem(80);
+  height: rem(25);
+  border-radius: rem(4);
+  &__primary {
+    color: #ffffff;
+    background-color: rgb(120, 120, 254);
+  }
+  &__small {
+  }
+  &__medium {
+    height: rem(40);
+    border: rem(1) solid #666666;
+  }
+}
