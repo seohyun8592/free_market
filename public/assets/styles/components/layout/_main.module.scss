@@ -1,0 +1,130 @@
+main {
+  height: 100%;
+  padding-top: rem(60);
+  section {
+    height: 100%;
+    overflow: auto;
+    &.contents__wrap {
+      padding: rem(20);
+    }
+  }
+  .banner {
+    &__container {
+      position: relative;
+      width: 100%;
+      height: rem(450);
+    }
+    &__img {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      // padding-top: rem(60);
+      img {
+        z-index: -1;
+      }
+    }
+    &__txt {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: rem(10);
+      padding: rem(20);
+      margin-top: rem(30);
+      transform: translate(-50%, -50%);
+      p {
+        margin-bottom: rem(10);
+      }
+    }
+    &__link {
+      display: inline-block;
+      height: rem(25);
+      line-height: rem(25);
+      background-color: $subTxtColor;
+      border-radius: rem(20);
+      padding: 0 rem(10);
+      transition: background-color 0.3s;
+      &:hover {
+        color: #ffffff;
+        background-color: rgba(83, 94, 242);
+      }
+    }
+  }
+
+  .contents {
+    &__container {
+      padding: rem(30) rem(20) rem(80);
+      .title {
+        padding-bottom: rem(0);
+      }
+      .posts {
+        &__items {
+          li {
+            display: inline-block;
+            margin-right: rem(20);
+            margin-top: rem(30);
+            p {
+              font-size: rem(14);
+            }
+          }
+        }
+      }
+      .mail {
+        &__container {
+          width: rem(500);
+          height: rem(800);
+          border: rem(1) solid #222222;
+        }
+        &__header {
+          height: rem(40);
+          background-color: #666666;
+        }
+        &__body {
+          height: calc(100% - 100px);
+          textarea {
+            height: 100%;
+          }
+        }
+        &__footer {
+          height: rem(60);
+        }
+      }
+    }
+    &__detail {
+      input[type="checkbox"] {
+        width: auto;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        padding: rem(20) 0;
+      }
+      ul {
+        li {
+          position: relative;
+          padding-left: rem(20);
+
+          & + li {
+            margin-top: rem(15);
+          }
+        }
+      }
+      p {
+        margin-top: rem(20);
+        & + p {
+          margin-top: rem(15);
+          word-wrap: break-word;
+          word-break: break-all;
+          line-height: 1.6;
+        }
+      }
+      img {
+        width: rem(500);
+      }
+    }
+  }
+}

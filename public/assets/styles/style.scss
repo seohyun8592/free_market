@@ -1,0 +1,22 @@
+@charset 'utf-8';
+
+// base
+@import "base/variable";
+@import "base/reset";
+@import "base/font";
+
+// component > common
+@import "components/common/common";
+@import "components/common/button/button";
+@import "components/common/form/form";
+
+// layout
+@import "components/layout/header.module";
+@import "components/layout/footer.module";
+@import "components/layout/main.module";
+
+
+// 임시 스타일 (나중에 삭제 예정)
+.guide__wrap {
+    margin-bottom: rem(30);
+}

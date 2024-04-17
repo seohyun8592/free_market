@@ -1,0 +1,17 @@
+@font-face {
+  font-style: normal;
+  font-weight: 500;
+  font-family: 'notokr';
+
+  font-display: 'fallback';
+  src: url('../../fonts/NotoSansKR-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-style: normal;
+  font-weight: 700;
+  font-family: 'notokr';
+
+  font-display: 'fallback';
+  src: url('../../fonts/NotoSansKR-Bold.woff2') format('woff2');
+}
