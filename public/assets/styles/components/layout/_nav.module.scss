@@ -1,0 +1,17 @@
+nav {
+  @include onFlex();
+  li {
+    & + li {
+      margin-left: rem(20);
+    }
+    a {
+      color: #222222;
+    }
+  }
+}
+
+@include mobile() {
+  nav {
+    display: none;
+  }
+}

@@ -1,0 +1,26 @@
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  @include onFlex(center, space-between);
+  width: 100%;
+  height: rem(60);
+  font-size: rem(14);
+  padding: 0 rem(20);
+  background-color: #ffffff;
+  border-bottom: 1px solid #222222;
+  z-index: 10;
+  .logo {
+    font-size: rem(24);
+    font-weight: 700;
+    color: #222222;
+  }
+}
+
+@include mobile() {
+  header {
+    .logo {
+      font-size: rem(18);
+    }
+  }
+}

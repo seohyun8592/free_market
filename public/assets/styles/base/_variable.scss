@@ -1,0 +1,37 @@
+$ly: ly;
+$rem-base: 16px;
+$white: #ffffff;
+$black: #000000;
+$baseColor: #348597;
+$baseTxtColor: #222222;
+$subTxtColor: #f3a94f;
+
+@mixin onFlex($align: center, $justify: center) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+}
+
+@mixin maxWidth($elW: rem(985)) {
+  max-width: $elW;
+  margin: 0 auto;
+}
+
+@mixin mobile($mSize: rem(767)) {
+  @media screen and (max-width: $mSize) {
+    @content;
+  }
+}
+
+// func
+// @function rem($pxValue, $context: $browser-context) {
+//   @return #{$pxValue/$context}rem;
+// }
+
+@function strip-unit($num) {
+  @return $num / ($num * 0 + 1);
+}
+
+@function rem($num) {
+  @return #{(strip-unit($num) / strip-unit($rem-base))}rem;
+}
