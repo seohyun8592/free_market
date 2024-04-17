@@ -1,0 +1,16 @@
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  @include onFlex();
+  width: 100%;
+  height: rem(40);
+  padding: 0 rem(20);
+  background-color: #424242;
+  p {
+    width: 100%;
+    font-size: rem(12);
+    color: #dfdfdf;
+    text-align: center;
+  }
+}

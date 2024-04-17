@@ -1,0 +1,16 @@
+@charset 'utf-8';
+
+// base
+@import "base/variable";
+@import "base/reset";
+@import "base/font";
+
+// component
+// @import 'component/tab';
+
+@import "components/common/common";
+// layout
+@import "components/layout/header.module";
+// @import 'components/nav.module';
+@import "components/layout/footer.module";
+@import "components/layout/main.module";
