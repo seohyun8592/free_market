@@ -12,4 +12,7 @@
     height: rem(40);
     border: rem(1) solid #666666;
   }
+  & + .btn {
+    margin-left: rem(10);
+  }
 }

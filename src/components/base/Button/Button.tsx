@@ -7,12 +7,12 @@ import { ButtonProps } from "@/components/base/Button/ButtonTypes";
 import classNames from "classnames";
 
 type Props = {
-  increamentCount?: (event: MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   buttonProps?: ButtonProps;
-  children?: React.ReactNode
+  children?: React.ReactNode;
 };
 
-export default function BaseButton({ increamentCount, buttonProps, children }: Props) {
+export default function BaseButton({ onClick, buttonProps, children }: Props) {
   const {
     theme = "PRIMARY",
     size = "NONE",
@@ -23,7 +23,7 @@ export default function BaseButton({ increamentCount, buttonProps, children }: P
     <button
       {...buttonProps}
       className={classNames(BUTTON_THEME[theme], BUTTON_SIZE[size])}
-      onClick={increamentCount}
+      onClick={onClick}
     >
       {children}
     </button>

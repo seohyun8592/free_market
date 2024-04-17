@@ -4,6 +4,9 @@ main {
   section {
     height: 100%;
     overflow: auto;
+    &.contents__wrap {
+      padding: rem(20);
+    }
   }
   .banner {
     &__container {

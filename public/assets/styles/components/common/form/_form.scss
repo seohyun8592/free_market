@@ -1,0 +1,18 @@
+.form {
+  &__wrap {
+    width: rem(180);
+  }
+}
+
+input {
+  height: rem(28);
+  border: rem(1) solid #999999;
+  border-radius: rem(4);
+  padding: 0 rem(10);
+
+  &[type="text"] {
+    &::placeholder {
+      color: #999999;
+    }
+  }
+}
