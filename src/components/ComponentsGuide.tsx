@@ -5,9 +5,15 @@ import BaseInput from "./base/Form/Input";
 
 export default function ComponentsGuide() {
   const [num, setNum] = useState(0);
+  const [num1, setNum1] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const increamentCount = () => {
     setNum((num) => num + 1);
+    console.log("클릭");
+  };
+
+  const increamentCount1 = () => {
+    setNum1((num) => num + 1);
     console.log("클릭");
   };
 
@@ -24,8 +30,9 @@ export default function ComponentsGuide() {
           buttonProps={{
             theme: "SECONDARY",
             size: "MEDIUM",
-            disabled: true,
+            // disabled: true,
           }}
+          onClick={increamentCount1}
         >
           버튼 2
         </BaseButton>
@@ -39,7 +46,8 @@ export default function ComponentsGuide() {
         ></BaseInput>
       </div>
 
-      <p>{num}</p>
+      <p>버튼 1: {num}</p>
+      <p>버튼 2: {num1}</p>
     </>
   );
 }
