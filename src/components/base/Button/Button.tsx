@@ -1,23 +1,23 @@
-import React, { MouseEvent } from "react"
+import React, { MouseEvent } from 'react'
 import {
   BUTTON_THEME,
   BUTTON_SIZE,
-} from "@/components/base/Button/buttonConfig"
-import { ButtonProps } from "@/components/base/Button/ButtonTypes"
-import classNames from "classnames"
+} from '@/components/base/Button/buttonConfig'
+import { ButtonProps } from '@/components/base/Button/ButtonTypes'
+import classNames from 'classnames'
 
 type Props = {
-  onClick?: (event: MouseEvent<HTMLButtonElement>) => void
-  buttonProps?: ButtonProps
-  children?: React.ReactNode
-}
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  buttonProps?: ButtonProps;
+  children?: React.ReactNode;
+};
 
 export default function BaseButton({ onClick, buttonProps, children }: Props) {
   const {
     theme = "PRIMARY",
     size = "NONE",
     disabled = false,
-  } = buttonProps || { theme: "PRIMARY", size: "NONE" }
+  } = buttonProps || { theme: 'PRIMARY', size: 'NONE' }
 
   return (
     <button
@@ -29,7 +29,13 @@ export default function BaseButton({ onClick, buttonProps, children }: Props) {
     >
       {children}
     </button>
-  )
+  );
+}
+
+BaseButton.defaultProps = {
+  onClick: undefined,
+  buttonProps: {},
+  children: {},
 }
 
 BaseButton.defaultProps = {
