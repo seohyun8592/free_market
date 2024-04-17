@@ -1,13 +1,13 @@
 "use client";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import BaseButton from "./base/Button/Button";
 import BaseInput from "./base/Form/Input";
-import kakaoMap from "./KakaoMap";
 
 export default function ComponentsGuide() {
   const [num, setNum] = useState(1985)
   const [num1, setNum1] = useState(1991)
   const [inputValue, setInputValue] = useState('리브 안녕?')
+  const [fixedText, setFixedText] = useState("")
   const increamentCount = () => {
     setNum((num) => num + 1)
     console.log('클릭')
@@ -21,6 +21,11 @@ export default function ComponentsGuide() {
   const textInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
     console.log('왜 나옴??', inputValue)
+  }
+
+  const inputBlur=() => {
+    setFixedText(inputValue)
+    setInputValue('')
   }
 
   return (
@@ -45,11 +50,12 @@ export default function ComponentsGuide() {
           value={inputValue}
           placeholder="Test Text"
         ></BaseInput>
+        <BaseButton onClick={inputBlur}>입력하기</BaseButton>
       </div>
 
       <p>버튼 1: {num}</p>
       <p>버튼 2: {num1}</p>
-      <p>사용자 텍스트 : {fixText}</p>
+      <p>사용자 텍스트 : {fixedText}</p>
     </>
   );
 }
