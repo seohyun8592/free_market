@@ -14,6 +14,7 @@
   "parserOptions": { "project": "./tsconfig.json" }, // ESLint가 TypeScript 파일을 올바르게 파싱할 수 있음
   "rules": {
     "react/jsx-props-no-spreading": "off", // spread 연산자를 사용한 props 전달을 허용
+    "@typescript-eslint/no-explicit-any": "off", // any 사용허용
     "prettier/prettier": ["error", { "semi": false }],
     "quotes": ["error", "double"]
   }
