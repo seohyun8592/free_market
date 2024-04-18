@@ -20,6 +20,6 @@ export default function BaseInput({ onChange, value, placeholder }: Props) {
   )
 }
 
-BaseInput.defaultProps = {
-  placeholder: undefined,
-}
+// BaseInput.defaultProps = {
+//   placeholder: undefined,
+// }
