@@ -1,4 +1,4 @@
-import { geoLocation } from "@/app/api/geoLocationApi"
+import geoLocation from "@/app/api/geoLocationApi"
 
 declare global {
   interface Window {
@@ -8,7 +8,8 @@ declare global {
 
 const kakaoMapScript = document.createElement("script")
 kakaoMapScript.async = false
-kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=7b8cd975153b8025942deb6c0a583773&autoload=false`
+kakaoMapScript.src =
+  "//dapi.kakao.com/v2/maps/sdk.js?appkey=7b8cd975153b8025942deb6c0a583773&autoload=false"
 document.head.appendChild(kakaoMapScript)
 
 function onLoadKakaoAPI() {
@@ -23,7 +24,7 @@ function onLoadKakaoAPI() {
   })
 }
 
-export function loadHandler() {
+export default function loadHandler() {
   kakaoMapScript.addEventListener("load", onLoadKakaoAPI)
 }
 

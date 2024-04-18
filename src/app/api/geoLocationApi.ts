@@ -14,7 +14,7 @@ type LatLng = {
 //   })
 // }
 
-export async function geoLocation(): Promise<LatLng | undefined> {
+export default async function geoLocation(): Promise<LatLng | undefined> {
   try {
     const position = await new Promise<GeolocationPosition>(
       (resolve, reject) => {
@@ -27,7 +27,7 @@ export async function geoLocation(): Promise<LatLng | undefined> {
     return { x: latitude, y: longitude }
   } catch (error) {
     console.error("Error getting geolocation:", error)
-    return undefined 
+    return undefined
   }
 }
 
