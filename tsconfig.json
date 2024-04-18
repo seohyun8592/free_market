@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "ESNext", //자바스크립트버전 어떤걸로 컴파일 해줄까 -> 현재는 최신버전으로 컴파일되게 설정
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ], // 컴파일에 포함할 라이브러리 파일을 지정
+    "lib": ["dom", "dom.iterable", "esnext"], // 컴파일에 포함할 라이브러리 파일을 지정
     "allowJs": true, // JavaScript 파일도 컴파일에 포함할 수 있도록 허용
     "skipLibCheck": true, // 선언 파일의 유형 검사를 건너뛰도록 설정
     "strict": false, // 타입검사 엄격하게 해줄까?
@@ -22,22 +18,13 @@
     "plugins": [
       {
         "name": "next" // 추가적인 TypeScript 플러그인을 설정
-      }
+      },
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ] // 별칭(alias)을 설정하여 모듈 경로를 단순화
+      "@/*": ["./src/*"] // 별칭(alias)을 설정하여 모듈 경로를 단순화
     },
     "baseUrl": "."
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ], // 컴파일에 포함할 파일 경로 패턴을 지정
-  "exclude": [
-    "node_modules"
-  ] // 컴파일에서 제외할 파일 경로 패턴을 지정
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"], // 컴파일에 포함할 파일 경로 패턴을 지정
+  "exclude": ["node_modules"] // 컴파일에서 제외할 파일 경로 패턴을 지정
 }

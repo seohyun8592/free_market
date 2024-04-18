@@ -3,5 +3,16 @@
   "semi": false,
   "useTabs": false,
   "tabWidth": 2,
-  "printWidth": 80
+  "printWidth": 80,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "^@mui/(.*)$",
+    "^@untitled-ui/(.*)$",
+    "^react",
+    "^src/(.*)$",
+    "<THIRD_PARTY_MODULES>",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }
