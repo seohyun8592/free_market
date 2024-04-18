@@ -26,3 +26,9 @@ function onLoadKakaoAPI() {
 export function loadHandler() {
   kakaoMapScript.addEventListener("load", onLoadKakaoAPI)
 }
+
+/**
+ * 위치 마킹
+ * 지도 내 지역명 팝업
+ * 도메인 추가
+ */
