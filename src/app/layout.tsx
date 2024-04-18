@@ -1,10 +1,11 @@
 import React from "react"
-import type { Metadata } from "next"
+
 // import { Inter } from "next/font/google";
 import Header from "@/components/layout/header"
-import "../../public/assets/styles/style.scss"
-
 // const inter = Inter({ subsets: ["latin"] });
+import type { Metadata } from "next"
+
+import "../../public/assets/styles/style.scss"
 
 export const metadata: Metadata = {
   title: "Create Next App",
