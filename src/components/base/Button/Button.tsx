@@ -37,9 +37,3 @@ export default function BaseButton({
     </button>
   )
 }
-
-BaseButton.defaultProps = {
-  onClick: undefined,
-  buttonProps: {},
-  children: {},
-}
