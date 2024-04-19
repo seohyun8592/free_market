@@ -24,7 +24,7 @@ function onLoadKakaoAPI() {
   })
 }
 
-export default function loadHandler() {
+export function loadHandler() {
   kakaoMapScript.addEventListener("load", onLoadKakaoAPI)
 }
 
