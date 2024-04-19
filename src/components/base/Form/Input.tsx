@@ -8,11 +8,11 @@ interface Props {
   placeholder?: string
 }
 
-export default function BaseInput({ onChange, value, placeholder }: Props) {
+export default function BaseInput({ onChange, value, placeholder='텍스트를 입력해 주세요' }: Props) {
   return (
     <div className="form__wrap">
       <input
-        placeholder={placeholder || "텍스트를 입력해 주세요"}
+        placeholder={placeholder}
         onChange={onChange}
         value={value}
       />

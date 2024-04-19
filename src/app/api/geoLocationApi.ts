@@ -23,7 +23,6 @@ export default async function geoLocation(): Promise<LatLng | undefined> {
     )
 
     const { latitude, longitude } = position.coords
-    console.log(latitude, longitude)
     return { x: latitude, y: longitude }
   } catch (error) {
     console.error("Error getting geolocation:", error)

@@ -2,7 +2,7 @@
 
 import React, { ChangeEvent, useEffect, useState } from "react"
 
-import loadHandler from "@/app/api/mapApi"
+import { loadHandler } from "@/app/api/mapApi"
 
 import BaseButton from "./base/Button/Button"
 import BaseInput from "./base/Form/Input"
@@ -12,8 +12,8 @@ import BaseInput from "./base/Form/Input"
 export default function ComponentsGuide() {
   const [num, setNum] = useState(1985)
   const [num1, setNum1] = useState(1991)
-  const [inputValue, setInputValue] = useState("리브 안녕?")
-  const [fixedText, setFixedText] = useState(inputValue)
+  const [inputValue, setInputValue] = useState("")
+  const [fixedText, setFixedText] = useState("")
 
   const increamentCount = () => {
     setNum((prev) => prev + 1)
@@ -59,7 +59,7 @@ export default function ComponentsGuide() {
         <BaseInput
           onChange={textInputValue}
           value={inputValue}
-          placeholder="Test Text"
+          // placeholder="Test Text"
         />
         <BaseButton onClick={inputBlur}>입력하기</BaseButton>
       </div>
