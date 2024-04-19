@@ -1,8 +1,12 @@
 "use client"
+
 import React, { ChangeEvent, useEffect, useState } from "react"
+
+import loadHandler from "@/app/api/mapApi"
+
 import BaseButton from "./base/Button/Button"
 import BaseInput from "./base/Form/Input"
-import { loadHandler } from "@/app/api/mapApi"
+
 // import { geoLocation } from "@/app/api/geoLocationApi"
 
 export default function ComponentsGuide() {
@@ -12,12 +16,12 @@ export default function ComponentsGuide() {
   const [fixedText, setFixedText] = useState(inputValue)
 
   const increamentCount = () => {
-    setNum((num) => num + 1)
+    setNum((prev) => prev + 1)
     console.log("클릭")
   }
 
   const increamentCount1 = () => {
-    setNum1((num) => num + 1)
+    setNum1((prev) => prev + 1)
     console.log("클릭")
   }
 
@@ -56,11 +60,11 @@ export default function ComponentsGuide() {
           onChange={textInputValue}
           value={inputValue}
           placeholder="Test Text"
-        ></BaseInput>
+        />
         <BaseButton onClick={inputBlur}>입력하기</BaseButton>
       </div>
 
-      <div id="map" style={{ width: "500px", height: "300px" }}></div>
+      <div id="map" style={{ width: "500px", height: "300px" }} />
 
       <p>버튼 1: {num}</p>
       <p>버튼 2: {num1}</p>
