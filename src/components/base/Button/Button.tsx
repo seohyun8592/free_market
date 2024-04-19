@@ -1,9 +1,10 @@
 import React, { MouseEvent } from "react"
-import {
-  BUTTON_THEME,
-  BUTTON_SIZE,
-} from "@/components/base/Button/buttonConfig"
+
 import { ButtonProps } from "@/components/base/Button/ButtonTypes"
+import {
+  BUTTON_SIZE,
+  BUTTON_THEME,
+} from "@/components/base/Button/buttonConfig"
 import classNames from "classnames"
 
 type Props = {
@@ -30,10 +31,4 @@ export default function BaseButton({ onClick, buttonProps, children }: Props) {
       {children}
     </button>
   )
-}
-
-BaseButton.defaultProps = {
-  onClick: undefined,
-  buttonProps: {},
-  children: {},
 }
