@@ -21,10 +21,6 @@ export default function Map() {
       {isLoading && <p>지도를 불러오는 중입니다...!!</p>}
 
       <div id="map" style={{ width: "500px", height: "300px" }}></div>
-         {isLoading &&  <p>지도를 불러오는 중입니다...</p>}
-     
-      <div id="map" style={{ width: "500px", height: "300px" }}>
-      </div>
     </div>
   )
 }
