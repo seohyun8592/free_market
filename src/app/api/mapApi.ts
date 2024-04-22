@@ -10,6 +10,7 @@ const kakaoMapScript = document.createElement("script")
 kakaoMapScript.async = false
 kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_APP_KEY}&autoload=false`
 document.head.appendChild(kakaoMapScript)
+
 function onLoadKakaoAPI() {
   window.kakao.maps.load(async () => {
     const location = await geoLocation()
@@ -47,7 +48,6 @@ export function loadHandler() {
 }
 
 /**
- * 위치 마킹
  * 지도 내 지역명 팝업
  * 도메인 추가
  */

@@ -1,21 +1,39 @@
 "use client"
 
-import React, { ChangeEvent } from "react"
+import React, { ChangeEvent, useState } from "react"
+
+import BaseButton from "../Button/Button"
 
 interface Props {
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void
-  value: string
+  // onChange: (event: ChangeEvent<HTMLInputElement>) => void
+  // value: string
+  addInput: (value: string) => void
   placeholder?: string
 }
 
-export default function BaseInput({ onChange, value, placeholder='텍스트를 입력해 주세요' }: Props) {
+export default function BaseInput({
+  addInput,
+  placeholder = "텍스트를 입력해 주세요",
+}: Props) {
+  const [inputValue, setInputValue] = useState("")
+
+  const textInputValue = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value)
+  }
+
+  const inputBlur = () => {
+    addInput(inputValue)
+    setInputValue("")
+  }
+
   return (
     <div className="form__wrap">
       <input
         placeholder={placeholder}
-        onChange={onChange}
-        value={value}
+        onChange={textInputValue}
+        value={inputValue}
       />
+      <BaseButton onClick={inputBlur}>입력하기</BaseButton>
     </div>
   )
 }
