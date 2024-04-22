@@ -9,12 +9,8 @@ type Location = {
   x: number
   y: number
 }
-const kakaoMapScript = document.createElement("script")
-kakaoMapScript.async = false
-kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_APP_KEY}&autoload=false`
-document.head.appendChild(kakaoMapScript)
 
- function onLoadKakaoAPI(location: Location) {
+function onLoadKakaoAPI(location: Location) {
   window.kakao.maps.load(() => {
     const { x, y } = location
     const container = document.getElementById("map")
@@ -46,10 +42,12 @@ document.head.appendChild(kakaoMapScript)
   })
 }
 
-export function loadHandler(
-  
-  location: Location,
-) {
+export function loadHandler(location: Location) {
+  const kakaoMapScript = document.createElement("script")
+  kakaoMapScript.async = false
+  kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_APP_KEY}&autoload=false`
+  document.head.appendChild(kakaoMapScript)
+
   kakaoMapScript.addEventListener("load", () => {
      onLoadKakaoAPI(location)
   })

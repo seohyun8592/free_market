@@ -1,6 +1,6 @@
 "use client"
 
-import React, { Suspense, useEffect, useState } from "react"
+import React, { useState } from "react"
 
 import Map from "./Map"
 // import { loadHandler } from "@/app/api/mapApi"
@@ -66,9 +66,7 @@ export default function ComponentsGuide() {
       </div>
 
       {/* <div id="map" style={{ width: "500px", height: "300px" }}></div> */}
-      <Suspense fallback={<p>로딩중...</p>}>
-        <Map />
-      </Suspense>
+      <Map />
       <p>버튼 1: {num}</p>
       <p>버튼 2: {num1}</p>
       <p>사용자 텍스트 : {fixedText}</p>
