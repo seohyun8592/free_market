@@ -5,18 +5,22 @@ declare global {
     kakao: any
   }
 }
-
+type Location = {
+  x: number
+  y: number
+}
 const kakaoMapScript = document.createElement("script")
 kakaoMapScript.async = false
 kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_APP_KEY}&autoload=false`
 document.head.appendChild(kakaoMapScript)
 
-function onLoadKakaoAPI() {
-  window.kakao.maps.load(async () => {
-    const location = await geoLocation()
+export function onLoadKakaoAPI(location: Location) {
+  window.kakao.maps.load(() => {
+    const { x, y } = location
+    console.log(x, y)
     const container = document.getElementById("map")
     const options = {
-      center: new window.kakao.maps.LatLng(location.x, location.y),
+      center: new window.kakao.maps.LatLng(x, y),
       level: 3,
     }
     const map = new window.kakao.maps.Map(container, options)
@@ -43,8 +47,13 @@ function onLoadKakaoAPI() {
   })
 }
 
-export function loadHandler() {
-  kakaoMapScript.addEventListener("load", onLoadKakaoAPI)
+export function loadHandler(
+  onLoadKakaoAPI: (lacation: Location) => void,
+  location: Location,
+) {
+  kakaoMapScript.addEventListener("load", () => {
+    onLoadKakaoAPI(location)
+  })
 }
 
 /**
