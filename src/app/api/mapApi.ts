@@ -14,10 +14,9 @@ kakaoMapScript.async = false
 kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_APP_KEY}&autoload=false`
 document.head.appendChild(kakaoMapScript)
 
-export function onLoadKakaoAPI(location: Location) {
+ function onLoadKakaoAPI(location: Location) {
   window.kakao.maps.load(() => {
     const { x, y } = location
-    console.log(x, y)
     const container = document.getElementById("map")
     const options = {
       center: new window.kakao.maps.LatLng(x, y),
@@ -48,11 +47,11 @@ export function onLoadKakaoAPI(location: Location) {
 }
 
 export function loadHandler(
-  onLoadKakaoAPI: (lacation: Location) => void,
+  
   location: Location,
 ) {
   kakaoMapScript.addEventListener("load", () => {
-    onLoadKakaoAPI(location)
+     onLoadKakaoAPI(location)
   })
 }
 
