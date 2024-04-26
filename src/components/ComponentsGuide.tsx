@@ -1,6 +1,8 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
+
+import fetchAPI from "lib/api"
 
 import Map from "./Map"
 // import { loadHandler } from "@/app/api/mapApi"
@@ -14,6 +16,7 @@ export default function ComponentsGuide() {
   const [num1, setNum1] = useState(1991)
   const [fixedText, setFixedText] = useState("")
   const [fixedSelect, setFixedSelect] = useState("")
+  const [apiTest, setApiTest] = useState(null)
 
   const addSelectValue = (value: string) => {
     setFixedSelect(value)
@@ -31,9 +34,19 @@ export default function ComponentsGuide() {
     console.log("클릭")
   }
 
-  // useEffect(() => {
-  //   loadHandler()
-  // }, [])
+  // API TEST용
+  async function fetchTestData() {
+    try {
+      const result = await fetchAPI("/test")
+      setApiTest(result)
+    } catch (error) {
+      console.error("Error fetching data:", error)
+    }
+  }
+
+  useEffect(() => {
+    fetchTestData()
+  }, [])
 
   return (
     <>
@@ -71,6 +84,7 @@ export default function ComponentsGuide() {
       <p>버튼 2: {num1}</p>
       <p>사용자 텍스트 : {fixedText}</p>
       <p>선택 된 값 : {fixedSelect}</p>
+      <p>API test : {apiTest}</p>
     </>
   )
 }
