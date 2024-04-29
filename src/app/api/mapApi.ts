@@ -47,7 +47,7 @@ export function loadHandler(location: Location) {
   document.head.appendChild(kakaoMapScript)
 
   kakaoMapScript.addEventListener("load", () => {
-    onLoadKakaoAPI(location)
+     onLoadKakaoAPI(location)
   })
 }
 
