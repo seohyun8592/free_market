@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react"
 
-import fetchAPI from "lib/api"
+import fetchAPI from "@/api/fetchCore"
 
 import Map from "./Map"
 import BaseButton from "./base/Button/Button"
@@ -36,7 +36,7 @@ export default function ComponentsGuide() {
   // API TEST용
   async function fetchTestData() {
     try {
-      const result = await fetchAPI("/test")
+      const result = await fetchAPI("/test", {})
       setApiTest(result)
     } catch (error) {
       console.error("Error fetching data:", error)

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
-import geoLocation from "@/app/api/geoLocationApi"
-import { loadHandler } from "@/app/api/mapApi"
+import geoLocation from "@/api/map/geoLocationApi"
+import { loadHandler } from "@/api/map/mapApi"
 
 export default function Map() {
   const [isLoading, setIsLoading] = useState(true)
