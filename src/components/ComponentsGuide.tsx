@@ -3,7 +3,6 @@
 import React, { useState } from "react"
 
 import Map from "./Map"
-// import { loadHandler } from "@/app/api/mapApi"
 import BaseButton from "./base/Button/Button"
 import BaseInput from "./base/Form/Input"
 import BaseSelect from "./base/Form/Select"
@@ -30,10 +29,6 @@ export default function ComponentsGuide() {
     setNum1((prev) => prev + 1)
     console.log("클릭")
   }
-
-  // useEffect(() => {
-  //   loadHandler()
-  // }, [])
 
   return (
     <>
@@ -65,7 +60,6 @@ export default function ComponentsGuide() {
         />
       </div>
 
-      {/* <div id="map" style={{ width: "500px", height: "300px" }}></div> */}
       <Map />
       <p>버튼 1: {num}</p>
       <p>버튼 2: {num1}</p>

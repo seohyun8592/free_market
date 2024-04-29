@@ -1,5 +1,3 @@
-import geoLocation from "@/app/api/geoLocationApi"
-
 declare global {
   interface Window {
     kakao: any
