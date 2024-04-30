@@ -1,8 +1,5 @@
 import React from "react"
 import type { Metadata } from "next"
-// import BaseInput from "@/components/base/Form/Input"
-// import BaseSelect from "@/components/base/Form/Select"
-// import BaseButton from "@/components/base/Button/Button"
 import ComponentsGuide from "@/components/ComponentsGuide"
 
 export const metadata: Metadata = {
