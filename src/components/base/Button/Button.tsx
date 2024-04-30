@@ -24,7 +24,6 @@ export default function BaseButton({
     disabled = false,
   } = buttonProps || { theme: "PRIMARY", size: "NONE" }
 
-
   return (
     <button
       {...buttonProps}
