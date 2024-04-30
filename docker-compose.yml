@@ -2,7 +2,7 @@ version: "3"
 
 services:
   app:
-    build: .
+    build: Dockerfile
     image: front
     ports:
       - "3000:3000"
