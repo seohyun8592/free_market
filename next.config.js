@@ -7,7 +7,7 @@ const nextConfig = {
         destination: `${process.env.NEXT_PUBLIC_BASE_URL}/:path*`,
       },
       {
-        source: "/test",
+        source: "/",
         destination: `${process.env.NEXT_PUBLIC_BASE_URL}`,
       },
     ]
