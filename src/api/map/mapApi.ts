@@ -30,7 +30,8 @@ function onLoadKakaoAPI(location: Location) {
       position: coords,
     })
     const infowindow = new window.kakao.maps.InfoWindow({
-      content: `<div class='test' style="width:150px;text-align:center;padding:6px 0;">hi</div>`,
+      content:
+        "<div class='test' style='width:150px;text-align:center;padding:6px 0;'>hi</div>",
     })
     infowindow.open(map, marker)
 
@@ -40,14 +41,14 @@ function onLoadKakaoAPI(location: Location) {
   })
 }
 
-export function loadHandler(location: Location) {
+export default function loadHandler(location: Location) {
   const kakaoMapScript = document.createElement("script")
   kakaoMapScript.async = false
   kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_APP_KEY}&autoload=false`
   document.head.appendChild(kakaoMapScript)
 
   kakaoMapScript.addEventListener("load", () => {
-     onLoadKakaoAPI(location)
+    onLoadKakaoAPI(location)
   })
 }
 

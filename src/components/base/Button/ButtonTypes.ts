@@ -1,8 +1,9 @@
-import {
-  BUTTON_THEME,
-  BUTTON_SIZE,
-} from "@/components/base/Button/buttonConfig"
 import { ButtonHTMLAttributes } from "react"
+
+import {
+  BUTTON_SIZE,
+  BUTTON_THEME,
+} from "@/components/base/Button/buttonConfig"
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**

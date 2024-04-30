@@ -8,7 +8,7 @@ import Map from "./Map"
 import BaseButton from "./base/Button/Button"
 import BaseInput from "./base/Form/Input"
 import BaseSelect from "./base/Form/Select"
-import { NUMBER__LIST } from "./base/Form/selectItemList"
+import NUMBERLIST from "./base/Form/selectItemList"
 
 export default function ComponentsGuide() {
   const [num, setNum] = useState(0)
@@ -25,12 +25,10 @@ export default function ComponentsGuide() {
   }
   const increamentCount = () => {
     setNum((prev) => prev + 1)
-    console.log("클릭")
   }
 
   const increamentCount1 = () => {
     setNum1((prev) => prev + 1)
-    console.log("클릭")
   }
 
   // API TEST용
@@ -39,7 +37,7 @@ export default function ComponentsGuide() {
       const result = await fetchAPI("/test", {})
       setApiTest(result)
     } catch (error) {
-      console.error("Error fetching data:", error)
+      // console.error("Error fetching data:", error)
     }
   }
 
@@ -69,7 +67,7 @@ export default function ComponentsGuide() {
 
       <div className="guide__wrap">
         <BaseSelect
-          itemList={NUMBER__LIST}
+          itemList={NUMBERLIST}
           addSelect={addSelectValue}
           // onChange={textInputValue}
           // value={inputValue}
