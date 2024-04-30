@@ -32,8 +32,8 @@ RUN \
 
 # Builder
 COPY . /app
-RUN npm run build:dev
+RUN npm run build
 
 # 4. dev image
 EXPOSE 3000
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "run", "start"]
