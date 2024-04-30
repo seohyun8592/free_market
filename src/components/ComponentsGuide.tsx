@@ -11,8 +11,8 @@ import BaseSelect from "./base/Form/Select"
 import { NUMBER__LIST } from "./base/Form/selectItemList"
 
 export default function ComponentsGuide() {
-  const [num, setNum] = useState(1985)
-  const [num1, setNum1] = useState(1991)
+  const [num, setNum] = useState(0)
+  const [num1, setNum1] = useState(0)
   const [fixedText, setFixedText] = useState("")
   const [fixedSelect, setFixedSelect] = useState("")
   const [apiTest, setApiTest] = useState(null)
