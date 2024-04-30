@@ -9,6 +9,7 @@
     "lint": "eslint './src/**/*.{ts,tsx,js,jsx}'",
     "lint:fix": "eslint --fix './src/**/*.{ts,tsx,js,jsx}'"
   },
+  "proxy": "https://kubetest.devsj.site",
   "dependencies": {
     "classnames": "^2.5.1",
     "http-proxy-middleware": "^3.0.0",
