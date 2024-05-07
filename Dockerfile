@@ -21,8 +21,8 @@
 FROM node:18.16.0
 
 # Dependencies
-WORKDIR .
-COPY . 
+WORKDIR /app
+COPY . /app
 
 # NPM Clean Install 위한 체크
 RUN \
@@ -31,7 +31,7 @@ RUN \
   fi
 
 # Builder
-COPY . 
+COPY . /app
 RUN npm run build
 
 # 4. dev image
