@@ -11,7 +11,7 @@ import BaseSelect from "./base/Form/Select"
 import NUMBERLIST from "./base/Form/selectItemList"
 
 export default function ComponentsGuide() {
-  const [num, setNum] = useState(11)
+  const [num, setNum] = useState(12)
   const [num1, setNum1] = useState(0)
   const [fixedText, setFixedText] = useState("")
   const [fixedSelect, setFixedSelect] = useState("")
