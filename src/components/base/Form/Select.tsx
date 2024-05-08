@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import { useState } from "react"
 
 import classNames from "classnames"
 
@@ -8,7 +8,6 @@ type Item = {
   value: string
   text: string
 }
-
 
 export default function BaseSelect({ itemList, addSelect }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -30,15 +29,12 @@ export default function BaseSelect({ itemList, addSelect }) {
           className={classNames("select__head", isOpen && "open")}
           onClick={handleSelectOption}
         >
-          {selectValue ? selectValue : "선택"}
+          {selectValue || "선택"}
         </div>
         <div className="select__option">
           <ul className="item__list">
-            {itemList.map((item: Item, index: number) => (
-              <li
-                onClick={() => handleSelectValue(item)}
-                key={`${item.value}__${index}`}
-              >
+            {itemList.map((item: Item) => (
+              <li onClick={() => handleSelectValue(item)} key={`${item.value}`}>
                 {item.text}
               </li>
             ))}

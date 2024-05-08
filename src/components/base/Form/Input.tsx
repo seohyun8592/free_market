@@ -1,6 +1,6 @@
 "use client"
 
-import React, { ChangeEvent, useState } from "react"
+import { ChangeEvent, useState } from "react"
 
 import BaseButton from "../Button/Button"
 

@@ -1,4 +1,4 @@
-import React, { MouseEvent } from "react"
+import { MouseEvent } from "react"
 
 import { ButtonProps } from "@/components/base/Button/ButtonTypes"
 import {
@@ -23,7 +23,6 @@ export default function BaseButton({
     size = "NONE",
     disabled = false,
   } = buttonProps || { theme: "PRIMARY", size: "NONE" }
-
 
   return (
     <button

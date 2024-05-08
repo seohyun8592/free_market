@@ -14,6 +14,11 @@
   "parserOptions": { "project": "./tsconfig.json" }, // ESLint가 TypeScript 파일을 올바르게 파싱할 수 있음
   "rules": {
     "react/jsx-props-no-spreading": "off", // spread 연산자를 사용한 props 전달을 허용
+    "react/react-in-jsx-scope": "off", // React를 명시적으로 import하지 않아도 되도록 수정
+    "react/prop-types": "off", // 해당 규칙을 비활성화
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
     "@typescript-eslint/no-explicit-any": "off", // any 사용허용
     "react/require-default-props": "off", // defaultProps 사용 비활성화
     "prettier/prettier": ["error", { "semi": false }],
