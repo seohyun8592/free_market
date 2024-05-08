@@ -36,7 +36,7 @@ export default function ComponentsGuide() {
   // API TEST용
   async function fetchTestData() {
     try {
-      const result = await fetchAPI("/test", {})
+      const result = await fetchAPI("/test", { method: "GET" })
       setApiTest(result)
     } catch (error) {
       console.error("Error fetching data:", error)
