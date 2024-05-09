@@ -12,21 +12,6 @@ const nextConfig = {
       },
     ]
   },
-
-  async headers() {
-    return [
-      {
-        // 모든 CSS 파일에 대한 MIME 타입을 text/css로 변경
-        source: "/_next/static/(.*)",
-        headers: [
-          {
-            key: "Content-Type",
-            value: "text/css",
-          },
-        ],
-      },
-    ]
-  },
 }
 
 module.exports = nextConfig
