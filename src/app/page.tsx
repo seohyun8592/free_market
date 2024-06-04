@@ -1,13 +1,5 @@
 import React from "react"
 
-import ComponentsGuide from "@/components/ComponentsGuide"
-
 export default function MainPage() {
-  return (
-    <section className="contents__wrap">
-      {/* <BaseInput />
-      <BaseSelect /> */}
-      <ComponentsGuide />
-    </section>
-  )
+  return <section className="contents__wrap">메인 페이지</section>
 }

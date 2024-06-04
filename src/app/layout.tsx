@@ -28,7 +28,9 @@ export default function RootLayout({
       <body>
         <div className="root">
           <Header />
-          <main>{children}</main>
+          <main>
+            <div className="container">{children}</div>
+          </main>
           <footer>푸터 영역</footer>
         </div>
       </body>

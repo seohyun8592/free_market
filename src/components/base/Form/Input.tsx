@@ -7,7 +7,7 @@ import BaseButton from "../Button/Button"
 interface Props {
   // onChange: (event: ChangeEvent<HTMLInputElement>) => void
   // value: string
-  addInput: (value: string) => void
+  addInput?: (value: string) => void
   placeholder?: string
 }
 
@@ -33,7 +33,7 @@ export default function BaseInput({
         onChange={textInputValue}
         value={inputValue}
       />
-      <BaseButton onClick={inputBlur}>입력하기</BaseButton>
+      {/* <BaseButton onClick={inputBlur}>입력하기</BaseButton> */}
     </div>
   )
 }

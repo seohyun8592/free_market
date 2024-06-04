@@ -2,13 +2,12 @@
 
 import React, { useEffect, useState } from "react"
 
-import fetchAPI from "@/api/fetchCore"
-
-import Map from "./Map"
-import BaseButton from "./base/Button/Button"
-import BaseInput from "./base/Form/Input"
-import BaseSelect from "./base/Form/Select"
-import NUMBERLIST from "./base/Form/selectItemList"
+// import fetchAPI from "@/api/fetchCore"
+import Map from "@/components/Map"
+import BaseButton from "@/components/base/Button/Button"
+import BaseInput from "@/components/base/Form/Input"
+import BaseSelect from "@/components/base/Form/Select"
+import NUMBERLIST from "@/components/base/Form/selectItemList"
 
 export default function ComponentsGuide() {
   const [num, setNum] = useState(3)
@@ -46,7 +45,7 @@ export default function ComponentsGuide() {
   // }, [])
 
   return (
-    <>
+    <section className="contents__wrap">
       <div className="guide__wrap">
         <BaseButton onClick={increamentCount}>버튼 1</BaseButton>
         <BaseButton
@@ -81,6 +80,6 @@ export default function ComponentsGuide() {
       <p>사용자 텍스트 : {fixedText}</p>
       <p>선택 된 값 : {fixedSelect}</p>
       {/* <p>API test : {apiTest}</p> */}
-    </>
+    </section>
   )
 }

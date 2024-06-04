@@ -2,3 +2,19 @@
   height: 100%;
   overflow: hidden;
 }
+
+.container {
+  width: rem(1280);
+  height: 100%;
+}
+main {
+  @include onFlex(flex-start, center);
+
+  height: calc(100% - 40px);
+  padding-top: rem(60);
+  overflow: auto;
+  .contents__wrap {
+    height: 100%;
+    // padding: rem(20);
+  }
+}

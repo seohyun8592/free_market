@@ -9,11 +9,12 @@
 @import "components/common/common";
 @import "components/common/button/button";
 @import "components/common/form/form";
+@import "components/layout/login.module";
+
 
 // layout
 @import "components/layout/header.module";
 @import "components/layout/footer.module";
-@import "components/layout/main.module";
 
 
 // 임시 스타일 (나중에 삭제 예정)

@@ -11,9 +11,9 @@ export default async function fetchAPI(
   endpoint: string,
   options: FetchOptions = {},
 ) {
-  const url = `${BASE_URL}${endpoint}`
+  const url = `${BASE_URL}/${endpoint}`
   const headers = {
-    // "Content-Type": "application/json",
+    "Content-Type": "application/json",
     // 필요한 경우 추가 헤더를 설정 가능ßß
   }
 
