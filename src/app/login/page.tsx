@@ -23,7 +23,11 @@ export default function Page() {
       password,
     }
 
-    await fetchTestData(params)
+    try {
+      await fetchTestData(params)
+    } catch (error) {
+      console.log(error)
+    }
   }
   return (
     <section className="contents__wrap login">
