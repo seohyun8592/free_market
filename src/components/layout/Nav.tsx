@@ -1,3 +1,5 @@
+import React from "react"
+
 import Link from "next/link"
 
 const MENULIST = [
@@ -12,17 +14,17 @@ export default function Nav() {
     <>
       <ul className="menuList__item">
         {MENULIST.map((list) => (
-          <li>
+          <li key={`${list.name}}`}>
             <Link href={list.path}>{list.name}</Link>
           </li>
         ))}
       </ul>
       <ul className="menuList__item subMenu">
         <li>
-            <Link href={"/login"}>로그인</Link>
+          <Link href="/login">로그인</Link>
         </li>
         <li>
-            <Link href={"/join"}>회원가입</Link>
+          <Link href="/join">회원가입</Link>
         </li>
       </ul>
     </>

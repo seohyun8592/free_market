@@ -1,4 +1,5 @@
-export default function Page() {
+import React from "react"
 
-return <>메뉴 1 페이지</>;
+export default function Page() {
+  return <>메뉴 1 페이지</>
 }

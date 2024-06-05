@@ -1,23 +1,47 @@
-import { fetchTestData } from "@/api/login"
+"use client"
+
+import React, { useState } from "react"
+
+import fetchTestData from "@/api/login"
 import BaseButton from "@/components/base/Button/Button"
 import BaseInput from "@/components/base/Form/Input"
 
-export default async function Page() {
-  const params = {
-    memberId: "lanie",
-    password: "1234",
+export default function Page() {
+  const [userName, setUserName] = useState("")
+  const [password, setPassword] = useState("")
+
+  const handleUserNameChange = (e) => {
+    setUserName(e.target.value)
   }
-  const result = await fetchTestData(params)
-  console.log("result111", result)
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value)
+  }
+  const handleSubmit = async () => {
+    const params = {
+      memberId: userName,
+      password,
+    }
+
+    await fetchTestData(params)
+  }
   return (
     <section className="contents__wrap login">
       <h2 className="title">Free-Market</h2>
       <div className="input__box">
-        <BaseInput />
+        <BaseInput
+          onChange={handleUserNameChange}
+          placeholder="아이디를 입력해 주세요"
+          value={userName}
+        />
         <p className="login__desc">아이디를 입력해 주세요</p>
       </div>
       <div className="input__box">
-        <BaseInput />
+        <BaseInput
+          onChange={handlePasswordChange}
+          placeholder="비밀번호를 입력해 주세요"
+          value={password}
+        />
         <p className="login__desc">비밀번호를 입력해 주세요</p>
       </div>
       <BaseButton
@@ -25,6 +49,7 @@ export default async function Page() {
           theme: "PRIMARY",
           size: "LARGE",
         }}
+        onClick={handleSubmit}
       >
         로그인
       </BaseButton>

@@ -1,18 +1,31 @@
-import fetchAPI from "./fetchCore"
+// import fetchAPI from "./fetchCore"
 
-export async function fetchTestData(params: {}) {
-  //   const res = await fetch("https://freeapi.devsj.site/account/login", {
-  //     method: "POST",
-  //     body: JSON.stringify(params),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-  //   const data = await res.json()
-  //   console.log("result", data)
+type Params = {
+  memberId: string
+  password: string
+}
+export default async function fetchTestData(params: Params) {
+  // const payload = {
+  //   memberId: "회원 아이디",
+  //   password: "비밀번호",
+  // }
+  const res = await fetch("/account/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(params),
+  })
 
-  //   return data
+  const data = await res.json()
 
-  const result = await fetchAPI("/account/login", { params })
-  return result
+  return data
+
+  // const payload = {
+  //   memberId: "회원 아이디",
+  //   password: "비밀번호",
+  // }
+  // const result = await fetchAPI("/account/login", "POST", payload)
+
+  // return result
 }
