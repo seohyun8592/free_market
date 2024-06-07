@@ -12,10 +12,9 @@ export default async function fetchAPI(
   body?: object,
   options: FetchOptions = {},
 ) {
-  const url = `${BASE_URL}${endpoint}`
+  const url = `${endpoint}`
   const headers = {
     "Content-Type": "application/json",
-    Accept: "json",
     // 필요한 경우 추가 헤더를 설정 가능
   }
 
