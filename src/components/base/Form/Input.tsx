@@ -8,12 +8,14 @@ interface Props {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void
   // value: string
   value: string
+  type?: string
   placeholder?: string
 }
 
 export default function BaseInput({
   onChange,
   value,
+  type = "text",
   placeholder = "텍스트를 입력해 주세요",
 }: Props) {
   // const [inputValue, setInputValue] = useState("")
@@ -29,7 +31,12 @@ export default function BaseInput({
 
   return (
     <div className="form__wrap">
-      <input placeholder={placeholder} value={value} onChange={onChange} />
+      <input
+        placeholder={placeholder}
+        type={type}
+        value={value}
+        onChange={onChange}
+      />
       {/* <BaseButton onClick={inputBlur}>입력하기</BaseButton> */}
     </div>
   )

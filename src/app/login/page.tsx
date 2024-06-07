@@ -44,6 +44,7 @@ export default function Page() {
         <BaseInput
           onChange={handlePasswordChange}
           placeholder="비밀번호를 입력해 주세요"
+          type="password"
           value={password}
         />
         <p className="login__desc">비밀번호를 입력해 주세요</p>
