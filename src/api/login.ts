@@ -1,4 +1,4 @@
-import fetchAPI from "./fetchCore"
+// import fetchAPI from "./fetchCore"
 
 type Params = {
   memberId: string
@@ -9,23 +9,23 @@ export default async function fetchTestData(params: Params) {
   //   memberId: "회원 아이디",
   //   password: "비밀번호",
   // }
-  // const res = await fetch("/account/login", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(params),
-  // })
+  const res = await fetch("/api/v1/account/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(params),
+  })
 
-  // const data = await res.json()
+  const data = await res.json()
 
-  // return data
+  return data
 
   // const payload = {
   //   memberId: "회원 아이디",
   //   password: "비밀번호",
   // }
-  const result = await fetchAPI("/api/v1/account/login", "POST", params)
+  // const result = await fetchAPI("/api/v1/account/login", "POST", params)
 
-  return result
+  // return result
 }
