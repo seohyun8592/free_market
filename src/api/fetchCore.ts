@@ -1,7 +1,7 @@
 // const BASE_URL =
 //   process.env.NEXT_PUBLIC_BASE_URL || "https://kubetest.devsj.site" // 실제 API의 baseURL
 
-// const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL // Proxy설정 때문에 BASE_URL 로컬로 설정해둠 추후 수정할 예정
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL // Proxy설정 때문에 BASE_URL 로컬로 설정해둠 추후 수정할 예정
 interface FetchOptions extends RequestInit {
   params?: Record<string, string>
 }
@@ -12,14 +12,14 @@ export default async function fetchAPI(
   body?: object,
   options: FetchOptions = {},
 ) {
-  // const url = `${BASE_URL}${endpoint}`
+  const url = `${BASE_URL}${endpoint}`
   const headers = {
     "Content-Type": "application/json",
     Accept: "json",
     // 필요한 경우 추가 헤더를 설정 가능
   }
 
-  const response = await fetch(endpoint, {
+  const response = await fetch(url, {
     ...options,
     method,
     body: JSON.stringify(body),
