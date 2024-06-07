@@ -25,7 +25,7 @@ export default async function fetchTestData(params: Params) {
   //   memberId: "회원 아이디",
   //   password: "비밀번호",
   // }
-  const result = await fetchAPI("/account/login", "POST", params)
+  const result = await fetchAPI("/api/v1/account/login", "POST", params)
 
   return result
 }
