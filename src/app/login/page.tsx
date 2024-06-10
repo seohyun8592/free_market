@@ -1,6 +1,6 @@
-import React from "react";
+import React from "react"
 
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic"
 
 export default function LoginPage() {
   const LoginForm = dynamic(() => import("@/components/layout/LoginForm"), {
