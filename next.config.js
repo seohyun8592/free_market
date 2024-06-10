@@ -1,6 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  async headers() {
+    return [
+      {
+        source: "/_next/static/(.*)\\.js",
+        headers: [
+          {
+            key: "Content-Type",
+            value: "application/javascript",
+          },
+        ],
+      },
+    ]
+  },
 
   async rewrites() {
     return [
