@@ -24,6 +24,9 @@ export default function Nav() {
           <Link href="/loginTest">로그인</Link>
         </li>
         <li>
+          <Link href="/login1">로그인1</Link>
+        </li>
+        <li>
           <Link href="/join">회원가입</Link>
         </li>
       </ul>
