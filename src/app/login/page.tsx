@@ -1,24 +1,3 @@
-// import React from "react"
-// import dynamic from "next/dynamic"
-// const LoginForm = dynamic(() => import("@/components/layout/LoginForm"), {
-//   ssr: false, // 이 설정이 CSR 컴포넌트로 만듭니다.
-// })
-// export default function LoginPage() {
-//   return (
-//     <section className="contents__wrap login">
-//       <LoginForm />
-//     </section>
-//   )
-// }
-// import React from "react"
-// import LoginForm from "@/components/layout/LoginForm"
-// export default function LoginPage() {
-//   return (
-//     <section className="contents__wrap login">
-//       <LoginForm />
-//     </section>
-//   )
-// }
 "use client"
 
 import React, { useState } from "react"
@@ -27,31 +6,7 @@ import fetchTestData from "@/api/login"
 import BaseButton from "@/components/base/Button/Button"
 import BaseInput from "@/components/base/Form/Input"
 
-// import React from "react"
-// import dynamic from "next/dynamic"
-// const LoginForm = dynamic(() => import("@/components/layout/LoginForm"), {
-//   ssr: false, // 이 설정이 CSR 컴포넌트로 만듭니다.
-// })
-// export default function LoginPage() {
-//   return (
-//     <section className="contents__wrap login">
-//       <LoginForm />
-//     </section>
-//   )
-// }
-// import React from "react"
-
-// import LoginForm from "@/components/layout/LoginForm"
-
-// export default function LoginPage() {
-//   return (
-//     <section className="contents__wrap login">
-//       <LoginForm />
-//     </section>
-//   )
-// }
-
-export default function LoginForm() {
+export default function Login() {
   const [userName, setUserName] = useState("")
   const [password, setPassword] = useState("")
 
