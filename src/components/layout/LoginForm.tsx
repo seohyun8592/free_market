@@ -1,36 +1,36 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 
-// import fetchTestData from "@/api/login"
-// import BaseButton from "@/components/base/Button/Button"
-// import BaseInput from "@/components/base/Form/Input"
+import fetchTestData from "@/api/login"
+import BaseButton from "@/components/base/Button/Button"
+import BaseInput from "@/components/base/Form/Input"
 
 export default function LoginForm() {
-  // const [userName, setUserName] = useState("")
-  // const [password, setPassword] = useState("")
+  const [userName, setUserName] = useState("")
+  const [password, setPassword] = useState("")
 
-  // const handleUserNameChange = (e) => {
-  //   setUserName(e.target.value)
-  // }
+  const handleUserNameChange = (e) => {
+    setUserName(e.target.value)
+  }
 
-  // const handlePasswordChange = (e) => {
-  //   setPassword(e.target.value)
-  // }
-  // const handleSubmit = async () => {
-  //   const params = {
-  //     memberId: userName,
-  //     password,
-  //   }
-  //   try {
-  //     await fetchTestData(params)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value)
+  }
+  const handleSubmit = async () => {
+    const params = {
+      memberId: userName,
+      password,
+    }
+    try {
+      await fetchTestData(params)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <>
-      hello
-      {/* <h2 className="title">Free-Market</h2>
+      <h2 className="title">Free-Market</h2>
       <div className="input__box">
         <BaseInput
           onChange={handleUserNameChange}
@@ -56,7 +56,7 @@ export default function LoginForm() {
         onClick={handleSubmit}
       >
         로그인
-      </BaseButton> */}
+      </BaseButton>
     </>
   )
 }
