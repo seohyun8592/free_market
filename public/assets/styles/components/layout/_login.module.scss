@@ -9,11 +9,11 @@
   .title {
     padding-bottom: rem(40);
   }
-  .input {
-    &__box {
-      & + .input__box {
-        margin-top: rem(20);
-      }
-    }
-  }
+  // .input {
+  //   &__box {
+  //     & + .input__box {
+  //       margin-top: rem(20);
+  //     }
+  //   }
+  // }
 }

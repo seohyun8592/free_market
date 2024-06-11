@@ -16,6 +16,16 @@ input {
     }
   }
 }
+.input {
+  &__box {
+    & + .input__box {
+      margin-top: rem(20);
+    }
+  }
+  &__group {
+    @include onFlex(center, flex-start);
+  }
+}
 
 .select {
   &__box {
