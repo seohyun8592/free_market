@@ -23,11 +23,11 @@ export default function Page() {
       password,
     }
 
-    try {
-      await fetchTestData(params)
-    } catch (error) {
-      console.log(error)
-    }
+    // try {
+    //   await fetchTestData(params)
+    // } catch (error) {
+    //   console.log(error)
+    // }
   }
   return (
     <>
