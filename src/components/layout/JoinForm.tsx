@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 
-import fetchTestData from "@/api/login"
+// import fetchTestData from "@/api/login"
 import BaseButton from "@/components/base/Button/Button"
 import BaseInput from "@/components/base/Form/Input"
 
@@ -17,17 +17,17 @@ export default function LoginForm() {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value)
   }
-  const handleSubmit = async () => {
-    const params = {
-      memberId: userName,
-      password,
-    }
-    try {
-      await fetchTestData(params)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  //   const handleSubmit = async () => {
+  //     const params = {
+  //       memberId: userName,
+  //       password,
+  //     }
+  //     try {
+  //       await fetchTestData(params)
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //   }
   return (
     <>
       <h2 className="title">Free-Market</h2>
