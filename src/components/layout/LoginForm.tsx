@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 
-import fetchTestData from "@/api/login"
+// import fetchTestData from "@/api/login"
 import BaseButton from "@/components/base/Button/Button"
 import BaseInput from "@/components/base/Form/Input"
 
@@ -22,12 +22,12 @@ export default function Page() {
       memberId: userName,
       password,
     }
-
     // try {
     //   await fetchTestData(params)
     // } catch (error) {
     //   console.log(error)
     // }
+    console.log(params)
   }
   return (
     <>
