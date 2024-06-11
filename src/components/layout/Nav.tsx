@@ -21,7 +21,7 @@ export default function Nav() {
       </ul>
       <ul className="menuList__item subMenu">
         <li>
-          <Link href="/login">로그인</Link>
+          <Link href="/loginTest">로그인</Link>
         </li>
         <li>
           <Link href="/join">회원가입</Link>
