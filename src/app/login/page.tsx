@@ -12,12 +12,12 @@
 // }
 import React from "react"
 
-import LoginFormTest from "@/components/layout/LoginFormTest"
+import LoginForm from "@/components/layout/LoginForm"
 
 export default function LoginPage() {
   return (
     <section className="contents__wrap login">
-      <LoginFormTest />
+      <LoginForm />
     </section>
   )
 }
