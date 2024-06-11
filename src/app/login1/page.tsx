@@ -1,5 +1,13 @@
+"use client"
+
 import React from "react"
 
-export default function hello() {
-  return <div>로그인 테스트</div>
+import LoginForm from "@/components/layout/LoginForm"
+
+export default function Login() {
+  return (
+    <>
+      <LoginForm />
+    </>
+  )
 }
