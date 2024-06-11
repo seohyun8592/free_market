@@ -1,54 +1,54 @@
 "use client"
 
-import React, { useState } from "react"
+import React from "react"
 
-import fetchTestData from "@/api/login"
-import BaseButton from "@/components/base/Button/Button"
-import BaseInput from "@/components/base/Form/Input"
+// import fetchTestData from "@/api/login"
+// import BaseButton from "@/components/base/Button/Button"
+// import BaseInput from "@/components/base/Form/Input"
 
 export default function Login() {
-  const [userName, setUserName] = useState("")
-  const [password, setPassword] = useState("")
+  // const [userName, setUserName] = useState("")
+  // const [password, setPassword] = useState("")
 
-  const handleUserNameChange = (e) => {
-    setUserName(e.target.value)
-  }
+  // const handleUserNameChange = (e) => {
+  //   setUserName(e.target.value)
+  // }
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value)
-  }
-  const handleSubmit = async () => {
-    const params = {
-      memberId: userName,
-      password,
-    }
-    try {
-      await fetchTestData(params)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // const handlePasswordChange = (e) => {
+  //   setPassword(e.target.value)
+  // }
+  // const handleSubmit = async () => {
+  //   const params = {
+  //     memberId: userName,
+  //     password,
+  //   }
+  //   try {
+  //     await fetchTestData(params)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
   return (
     <>
       <h2 className="title">Free-Market</h2>
       <div className="input__box">
-        <BaseInput
+        {/* <BaseInput
           onChange={handleUserNameChange}
           placeholder="아이디를 입력해 주세요"
           value={userName}
-        />
+        /> */}
         <p className="login__desc">아이디를 입력해 주세요</p>
       </div>
       <div className="input__box">
-        <BaseInput
+        {/* <BaseInput
           onChange={handlePasswordChange}
           placeholder="비밀번호를 입력해 주세요"
           type="password"
           value={password}
-        />
+        /> */}
         <p className="login__desc">비밀번호를 입력해 주세요</p>
       </div>
-      <BaseButton
+      {/* <BaseButton
         buttonProps={{
           theme: "PRIMARY",
           size: "LARGE",
@@ -56,7 +56,7 @@ export default function Login() {
         onClick={handleSubmit}
       >
         로그인
-      </BaseButton>
+      </BaseButton> */}
     </>
   )
 }
