@@ -3,7 +3,7 @@ import React from "react"
 import Header from "@/components/layout/header"
 import type { Metadata } from "next"
 
-import "../../public/assets/styles/style.scss"
+// import "../../public/assets/styles/style.scss"
 
 export const metadata: Metadata = {
   title: { default: "Free-Market", template: "Free-Market | %s" },
