@@ -23,7 +23,7 @@
     "paths": {
       "@/*": ["./src/*"] // 별칭(alias)을 설정하여 모듈 경로를 단순화
     },
-    "baseUrl": "/"
+    "baseUrl": "."
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next.config.js"], // 컴파일에 포함할 파일 경로 패턴을 지정
   "exclude": ["node_modules"] // 컴파일에서 제외할 파일 경로 패턴을 지정
