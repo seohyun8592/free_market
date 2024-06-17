@@ -51,7 +51,8 @@ export default function LoginForm() {
 
   useEffect(() => {
     const logined = localStorage.getItem("userInfo")
-    setcheckUser(!!logined)
+    console.log(logined, checkUser)
+    setcheckUser(!logined)
   }, [])
 
   return checkUser ? (
