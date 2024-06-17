@@ -17,6 +17,13 @@
     "@typescript-eslint/no-explicit-any": "off", // any 사용허용
     "react/require-default-props": "off", // defaultProps 사용 비활성화
     "prettier/prettier": ["error", { "semi": false }],
-    "quotes": ["error", "double"]
+    "quotes": ["error", "double"],
+    "jsx-a11y/label-has-associated-control": [
+      2,
+      {
+        "labelAttributes": ["htmlFor"]
+      }
+    ], // 라벨 컨트롤 비활성화
+    "react/button-has-type": "off" // 버튼 속성 룰 비활성화
   }
 }

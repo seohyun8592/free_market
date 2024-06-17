@@ -1,6 +1,9 @@
 .form {
   &__wrap {
     width: rem(180);
+    & + .form__wrap {
+      margin-top: rem(15);
+    }
   }
 }
 
@@ -17,13 +20,25 @@ input {
   }
 }
 .input {
+  &__title {
+    display: inline-block;
+    font-size: rem(14);
+    font-weight: 700;
+    padding-bottom: rem(3);
+  }
   &__box {
     & + .input__box {
-      margin-top: rem(20);
+      margin-top: rem(15);
     }
   }
   &__group {
     @include onFlex(center, flex-start);
+  }
+  &__error {
+    display: block;
+    font-size: rem(12);
+    color: #df3f3f;
+    padding-top: rem(5);
   }
 }
 

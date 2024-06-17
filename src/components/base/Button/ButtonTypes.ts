@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from "react"
+import { ButtonHTMLAttributes, MouseEvent } from "react"
 
 import {
   BUTTON_SIZE,
@@ -18,8 +18,9 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
    * 버튼 크기
    */
   size?: keyof typeof BUTTON_SIZE
-  /**
-   * 버튼 크기
-   */
+
   disabled?: boolean
+  type?: "submit" | "reset" | "button" | undefined
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void
+  children?: React.ReactNode
 }

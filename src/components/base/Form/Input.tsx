@@ -1,43 +1,35 @@
 "use client"
 
 import React, { ChangeEvent } from "react"
+import { UseFormRegisterReturn } from "react-hook-form"
 
 // import BaseButton from "../Button/Button"
 
 interface Props {
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void
   // value: string
-  value: string
   type?: string
   placeholder?: string
+  id?: string
+  name?: string
+  register?: UseFormRegisterReturn
 }
 
 export default function BaseInput({
-  onChange,
-  value,
+  // onChange,
   type = "text",
+  id,
+  name,
   placeholder = "텍스트를 입력해 주세요",
+  register,
 }: Props) {
-  // const [inputValue, setInputValue] = useState("")
-
-  // const textInputValue = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setInputValue(e.target.value)
-  // }
-
-  // const inputBlur = () => {
-  //   value(inputValue)
-  //   setInputValue("")
-  // }
-
   return (
-    <div className="form__wrap">
-      <input
-        placeholder={placeholder}
-        type={type}
-        value={value}
-        onChange={onChange}
-      />
-      {/* <BaseButton onClick={inputBlur}>입력하기</BaseButton> */}
-    </div>
+    <input
+      placeholder={placeholder}
+      type={type}
+      id={id}
+      name={name}
+      {...register}
+    />
   )
 }
