@@ -3,58 +3,53 @@
 import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 
-import login from "@/api/login"
 import BaseButton from "@/components/base/Button/Button"
 import BaseInput from "@/components/base/Form/Input"
+import useLogin from "@/hooks/queries/login"
 import { useRouter } from "next/navigation"
 
 interface HookFormTypes {
-  id: string
-  pw: string
+  memberId: string
+  password: string
 }
 export default function LoginForm() {
   const router = useRouter()
-  const [checkUser, setcheckUser] = useState(false)
+  const { useWebLogin } = useLogin()
+  const [logined, setLogined] = useState(false)
   const {
     register,
     handleSubmit,
     watch,
-    reset,
+    setError,
     formState: { errors },
   } = useForm<HookFormTypes>()
-  const idCheck = watch("id")
+  const idCheck = watch("memberId")
   const regex = /^[a-z0-9]{7,11}$/
 
   const onValid = async (data: HookFormTypes) => {
-    const params = {
-      memberId: data.id,
-      password: data.pw,
-    }
-
-    try {
-      const res = await login(params)
-
-      if (res.message === "ok") {
-        localStorage.setItem(
-          "userInfo",
-          JSON.stringify({ id: data.id, pw: data.pw }),
-        )
-        router.push("/")
-      } else {
-        alert("아이디 또는 패스워드를 확인해 주세요")
-      }
-    } catch (error) {
-      console.log(error)
-    }
-    reset()
+    useWebLogin.mutate(data, {
+      onSuccess: (response) => {
+        if (response.ok) {
+          router.push("/")
+        } else {
+          setError("root.serverError", {
+            type: "serverError",
+            message: response.statusText,
+          })
+        }
+      },
+      onError: (error) => {
+        console.log(error)
+      },
+    })
   }
 
   useEffect(() => {
-    const logined = localStorage.getItem("userInfo")
-    setcheckUser(!logined)
+    const checkLogined = localStorage.getItem("accessToken")
+    setLogined(!checkLogined)
   }, [])
 
-  return checkUser ? (
+  return logined ? (
     <>
       <h2 className="title">Free-Market</h2>
       <form onSubmit={handleSubmit(onValid)}>
@@ -64,7 +59,7 @@ export default function LoginForm() {
           </label>
           <div className="input__box">
             <BaseInput
-              register={register("id", {
+              register={register("memberId", {
                 required: true,
                 maxLength: { value: 11, message: "7~11자리로 입력해주세요." },
                 validate: () =>
@@ -78,27 +73,27 @@ export default function LoginForm() {
             />
           </div>
           <span className="input__error">
-            {errors.id ? errors.id.message : ""}
+            {errors.memberId ? errors.memberId.message : ""}
           </span>
         </div>
         <div className="form__wrap">
-          <label htmlFor="pw" className="input__title">
+          <label htmlFor="password" className="input__title">
             비밀번호
           </label>
           <div className="input__box">
             <BaseInput
-              register={register("pw", {
+              register={register("password", {
                 required: true,
                 maxLength: { value: 16, message: "Should not exceed 16" },
               })}
-              id="pw"
+              id="password"
               type="password"
-              name="pw"
+              name="password"
             />
           </div>
 
           <span className="input__error">
-            {errors.pw ? "필수 입력 항목입니다." : ""}
+            {errors.password ? "필수 입력 항목입니다." : ""}
           </span>
         </div>
 

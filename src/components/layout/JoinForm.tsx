@@ -3,52 +3,44 @@
 import React from "react"
 import { useForm } from "react-hook-form"
 
-import Join from "@/api/join"
-// import fetchTestData from "@/api/login"
-// import BaseButton from "@/components/base/Button/Button"
 import BaseInput from "@/components/base/Form/Input"
+import useSignUp from "@/hooks/queries/signup"
+import { useRouter } from "next/navigation"
 
 import BaseButton from "../base/Button/Button"
 
 interface HookFormTypes {
-  id: string
-  pw: string
-  repw: string
+  memberId: string
+  password: string
+  rePassword?: string
   name: string
   nickname: string
   email: string
-  phone: string
+  phone?: string
 }
 export default function LoginForm() {
+  const router = useRouter()
+  const { useClientsSignUp } = useSignUp()
   const {
     register,
     handleSubmit,
     watch,
-    reset,
     formState: { errors },
   } = useForm<HookFormTypes>()
-  const password = watch("pw")
+  const password = watch("password")
 
-  const idCheck = watch("id")
+  const idCheck = watch("memberId")
   const regex = /^[a-z0-9]{7,11}$/
 
   const onValid = async (data: HookFormTypes) => {
-    const params = {
-      memberId: data.id,
-      password: data.pw,
-      name: data.name,
-      nickname: data.nickname,
-      email: data.email,
-      phone: data.phone,
-    }
-    try {
-      await Join(params)
-    } catch (error) {
-      console.log(error)
-    }
-    reset()
+    useClientsSignUp.mutate(data, {
+      onSuccess: (response) => {
+        if (response.ok) {
+          router.push("/")
+        }
+      },
+    })
   }
-  console.log(errors)
   return (
     <>
       <h2 className="title">Free-Market</h2>
@@ -59,7 +51,7 @@ export default function LoginForm() {
           </label>
           <div className="input__box">
             <BaseInput
-              register={register("id", {
+              register={register("memberId", {
                 required: true,
                 maxLength: { value: 11, message: "7~11자리로 입력해주세요." },
                 validate: () =>
@@ -73,7 +65,7 @@ export default function LoginForm() {
             />
           </div>
           <span className="input__error">
-            {errors.id ? errors.id.message : ""}
+            {errors.memberId ? errors.memberId.message : ""}
           </span>
         </div>
         <div className="form__wrap">
@@ -82,7 +74,7 @@ export default function LoginForm() {
           </label>
           <div className="input__box">
             <BaseInput
-              register={register("pw", {
+              register={register("password", {
                 required: true,
                 maxLength: { value: 16, message: "Should not exceed 16" },
               })}
@@ -93,7 +85,7 @@ export default function LoginForm() {
           </div>
 
           <span className="input__error">
-            {errors.pw ? "필수 입력 항목입니다." : ""}
+            {errors.password ? "필수 입력 항목입니다." : ""}
           </span>
         </div>
         <div className="form__wrap">
@@ -102,8 +94,7 @@ export default function LoginForm() {
           </label>
           <div className="input__box">
             <BaseInput
-              register={register("repw", {
-                required: true,
+              register={register("rePassword", {
                 validate: (value) =>
                   value === password || "비밀번호가 일치하지 않습니다.",
               })}
@@ -113,7 +104,7 @@ export default function LoginForm() {
             />
           </div>
           <span className="input__error">
-            {errors.repw ? "비밀번호가 일치 하지 않습니다." : ""}
+            {errors.rePassword ? "비밀번호가 일치 하지 않습니다." : ""}
           </span>
         </div>
         <div className="form__wrap">
@@ -176,9 +167,7 @@ export default function LoginForm() {
           </label>
           <div className="input__box">
             <BaseInput
-              register={register("phone", {
-                required: true,
-              })}
+              register={register("phone", {})}
               id="phone"
               type="text"
               name="phone"

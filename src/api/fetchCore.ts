@@ -1,47 +1,68 @@
-// const BASE_URL =
-//   process.env.NEXT_PUBLIC_BASE_URL || "https://kubetest.devsj.site" // 실제 API의 baseURL
+/**
+ * Fetch-Core
+ * api host https://freeapi.devsj.site
+ */
+import { METHOD } from "@/api/types"
+import "next/error"
+import { $fetch } from "ofetch"
+import type { FetchOptions } from "ofetch"
 
-// const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL // Proxy설정 때문에 BASE_URL 로컬로 설정해둠 추후 수정할 예정
+const fetchCoreConfig = (method: METHOD): FetchOptions<"json"> => {
+  const userAuth = localStorage.getItem("accessToken")
 
-interface FetchOptions extends RequestInit {
-  params?: Record<string, string>
+  /**
+   * 여기에다 환경변수를 지정하여 $fetch에 대해 기본 옵션을 정의한다.
+   */
+  return {
+    method,
+    headers: userAuth ? { Authorization: userAuth } : {},
+    timeout: 30000,
+
+    onResponseError: (ctx) => {
+      if (ctx.response.status === 401) {
+        localStorage.removeItem("accessToken")
+        window.location.replace("/login")
+      }
+    },
+  }
 }
 
-export default async function fetchAPI(
-  endpoint: string,
-  method: string,
-  body?: object,
-  options: FetchOptions = {},
-) {
-  const url = `${endpoint}`
-  const headers = {
-    "Content-Type": "application/json",
-  }
+export const getFetch = <Res>(
+  url: string,
+  options: FetchOptions<"json"> = {},
+) => {
+  const config = fetchCoreConfig(METHOD.GET)
+  return $fetch<Res>(url, { ...options, ...config })
+}
 
-  const response = await fetch(url, {
-    ...options,
-    method,
-    body: JSON.stringify(body),
-    headers: {
-      ...headers,
-      ...options.headers,
-    },
-  })
+export const postFetch = <Res>(
+  url: string,
+  options: FetchOptions<"json"> = {},
+) => {
+  const config = fetchCoreConfig(METHOD.POST)
+  return $fetch.raw<Res>(url, { ...options, ...config })
+}
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`)
-  }
-  // else {
-  //   const setAuth = response.headers.get("Authorization")
+export const putFetch = <Res>(
+  url: string,
+  options: FetchOptions<"json"> = {},
+) => {
+  const config = fetchCoreConfig(METHOD.PUT)
+  return $fetch<Res>(url, { ...options, ...config })
+}
 
-  //   localStorage.setItem("accessToken", setAuth)
-  // }
+export const deleteFetch = <Res>(
+  url: string,
+  options: FetchOptions<"json"> = {},
+) => {
+  const config = fetchCoreConfig(METHOD.DELETE)
+  return $fetch<Res>(url, { ...options, ...config })
+}
 
-  // 현재 서버에서 JSON 형식이 아닌 TEXT형식으로 넘겨주고 았어 추가한 로직
-  // 처음부터 세팅하려니까 왜이렇게 어렵죠??? 시니어 한 분 계셨으면 좋겠어요...
-  const contentType = response.headers.get("content-type")
-  if (contentType && contentType.includes("application/json")) {
-    return response.json()
-  }
-  return response.text()
+export const patchFetch = <Res>(
+  url: string,
+  options: FetchOptions<"json"> = {},
+) => {
+  const config = fetchCoreConfig(METHOD.PATCH)
+  return $fetch<Res>(url, { ...options, ...config })
 }
