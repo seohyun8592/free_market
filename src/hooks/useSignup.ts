@@ -13,6 +13,10 @@ interface NickNameRequest {
   nickname: string
 }
 
+interface SendEmailRequest {
+  toEmail: string
+}
+
 export default function useSignUp() {
   const useClientsSignUp = useMutation({
     mutationFn: (payload: SignUPRequest) => signup.postFetchSignUp(payload),
@@ -22,5 +26,10 @@ export default function useSignUp() {
     mutationFn: (payload: NickNameRequest) => signup.postNickNameCheck(payload),
   })
 
-  return { useClientsSignUp, useNickNameCheck }
+  const useEmailVerification = useMutation({
+    mutationFn: (payload: SendEmailRequest) =>
+      signup.postEmailVerification(payload),
+  })
+
+  return { useClientsSignUp, useNickNameCheck, useEmailVerification }
 }

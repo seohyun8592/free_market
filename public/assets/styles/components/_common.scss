@@ -7,6 +7,11 @@
   width: rem(1280);
   height: 100%;
 }
+
+.disabled {
+  display: none;
+}
+
 main {
   @include onFlex(flex-start, center);
 
