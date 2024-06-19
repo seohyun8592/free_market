@@ -11,6 +11,7 @@ export interface Payload<T> {
 }
 
 export interface Response<T> {
+  statusCode: string
   code: string
   message: string
   data: T

@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { MouseEventHandler } from "react"
 
 import { ButtonProps } from "@/components/base/Button/ButtonTypes"
 import {
@@ -17,10 +17,15 @@ export default function BaseButton({
   type = "button",
   children,
 }: ButtonProps) {
+  const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    if (onClick) {
+      onClick(e)
+    }
+  }
   return (
     <button
       className={classNames(BUTTON_THEME[theme], BUTTON_SIZE[size])}
-      onClick={onClick}
+      onClick={handleClick}
       disabled={disabled}
       type={type}
     >

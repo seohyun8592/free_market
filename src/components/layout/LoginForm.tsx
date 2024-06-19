@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 
 import BaseButton from "@/components/base/Button/Button"
 import BaseInput from "@/components/base/Form/Input"
-import useLogin from "@/hooks/queries/login"
+import useLogin from "@/hooks/useLogin"
 import { useRouter } from "next/navigation"
 
 interface HookFormTypes {
@@ -96,7 +96,6 @@ export default function LoginForm() {
             {errors.password ? "필수 입력 항목입니다." : ""}
           </span>
         </div>
-
         <BaseButton type="submit">로그인</BaseButton>
       </form>
     </>

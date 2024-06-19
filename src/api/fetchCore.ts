@@ -35,12 +35,22 @@ export const getFetch = <Res>(
   return $fetch<Res>(url, { ...options, ...config })
 }
 
-export const postFetch = <Res>(
+// header data
+export const postResFetch = <Res>(
   url: string,
   options: FetchOptions<"json"> = {},
 ) => {
   const config = fetchCoreConfig(METHOD.POST)
   return $fetch.raw<Res>(url, { ...options, ...config })
+}
+
+// response data
+export const postFetch = <Res>(
+  url: string,
+  options: FetchOptions<"json"> = {},
+) => {
+  const config = fetchCoreConfig(METHOD.POST)
+  return $fetch<Res>(url, { ...options, ...config })
 }
 
 export const putFetch = <Res>(

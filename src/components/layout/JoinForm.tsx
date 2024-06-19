@@ -4,7 +4,7 @@ import React from "react"
 import { useForm } from "react-hook-form"
 
 import BaseInput from "@/components/base/Form/Input"
-import useSignUp from "@/hooks/queries/signup"
+import useSignUp from "@/hooks/useSignup"
 import { useRouter } from "next/navigation"
 
 import BaseButton from "../base/Button/Button"
@@ -18,9 +18,11 @@ interface HookFormTypes {
   email: string
   phone?: string
 }
+
 export default function LoginForm() {
   const router = useRouter()
-  const { useClientsSignUp } = useSignUp()
+  const { useClientsSignUp, useNickNameCheck } = useSignUp()
+
   const {
     register,
     handleSubmit,
@@ -30,13 +32,28 @@ export default function LoginForm() {
   const password = watch("password")
 
   const idCheck = watch("memberId")
+
   const regex = /^[a-z0-9]{7,11}$/
 
-  const onValid = async (data: HookFormTypes) => {
+  const onValid = (data: HookFormTypes) => {
     useClientsSignUp.mutate(data, {
       onSuccess: (response) => {
-        if (response.ok) {
+        if (response.statusCode === "200") {
           router.push("/")
+        }
+      },
+    })
+  }
+
+  const handleCheckNickName = () => {
+    const nickNameCheck = watch("nickname")
+    const data = {
+      nickname: nickNameCheck,
+    }
+    useNickNameCheck.mutate(data, {
+      onSuccess: (response) => {
+        if (response.data) {
+          alert("사용 가능한 닉네임 입니다.")
         }
       },
     })
@@ -125,6 +142,9 @@ export default function LoginForm() {
             {errors.nickname ? "필수 입력 항목입니다." : ""}
           </span>
         </div>
+        <BaseButton type="button" onClick={handleCheckNickName}>
+          중복 확인
+        </BaseButton>
         <div className="form__wrap">
           <label htmlFor="email" className="input__title">
             이메일
