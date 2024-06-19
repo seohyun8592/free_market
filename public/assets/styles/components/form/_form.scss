@@ -18,6 +18,10 @@ input {
       color: #999999;
     }
   }
+  &::disabled {
+    background: #999999;
+    cursor: not-allowed;
+  }
 }
 .input {
   &__title {

@@ -120,6 +120,7 @@ export default function LoginForm() {
               type="text"
               name="email"
               placeholder="이메일을 입력해 주세요."
+              disabled={isSendSuccess}
             />
           </div>
           <span className="input__error">

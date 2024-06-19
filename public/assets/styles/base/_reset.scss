@@ -104,7 +104,7 @@ section {
 }
 html {
   height: 100%;
-  font-family: 'notokr', sans-serif;
+  font-family: "notokr", sans-serif;
   overflow-x: hidden;
 }
 body {
@@ -129,7 +129,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 table {
@@ -142,7 +142,7 @@ img {
 }
 input,
 textarea {
-  font-family: 'notokr', sans-serif;
+  font-family: "notokr", sans-serif;
   width: 100%;
   border: 0;
   outline: none;
@@ -190,4 +190,19 @@ input:focus:-ms-input-placeholder,
 textarea:focus:-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: transparent;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: #222222;
+  -webkit-box-shadow: none;
+  transition: background-color 5000s ease-in-out 0s;
+}
+input:-webkit-autofill:disabled {
+  -webkit-text-fill-color: #878787;
+  -webkit-box-shadow: 0 0 0px 1000px #cecece inset;
+  transition: background-color 5000s ease-in-out 0s;
+  cursor: not-allowed;
 }
