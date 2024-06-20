@@ -23,21 +23,35 @@ interface HookFormTypes {
 
 export default function LoginForm() {
   const router = useRouter()
-  const { useClientsSignUp, useNickNameCheck, useEmailVerification } =
-    useSignUp()
+  const {
+    useClientsSignUp,
+    useNickNameCheck,
+    useEmailVerification,
+    useEmailVerificationNum,
+  } = useSignUp()
 
-  const [isSendSuccess, setisSendSuccess] = useState(false)
+  // const [isErrorMessage, setIsErrorMessage] = useState(false)
+  const [isSendSuccess, setIsSendSuccess] = useState(false)
+  const [isVerificationNum, setIsVerificationNum] = useState(false)
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<HookFormTypes>()
-  const password = watch("password")
 
-  const idCheck = watch("memberId")
+  const regexId = /^[a-z0-9]{7,11}$/
+  const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
-  const regex = /^[a-z0-9]{7,11}$/
+  const userInfo = {
+    password: watch("password"),
+    idCheck: watch("memberId"),
+    sendEmail: regexEmail.test(watch("email")) && watch("email"),
+    nickNameCheck: watch("nickname"),
+    verificationNum: watch("verificationNum"),
+  }
+
+  console.log(userInfo.sendEmail)
 
   const onValid = (data: HookFormTypes) => {
     useClientsSignUp.mutate(data, {
@@ -50,9 +64,8 @@ export default function LoginForm() {
   }
 
   const handleCheckNickName = () => {
-    const nickNameCheck = watch("nickname")
     const data = {
-      nickname: nickNameCheck,
+      nickname: userInfo.nickNameCheck,
     }
     useNickNameCheck.mutate(data, {
       onSuccess: (response) => {
@@ -64,20 +77,32 @@ export default function LoginForm() {
   }
 
   const handleClickEmail = () => {
-    const sendEmail = watch("email")
-    const data = {
-      toEmail: sendEmail,
+    const mailData = {
+      toEmail: userInfo.sendEmail,
     }
 
-    useEmailVerification.mutate(data, {
-      onSuccess: (response) => {
-        if (response.statusCode === "200") {
-          setisSendSuccess(true)
-        }
-      },
-    })
+    const verificationNum = {
+      email: userInfo.sendEmail,
+      certNo: userInfo.verificationNum,
+    }
 
-    console.log(data)
+    if (isSendSuccess) {
+      useEmailVerificationNum.mutate(verificationNum, {
+        onSuccess: (response) => {
+          if (response.statusCode === "200") {
+            setIsVerificationNum(true)
+          }
+        },
+      })
+    } else {
+      useEmailVerification.mutate(mailData, {
+        onSuccess: (response) => {
+          if (response.statusCode === "200") {
+            setIsSendSuccess(true)
+          }
+        },
+      })
+    }
   }
   return (
     <>
@@ -94,7 +119,7 @@ export default function LoginForm() {
                 required: true,
                 maxLength: { value: 11, message: "7~11자리로 입력해주세요." },
                 validate: () =>
-                  regex.test(idCheck) ||
+                  regexId.test(userInfo.idCheck) ||
                   "영문과 숫자를 조합해 7~11자리로 입력해주세요.",
               })}
               id="id"
@@ -125,30 +150,41 @@ export default function LoginForm() {
           </div>
           <span className="input__error">
             {errors.email ? errors.email.message : ""}
+            {isVerificationNum && "인증이 완료 되었습니다."}
           </span>
         </div>
 
         {/* 인증번호 입력 */}
-        <div className={classNames("form__wrap", !isSendSuccess && "disabled")}>
-          <label htmlFor="verificationNum" className="input__title">
-            인증번호
-          </label>
-          <div className="input__box">
-            <BaseInput
-              register={register("verificationNum", {})}
-              id="verificationNum"
-              type="text"
-              name="verificationNum"
-              placeholder="인증번호를 입력해 주세요."
-            />
+        {!isVerificationNum && (
+          <div
+            className={classNames("form__wrap", !isSendSuccess && "disabled")}
+          >
+            <label htmlFor="verificationNum" className="input__title">
+              인증번호
+            </label>
+            <div className="input__box">
+              <BaseInput
+                register={register("verificationNum", {})}
+                id="verificationNum"
+                type="text"
+                name="verificationNum"
+                placeholder="인증번호를 입력해 주세요."
+              />
+            </div>
+            <span className="input__error">
+              {errors.verificationNum ? errors.verificationNum.message : ""}
+            </span>
           </div>
-          <span className="input__error">
-            {errors.verificationNum ? errors.verificationNum.message : ""}
-          </span>
-        </div>
-        <BaseButton type="button" onClick={handleClickEmail}>
-          {isSendSuccess ? "인증하기" : "이메일 인증하기"}
-        </BaseButton>
+        )}
+        {!isVerificationNum && (
+          <BaseButton
+            type="button"
+            onClick={handleClickEmail}
+            disabled={!userInfo.sendEmail}
+          >
+            {isSendSuccess ? "인증하기" : "이메일 인증하기"}
+          </BaseButton>
+        )}
 
         {/* 비밀번호 */}
         <div className="form__wrap">
@@ -180,7 +216,8 @@ export default function LoginForm() {
             <BaseInput
               register={register("rePassword", {
                 validate: (value) =>
-                  value === password || "비밀번호가 일치하지 않습니다.",
+                  value === userInfo.password ||
+                  "비밀번호가 일치하지 않습니다.",
               })}
               id="repw"
               type="password"

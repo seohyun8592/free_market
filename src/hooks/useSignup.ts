@@ -16,6 +16,10 @@ interface NickNameRequest {
 interface SendEmailRequest {
   toEmail: string
 }
+interface VerificationNumRequest {
+  email: string
+  certNo: string
+}
 
 export default function useSignUp() {
   const useClientsSignUp = useMutation({
@@ -31,5 +35,15 @@ export default function useSignUp() {
       signup.postEmailVerification(payload),
   })
 
-  return { useClientsSignUp, useNickNameCheck, useEmailVerification }
+  const useEmailVerificationNum = useMutation({
+    mutationFn: (payload: VerificationNumRequest) =>
+      signup.postEmailverificationNum(payload),
+  })
+
+  return {
+    useClientsSignUp,
+    useNickNameCheck,
+    useEmailVerification,
+    useEmailVerificationNum,
+  }
 }
