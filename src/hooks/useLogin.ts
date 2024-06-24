@@ -19,8 +19,25 @@ export default function useLogin() {
       }
     },
   })
+  const useWebLogout = useMutation({
+    mutationFn: async () => {
+      await login.postFetchLogout()
+    },
+    onSuccess: (data) => {
+      console.log(data)
+      const accessToken = localStorage.getItem("accessToken")
+
+      if (accessToken) {
+        localStorage.removeItem("accessToken")
+      }
+    },
+    onError: (error) => {
+      console.log(error)
+    },
+  })
 
   return {
     useWebLogin,
+    useWebLogout,
   }
 }

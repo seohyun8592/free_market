@@ -2,15 +2,33 @@ import signup from "@/api/signup"
 import { useMutation } from "@tanstack/react-query"
 
 interface SignUPRequest {
-  memberId: string
-  password: string
-  name: string
-  nickname: string
-  email: string
+  // memberId: string
+  // password: string
+  // name: string
+  // nickname: string
+  // email: string
+
+  userDTO: {
+    memberId: string
+    password: string
+    name: string
+    nickname: string
+    phone: string
+    email: string
+  }
+  addressDTO: {
+    address1: string
+    address2: string
+    address3: string
+  }
 }
 
 interface NickNameRequest {
   nickname: string
+}
+
+interface IdCheckRequest {
+  memberId: string
 }
 
 interface SendEmailRequest {
@@ -40,10 +58,15 @@ export default function useSignUp() {
       signup.postEmailverificationNum(payload),
   })
 
+  const useIdCheck = useMutation({
+    mutationFn: (payload: IdCheckRequest) => signup.postIdCheck(payload),
+  })
+
   return {
     useClientsSignUp,
     useNickNameCheck,
     useEmailVerification,
     useEmailVerificationNum,
+    useIdCheck,
   }
 }

@@ -18,8 +18,23 @@ main {
   height: calc(100% - 40px);
   padding-top: rem(60);
   overflow: auto;
-  .contents__wrap {
-    height: 100%;
-    // padding: rem(20);
+  .contents {
+    &__wrap {
+      height: 100%;
+      // padding: rem(20);
+    }
+    &__form {
+      @include onFlex(center, center);
+      flex-direction: column;
+      .title {
+        &__box {
+          text-align: center;
+          padding-bottom: rem(40);
+        }
+        font-size: rem(32);
+        &__desc {
+        }
+      }
+    }
   }
 }

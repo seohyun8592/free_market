@@ -1,26 +1,23 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { useForm } from "react-hook-form"
 
 import BaseButton from "@/components/base/Button/Button"
 import BaseInput from "@/components/base/Form/Input"
 import useLogin from "@/hooks/useLogin"
-import { useRouter } from "next/navigation"
 
 interface HookFormTypes {
   memberId: string
   password: string
 }
 export default function LoginForm() {
-  const router = useRouter()
   const { useWebLogin } = useLogin()
-  const [logined, setLogined] = useState(false)
   const {
     register,
     handleSubmit,
     watch,
-    setError,
+    reset,
     formState: { errors },
   } = useForm<HookFormTypes>()
   const idCheck = watch("memberId")
@@ -29,13 +26,13 @@ export default function LoginForm() {
   const onValid = async (data: HookFormTypes) => {
     useWebLogin.mutate(data, {
       onSuccess: (response) => {
-        if (response.ok) {
-          router.push("/")
+        const resData = response._data
+        if (resData.statusCode === "200") {
+          // window.location.replace("/")
+          console.log("@")
         } else {
-          setError("root.serverError", {
-            type: "serverError",
-            message: response.statusText,
-          })
+          alert(resData.message)
+          reset()
         }
       },
       onError: (error) => {
@@ -44,12 +41,7 @@ export default function LoginForm() {
     })
   }
 
-  useEffect(() => {
-    const checkLogined = localStorage.getItem("accessToken")
-    setLogined(!checkLogined)
-  }, [])
-
-  return logined ? (
+  return (
     <>
       <h2 className="title">Free-Market</h2>
       <form onSubmit={handleSubmit(onValid)}>
@@ -99,7 +91,5 @@ export default function LoginForm() {
         <BaseButton type="submit">로그인</BaseButton>
       </form>
     </>
-  ) : (
-    <h2>로그인 되었음</h2>
   )
 }

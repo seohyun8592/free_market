@@ -13,6 +13,13 @@
   ],
   "parserOptions": { "project": "./tsconfig.json" }, // ESLint가 TypeScript 파일을 올바르게 파싱할 수 있음
   "rules": {
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allow": ["_data"],
+        "allowAfterThis": true
+      }
+    ],
     "react/jsx-props-no-spreading": "off", // spread 연산자를 사용한 props 전달을 허용
     "@typescript-eslint/no-explicit-any": "off", // any 사용허용
     "react/require-default-props": "off", // defaultProps 사용 비활성화

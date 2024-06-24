@@ -1,9 +1,12 @@
 .form {
   &__wrap {
-    width: rem(180);
+    // width: rem(180);
     & + .form__wrap {
       margin-top: rem(15);
     }
+  }
+  &__box {
+    @include onFlex(center, center);
   }
 }
 

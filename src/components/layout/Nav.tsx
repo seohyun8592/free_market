@@ -1,5 +1,9 @@
+"use client"
+
 import React from "react"
 
+import useLogin from "@/hooks/useLogin"
+import useAuthContext from "@/provider/AuthContext"
 import Link from "next/link"
 
 const MENULIST = [
@@ -10,6 +14,20 @@ const MENULIST = [
 ]
 
 export default function Nav() {
+  const { accessToken, setAccessToken } = useAuthContext()
+  const { useWebLogout } = useLogin()
+  const handleLogout = async () => {
+    useWebLogout.mutate(null, {
+      onSuccess: () => {
+        setAccessToken(null)
+        window.location.replace("/")
+      },
+      onError: () => {
+        console.log("@@")
+      },
+    })
+  }
+
   return (
     <>
       <ul className="menuList__item">
@@ -21,7 +39,11 @@ export default function Nav() {
       </ul>
       <ul className="menuList__item subMenu">
         <li>
-          <Link href="/login">로그인1</Link>
+          {!accessToken ? (
+            <Link href="/login">로그인</Link>
+          ) : (
+            accessToken && <button onClick={handleLogout}>로그아웃</button>
+          )}
         </li>
         <li>
           <Link href="/signup">회원가입</Link>

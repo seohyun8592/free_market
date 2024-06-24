@@ -2,17 +2,19 @@ import { postFetch } from "./fetchCore"
 import { Response } from "./types"
 
 interface SignUPRequest {
-  memberId: string
-  password: string
-  name: string
-  nickname: string
-  email: string
-}
-
-interface SignUpResponse {
-  data: object
-  message: string
-  statusCode: string
+  userDTO: {
+    memberId: string
+    password: string
+    name: string
+    nickname: string
+    phone: string
+    email: string
+  }
+  addressDTO: {
+    address1: string
+    address2: string
+    address3: string
+  }
 }
 
 interface NickNameRequest {
@@ -28,9 +30,13 @@ interface VerificationNumRequest {
   certNo: string
 }
 
+interface IdCheckRequest {
+  memberId: string
+}
+
 const signup = {
   postFetchSignUp(payload: SignUPRequest) {
-    return postFetch<Response<SignUpResponse>>("/api/v1/account/join", {
+    return postFetch<Response<any>>("/api/v1/account/join", {
       body: payload,
     })
   },
@@ -49,6 +55,12 @@ const signup = {
 
   postEmailverificationNum(payload: VerificationNumRequest) {
     return postFetch<Response<any>>("/api/v1/mail/valid-cert-num", {
+      body: payload,
+    })
+  },
+
+  postIdCheck(payload: IdCheckRequest) {
+    return postFetch<Response<any>>("/api/v1/account/check-id", {
       body: payload,
     })
   },

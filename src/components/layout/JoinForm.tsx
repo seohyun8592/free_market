@@ -20,6 +20,21 @@ interface HookFormTypes {
   phone?: string
   verificationNum: string
 }
+// interface SignUPRequest {
+//   userDTO: {
+//     memberId: string
+//     password: string
+//     name: string
+//     nickname: string
+//     phone: string
+//     email: string
+//   }
+//   addressDTO: {
+//     address1: string
+//     address2: string
+//     address3: string
+//   }
+// }
 
 export default function LoginForm() {
   const router = useRouter()
@@ -28,8 +43,10 @@ export default function LoginForm() {
     useNickNameCheck,
     useEmailVerification,
     useEmailVerificationNum,
+    useIdCheck,
   } = useSignUp()
 
+  // const [user, setUser] = useState(null)
   // const [isErrorMessage, setIsErrorMessage] = useState(false)
   const [isSendSuccess, setIsSendSuccess] = useState(false)
   const [isVerificationNum, setIsVerificationNum] = useState(false)
@@ -51,13 +68,26 @@ export default function LoginForm() {
     verificationNum: watch("verificationNum"),
   }
 
-  console.log(userInfo.sendEmail)
-
   const onValid = (data: HookFormTypes) => {
-    useClientsSignUp.mutate(data, {
+    const reqData = {
+      userDTO: {
+        memberId: data.memberId,
+        password: data.password,
+        name: data.name,
+        nickname: data.nickname,
+        phone: data.phone,
+        email: data.email,
+      },
+      addressDTO: {
+        address1: "서울",
+        address2: "송파구",
+        address3: "잠실",
+      },
+    }
+    useClientsSignUp.mutate(reqData, {
       onSuccess: (response) => {
         if (response.statusCode === "200") {
-          router.push("/")
+          router.push("/login")
         }
       },
     })
@@ -69,9 +99,47 @@ export default function LoginForm() {
     }
     useNickNameCheck.mutate(data, {
       onSuccess: (response) => {
-        if (response.data) {
+        const code = response.statusCode
+        // switch (code) {
+        //   case "200":
+        //     alert("사용 가능한 닉네임 입니다.")
+        //     break
+        //   case "500":
+        //     alert(`${response.message}`)
+        //     reset({ nickname: "" })
+        //     break
+        // }
+        if (code === "200") {
           alert("사용 가능한 닉네임 입니다.")
+        } else {
+          alert(response.data.nickname)
         }
+      },
+    })
+  }
+
+  const handleCheckId = () => {
+    const data = {
+      memberId: userInfo.idCheck,
+    }
+    useIdCheck.mutate(data, {
+      onSuccess: (response) => {
+        const code = response.statusCode
+
+        if (code === "200") {
+          alert("사용 가능한 아이디 입니다.")
+        } else {
+          alert(response.data.memberId)
+        }
+        // switch (code) {
+        //   case "200":
+        //     alert("사용 가능한 아이디 입니다.")
+        //     break
+        //   case "500":
+        //     alert(`${response.message}`)
+        //     reset({ memberId: "" })
+        //     break
+        // }
       },
     })
   }
@@ -106,31 +174,43 @@ export default function LoginForm() {
   }
   return (
     <>
-      <h2 className="title">Free-Market</h2>
+      <div className="title__box">
+        <h2 className="title">블라블라</h2>
+        <p className="title__desc">
+          뭐든지 나눠드려요!! 갖고 싶은거 골라봐요!!
+        </p>
+      </div>
       <form onSubmit={handleSubmit(onValid)}>
         {/* 아이디 */}
         <div className="form__wrap">
           <label htmlFor="id" className="input__title">
             아이디
           </label>
-          <div className="input__box">
-            <BaseInput
-              register={register("memberId", {
-                required: true,
-                maxLength: { value: 11, message: "7~11자리로 입력해주세요." },
-                validate: () =>
-                  regexId.test(userInfo.idCheck) ||
-                  "영문과 숫자를 조합해 7~11자리로 입력해주세요.",
-              })}
-              id="id"
-              type="text"
-              name="id"
-              placeholder="영문 숫자 조합 7~11자리"
-            />
+          <div className="form__box">
+            <div className="input__box">
+              <BaseInput
+                register={register("memberId", {
+                  required: true,
+                  maxLength: { value: 11, message: "7~11자리로 입력해주세요." },
+                  validate: () =>
+                    regexId.test(userInfo.idCheck) ||
+                    "영문과 숫자를 조합해 7~11자리로 입력해주세요.",
+                })}
+                id="id"
+                type="text"
+                name="id"
+                placeholder="영문 숫자 조합 7~11자리"
+              />
+            </div>
+            <span className="input__error">
+              {errors.memberId ? errors.memberId.message : ""}
+            </span>
+            <div className="form__btn">
+              <BaseButton type="button" onClick={handleCheckId}>
+                아이디 중복 체크
+              </BaseButton>
+            </div>
           </div>
-          <span className="input__error">
-            {errors.memberId ? errors.memberId.message : ""}
-          </span>
         </div>
 
         {/* 이메일 */}

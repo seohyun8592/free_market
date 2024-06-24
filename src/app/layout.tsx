@@ -1,6 +1,7 @@
 import React from "react"
 
 import Header from "@/components/layout/header"
+import { AuthProvider } from "@/provider/AuthContext"
 import type { Metadata } from "next"
 
 import "../../public/assets/styles/style.scss"
@@ -20,13 +21,15 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <QueryProvider>
-          <div className="root">
-            <Header />
-            <main>
-              <div className="container">{children}</div>
-            </main>
-            <footer>푸터 영역</footer>
-          </div>
+          <AuthProvider>
+            <div className="root">
+              <Header />
+              <main>
+                <div className="container">{children}</div>
+              </main>
+              <footer>푸터 영역</footer>
+            </div>
+          </AuthProvider>
         </QueryProvider>
       </body>
     </html>
