@@ -23,8 +23,7 @@ export default function useLogin() {
     mutationFn: async () => {
       await login.postFetchLogout()
     },
-    onSuccess: (data) => {
-      console.log(data)
+    onSuccess: () => {
       const accessToken = localStorage.getItem("accessToken")
 
       if (accessToken) {

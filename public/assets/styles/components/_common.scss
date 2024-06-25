@@ -16,7 +16,7 @@ main {
   @include onFlex(flex-start, center);
 
   height: calc(100% - 40px);
-  padding-top: rem(60);
+  // padding-top: rem(60);
   overflow: auto;
   .contents {
     &__wrap {
@@ -36,5 +36,27 @@ main {
         }
       }
     }
+  }
+}
+
+.pop {
+  &__container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    &.disabled {
+      display: none;
+    }
+  }
+  &__wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: rem(500);
+    height: rem(500);
+    background-color: rgba(255, 255, 255);
+    transform: translate(-50%, -50%);
   }
 }

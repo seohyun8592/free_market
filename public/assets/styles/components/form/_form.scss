@@ -1,12 +1,12 @@
 .form {
-  &__wrap {
+  &__container {
     // width: rem(180);
-    & + .form__wrap {
+    & + .form__container {
       margin-top: rem(15);
     }
   }
-  &__box {
-    @include onFlex(center, center);
+  &__wrap {
+    @include onFlex(flex-start, flex-start);
   }
 }
 

@@ -9,7 +9,7 @@ export default function Header() {
     <header>
       <div className="container">
         <Link href="/" className="logo">
-          Free-Market
+          나플나플
         </Link>
         <Nav />
       </div>

@@ -14,12 +14,12 @@ const MENULIST = [
 ]
 
 export default function Nav() {
-  const { accessToken, setAccessToken } = useAuthContext()
+  const { accessToken } = useAuthContext()
   const { useWebLogout } = useLogin()
+
   const handleLogout = async () => {
     useWebLogout.mutate(null, {
       onSuccess: () => {
-        setAccessToken(null)
         window.location.replace("/")
       },
       onError: () => {
@@ -27,6 +27,10 @@ export default function Nav() {
       },
     })
   }
+
+  // useEffect(() => {
+  //   setAccessToken
+  // }, [accessToken])
 
   return (
     <>

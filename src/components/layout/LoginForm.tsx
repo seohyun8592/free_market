@@ -28,8 +28,7 @@ export default function LoginForm() {
       onSuccess: (response) => {
         const resData = response._data
         if (resData.statusCode === "200") {
-          // window.location.replace("/")
-          console.log("@")
+          window.location.replace("/")
         } else {
           alert(resData.message)
           reset()

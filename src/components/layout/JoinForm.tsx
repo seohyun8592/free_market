@@ -3,40 +3,26 @@
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 
+import loadHandler from "@/api/kakaoPostCode/PostCode"
 import BaseInput from "@/components/base/Form/Input"
 import useSignUp from "@/hooks/useSignup"
-import classNames from "classnames"
 import { useRouter } from "next/navigation"
 
 import BaseButton from "../base/Button/Button"
+import EmailVerificationNum from "../modal/EmailVerificationNum"
 
 interface HookFormTypes {
   memberId: string
   password: string
-  rePassword?: string
+  rePassword: string
   name: string
   nickname: string
   email: string
-  phone?: string
+  phone: string
   verificationNum: string
 }
-// interface SignUPRequest {
-//   userDTO: {
-//     memberId: string
-//     password: string
-//     name: string
-//     nickname: string
-//     phone: string
-//     email: string
-//   }
-//   addressDTO: {
-//     address1: string
-//     address2: string
-//     address3: string
-//   }
-// }
 
-export default function LoginForm() {
+export default function JoinForm() {
   const router = useRouter()
   const {
     useClientsSignUp,
@@ -46,10 +32,9 @@ export default function LoginForm() {
     useIdCheck,
   } = useSignUp()
 
-  // const [user, setUser] = useState(null)
-  // const [isErrorMessage, setIsErrorMessage] = useState(false)
   const [isSendSuccess, setIsSendSuccess] = useState(false)
   const [isVerificationNum, setIsVerificationNum] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const {
     register,
     handleSubmit,
@@ -57,17 +42,32 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm<HookFormTypes>()
 
-  const regexId = /^[a-z0-9]{7,11}$/
-  const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+  const regexId = /^[a-z0-9]{7,11}$/ // id 유효성 검사
+  const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ // 이메일 유효성 검사
 
   const userInfo = {
     password: watch("password"),
+    rePassword: watch("rePassword"),
     idCheck: watch("memberId"),
     sendEmail: regexEmail.test(watch("email")) && watch("email"),
     nickNameCheck: watch("nickname"),
     verificationNum: watch("verificationNum"),
+    name: watch("name"),
+    phone: watch("phone"),
   }
 
+  const requiredFields = [
+    userInfo.idCheck,
+    userInfo.password,
+    userInfo.name,
+    userInfo.nickNameCheck,
+    userInfo.sendEmail,
+    userInfo.phone,
+  ]
+
+  const isFormValid = requiredFields.every((field) => field)
+
+  // 회원 가입하기 (유효성 검사)
   const onValid = (data: HookFormTypes) => {
     const reqData = {
       userDTO: {
@@ -93,6 +93,7 @@ export default function LoginForm() {
     })
   }
 
+  // 닉네임 중복 체크
   const handleCheckNickName = () => {
     const data = {
       nickname: userInfo.nickNameCheck,
@@ -100,15 +101,6 @@ export default function LoginForm() {
     useNickNameCheck.mutate(data, {
       onSuccess: (response) => {
         const code = response.statusCode
-        // switch (code) {
-        //   case "200":
-        //     alert("사용 가능한 닉네임 입니다.")
-        //     break
-        //   case "500":
-        //     alert(`${response.message}`)
-        //     reset({ nickname: "" })
-        //     break
-        // }
         if (code === "200") {
           alert("사용 가능한 닉네임 입니다.")
         } else {
@@ -118,6 +110,7 @@ export default function LoginForm() {
     })
   }
 
+  // 아이디 중복 체크
   const handleCheckId = () => {
     const data = {
       memberId: userInfo.idCheck,
@@ -131,19 +124,11 @@ export default function LoginForm() {
         } else {
           alert(response.data.memberId)
         }
-        // switch (code) {
-        //   case "200":
-        //     alert("사용 가능한 아이디 입니다.")
-        //     break
-        //   case "500":
-        //     alert(`${response.message}`)
-        //     reset({ memberId: "" })
-        //     break
-        // }
       },
     })
   }
 
+  // 이메일 인증하기
   const handleClickEmail = () => {
     const mailData = {
       toEmail: userInfo.sendEmail,
@@ -159,6 +144,7 @@ export default function LoginForm() {
         onSuccess: (response) => {
           if (response.statusCode === "200") {
             setIsVerificationNum(true)
+            setIsOpen(false)
           }
         },
       })
@@ -172,39 +158,56 @@ export default function LoginForm() {
       })
     }
   }
+
+  const handleClose = () => {
+    setIsOpen(false)
+  }
+
+  const handleEmailPop = () => {
+    setIsOpen(true)
+  }
+
+  const postCode = () => {
+    loadHandler()
+    console.log(loadHandler)
+  }
+
   return (
     <>
       <div className="title__box">
-        <h2 className="title">블라블라</h2>
-        <p className="title__desc">
-          뭐든지 나눠드려요!! 갖고 싶은거 골라봐요!!
-        </p>
+        <h2 className="title">나플나플</h2>
+        <p className="title__desc">나누는 플레이스, 나누면 플러스</p>
       </div>
       <form onSubmit={handleSubmit(onValid)}>
         {/* 아이디 */}
-        <div className="form__wrap">
+        <div className="form__container">
           <label htmlFor="id" className="input__title">
             아이디
           </label>
-          <div className="form__box">
-            <div className="input__box">
-              <BaseInput
-                register={register("memberId", {
-                  required: true,
-                  maxLength: { value: 11, message: "7~11자리로 입력해주세요." },
-                  validate: () =>
-                    regexId.test(userInfo.idCheck) ||
-                    "영문과 숫자를 조합해 7~11자리로 입력해주세요.",
-                })}
-                id="id"
-                type="text"
-                name="id"
-                placeholder="영문 숫자 조합 7~11자리"
-              />
+          <div className="form__wrap">
+            <div className="form__box">
+              <div className="input__box">
+                <BaseInput
+                  register={register("memberId", {
+                    required: true,
+                    maxLength: {
+                      value: 11,
+                      message: "7~11자리로 입력해주세요.",
+                    },
+                    validate: () =>
+                      regexId.test(userInfo.idCheck) ||
+                      "영문과 숫자를 조합해 7~11자리로 입력해주세요.",
+                  })}
+                  id="id"
+                  type="text"
+                  name="id"
+                  placeholder="영문 숫자 조합 7~11자리"
+                />
+              </div>
+              <span className="input__error">
+                {errors.memberId ? errors.memberId.message : ""}
+              </span>
             </div>
-            <span className="input__error">
-              {errors.memberId ? errors.memberId.message : ""}
-            </span>
             <div className="form__btn">
               <BaseButton type="button" onClick={handleCheckId}>
                 아이디 중복 체크
@@ -213,166 +216,154 @@ export default function LoginForm() {
           </div>
         </div>
 
-        {/* 이메일 */}
-        <div className="form__wrap">
-          <label htmlFor="email" className="input__title">
-            이메일
-          </label>
-          <div className="input__box">
-            <BaseInput
-              register={register("email", {})}
-              id="email"
-              type="text"
-              name="email"
-              placeholder="이메일을 입력해 주세요."
-              disabled={isSendSuccess}
-            />
-          </div>
-          <span className="input__error">
-            {errors.email ? errors.email.message : ""}
-            {isVerificationNum && "인증이 완료 되었습니다."}
-          </span>
-        </div>
-
-        {/* 인증번호 입력 */}
-        {!isVerificationNum && (
-          <div
-            className={classNames("form__wrap", !isSendSuccess && "disabled")}
-          >
-            <label htmlFor="verificationNum" className="input__title">
-              인증번호
-            </label>
-            <div className="input__box">
-              <BaseInput
-                register={register("verificationNum", {})}
-                id="verificationNum"
-                type="text"
-                name="verificationNum"
-                placeholder="인증번호를 입력해 주세요."
-              />
-            </div>
-            <span className="input__error">
-              {errors.verificationNum ? errors.verificationNum.message : ""}
-            </span>
-          </div>
-        )}
-        {!isVerificationNum && (
-          <BaseButton
-            type="button"
-            onClick={handleClickEmail}
-            disabled={!userInfo.sendEmail}
-          >
-            {isSendSuccess ? "인증하기" : "이메일 인증하기"}
-          </BaseButton>
-        )}
+        <BaseButton
+          type="button"
+          onClick={handleEmailPop}
+          disabled={isSendSuccess}
+        >
+          이메일 인증하기
+        </BaseButton>
 
         {/* 비밀번호 */}
-        <div className="form__wrap">
+        <div className="form__container">
           <label htmlFor="pw" className="input__title">
             비밀번호
           </label>
-          <div className="input__box">
-            <BaseInput
-              register={register("password", {
-                required: true,
-                maxLength: { value: 16, message: "Should not exceed 16" },
-              })}
-              id="pw"
-              type="password"
-              name="pw"
-            />
+          <div className="form__box">
+            <div className="input__box">
+              <BaseInput
+                register={register("password", {
+                  required: true,
+                  maxLength: { value: 16, message: "Should not exceed 16" },
+                })}
+                id="pw"
+                type="password"
+                name="pw"
+              />
+            </div>
+            <span className="input__error">
+              {errors.password ? "필수 입력 항목입니다." : ""}
+            </span>
           </div>
-          <span className="input__error">
-            {errors.password ? "필수 입력 항목입니다." : ""}
-          </span>
         </div>
 
         {/* 비밀번호 확인 */}
-        <div className="form__wrap">
+        <div className="form__container">
           <label htmlFor="repw" className="input__title">
             비밀번호 확인
           </label>
-          <div className="input__box">
-            <BaseInput
-              register={register("rePassword", {
-                validate: (value) =>
-                  value === userInfo.password ||
-                  "비밀번호가 일치하지 않습니다.",
-              })}
-              id="repw"
-              type="password"
-              name="repw"
-            />
+          <div className="form__box">
+            <div className="input__box">
+              <BaseInput
+                register={register("rePassword", {
+                  validate: (value) =>
+                    value === userInfo.password ||
+                    "비밀번호가 일치하지 않습니다.",
+                })}
+                id="repw"
+                type="password"
+                name="repw"
+              />
+            </div>
+            <span className="input__error">
+              {userInfo.rePassword !== "" &&
+              userInfo.rePassword !== userInfo.password
+                ? "비밀번호가 일치 하지 않습니다."
+                : ""}
+            </span>
           </div>
-          <span className="input__error">
-            {errors.rePassword ? "비밀번호가 일치 하지 않습니다." : ""}
-          </span>
         </div>
 
         {/* 별명 */}
-        <div className="form__wrap">
+        <div className="form__container">
           <label htmlFor="nickname" className="input__title">
             별명
           </label>
-          <div className="input__box">
-            <BaseInput
-              register={register("nickname", {
-                maxLength: { value: 8, message: "Should not exceed 8" },
-              })}
-              id="nickname"
-              type="text"
-              name="nickname"
-            />
+          <div className="form__wrap">
+            <div className="form__box">
+              <div className="input__box">
+                <BaseInput
+                  register={register("nickname", {
+                    maxLength: { value: 8, message: "Should not exceed 8" },
+                  })}
+                  id="nickname"
+                  type="text"
+                  name="nickname"
+                />
+              </div>
+              <span className="input__error">
+                {errors.nickname ? "필수 입력 항목입니다." : ""}
+              </span>
+            </div>
+            <div className="form__btn">
+              <BaseButton type="button" onClick={handleCheckNickName}>
+                별명 중복 체크
+              </BaseButton>
+            </div>
           </div>
-          <span className="input__error">
-            {errors.nickname ? "필수 입력 항목입니다." : ""}
-          </span>
         </div>
-        <BaseButton type="button" onClick={handleCheckNickName}>
-          중복 확인
-        </BaseButton>
 
         {/* 이름 */}
-        <div className="form__wrap">
+        <div className="form__container">
           <label htmlFor="name" className="input__title">
             이름
           </label>
-          <div className="input__box">
-            <BaseInput
-              register={register("name", {
-                required: true,
-              })}
-              id="name"
-              type="text"
-              name="name"
-            />
+          <div className="form__box">
+            <div className="input__box">
+              <BaseInput
+                register={register("name", {
+                  required: true,
+                })}
+                id="name"
+                type="text"
+                name="name"
+              />
+            </div>
+            <span className="input__error">
+              {errors.name ? "필수 입력 항목입니다." : ""}
+            </span>
           </div>
-          <span className="input__error">
-            {errors.name ? "필수 입력 항목입니다." : ""}
-          </span>
         </div>
 
         {/* 휴대폰 번호 */}
-        <div className="form__wrap">
+        <div className="form__container">
           <label htmlFor="phone" className="input__title">
             휴대폰 번호
           </label>
-          <div className="input__box">
-            <BaseInput
-              register={register("phone", {})}
-              id="phone"
-              type="text"
-              name="phone"
-            />
+          <div className="form__box">
+            <div className="input__box">
+              <BaseInput
+                register={register("phone", {})}
+                id="phone"
+                type="text"
+                name="phone"
+              />
+            </div>
+            <span className="input__error">
+              {errors.phone ? "필수 입력 항목입니다." : ""}
+            </span>
           </div>
-          <span className="input__error">
-            {errors.phone ? "필수 입력 항목입니다." : ""}
-          </span>
         </div>
 
         {/* 가입하기 버튼 */}
-        <BaseButton type="submit">가입하기</BaseButton>
+        <BaseButton type="submit" disabled={!isFormValid}>
+          가입하기
+        </BaseButton>
       </form>
+      {isOpen && (
+        <EmailVerificationNum
+          register={register}
+          isSuccess={isSendSuccess}
+          verufication={isVerificationNum}
+          isVerificationNum={isVerificationNum}
+          isSendSuccess={isSendSuccess}
+          errors={errors}
+          onClick={handleClose}
+          handleClickEmail={handleClickEmail}
+        />
+      )}
+
+      <button onClick={postCode}>주소 찾기</button>
     </>
   )
 }

@@ -16,6 +16,7 @@ export default function BaseButton({
   disabled = false,
   type = "button",
   children,
+  className,
 }: ButtonProps) {
   const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     if (onClick) {
@@ -24,7 +25,7 @@ export default function BaseButton({
   }
   return (
     <button
-      className={classNames(BUTTON_THEME[theme], BUTTON_SIZE[size])}
+      className={classNames(className, BUTTON_THEME[theme], BUTTON_SIZE[size])}
       onClick={handleClick}
       disabled={disabled}
       type={type}
