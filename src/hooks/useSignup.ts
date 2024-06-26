@@ -2,12 +2,6 @@ import signup from "@/api/signup"
 import { useMutation } from "@tanstack/react-query"
 
 interface SignUPRequest {
-  // memberId: string
-  // password: string
-  // name: string
-  // nickname: string
-  // email: string
-
   userDTO: {
     memberId: string
     password: string

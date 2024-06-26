@@ -1,9 +1,9 @@
 "use client"
 
 import React, { useState } from "react"
+import DaumPostcode from "react-daum-postcode"
 import { useForm } from "react-hook-form"
 
-import loadHandler from "@/api/kakaoPostCode/PostCode"
 import BaseInput from "@/components/base/Form/Input"
 import useSignUp from "@/hooks/useSignup"
 import { useRouter } from "next/navigation"
@@ -20,6 +20,7 @@ interface HookFormTypes {
   email: string
   phone: string
   verificationNum: string
+  address: string
 }
 
 export default function JoinForm() {
@@ -35,6 +36,8 @@ export default function JoinForm() {
   const [isSendSuccess, setIsSendSuccess] = useState(false)
   const [isVerificationNum, setIsVerificationNum] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenPost, setIsOpenPost] = useState(false)
+  const [address, setAddress] = useState({ sido: "", sigungu: "", bname2: "" }) // 주소
   const {
     register,
     handleSubmit,
@@ -79,9 +82,9 @@ export default function JoinForm() {
         email: data.email,
       },
       addressDTO: {
-        address1: "서울",
-        address2: "송파구",
-        address3: "잠실",
+        address1: address.sido,
+        address2: address.sigungu,
+        address3: address.bname2,
       },
     }
     useClientsSignUp.mutate(reqData, {
@@ -167,9 +170,22 @@ export default function JoinForm() {
     setIsOpen(true)
   }
 
-  const postCode = () => {
-    loadHandler()
-    console.log(loadHandler)
+  const onChangeOpenPost = () => {
+    setIsOpenPost(!isOpenPost)
+  }
+
+  const onCompletePost = (data: any) => {
+    console.log(data)
+    setAddress({ sido: data.sido, sigungu: data.sigungu, bname2: data.bname2 })
+  }
+
+  const postCodeStyle = {
+    display: "block",
+    // position: 'absolute',
+    top: "0%",
+    width: "400px",
+    height: "400px",
+    padding: "7px",
   }
 
   return (
@@ -349,6 +365,58 @@ export default function JoinForm() {
         <BaseButton type="submit" disabled={!isFormValid}>
           가입하기
         </BaseButton>
+        <div className="form__container">
+          <label htmlFor="address" className="input__title">
+            주소
+          </label>
+          <div className="form__box">
+            <div className="input__box">
+              <BaseInput
+                id="address"
+                type="text"
+                name="address"
+                value={address.sido}
+              />
+            </div>
+            <span className="input__error">
+              {errors.address ? "필수 입력 항목입니다." : ""}
+            </span>
+          </div>
+
+          <label htmlFor="address1" className="input__title">
+            주소
+          </label>
+          <div className="form__box">
+            <div className="input__box">
+              <BaseInput
+                id="address1"
+                type="text"
+                name="address"
+                value={address.sigungu}
+              />
+            </div>
+            <span className="input__error">
+              {errors.address ? "필수 입력 항목입니다." : ""}
+            </span>
+          </div>
+
+          <label htmlFor="address2" className="input__title">
+            주소
+          </label>
+          <div className="form__box">
+            <div className="input__box">
+              <BaseInput
+                id="address2"
+                type="text"
+                name="address"
+                value={address.bname2}
+              />
+            </div>
+            <span className="input__error">
+              {errors.address ? "필수 입력 항목입니다." : ""}
+            </span>
+          </div>
+        </div>
       </form>
       {isOpen && (
         <EmailVerificationNum
@@ -363,7 +431,15 @@ export default function JoinForm() {
         />
       )}
 
-      <button onClick={postCode}>주소 찾기</button>
+      <button onClick={onChangeOpenPost}>주소 찾기</button>
+
+      {isOpenPost ? (
+        <DaumPostcode
+          style={postCodeStyle}
+          autoClose
+          onComplete={onCompletePost}
+        />
+      ) : null}
     </>
   )
 }

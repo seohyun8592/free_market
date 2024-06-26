@@ -14,6 +14,7 @@ interface Props {
   id?: string
   name?: string
   register?: UseFormRegisterReturn
+  value?: string
 }
 
 export default function BaseInput({
@@ -24,6 +25,7 @@ export default function BaseInput({
   placeholder = "텍스트를 입력해 주세요",
   disabled,
   register,
+  value,
 }: Props) {
   return (
     <input
@@ -32,6 +34,7 @@ export default function BaseInput({
       id={id}
       name={name}
       disabled={disabled}
+      value={value}
       {...register}
     />
   )
