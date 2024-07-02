@@ -29,6 +29,7 @@ main {
       .title {
         font-size: rem(32);
         font-weight: 500;
+        color: #4f4f4f;
         &__box {
           text-align: center;
 
@@ -38,6 +39,7 @@ main {
         }
         &__desc {
           font-size: rem(14);
+          color: #6d6886;
         }
       }
       .join {
@@ -63,7 +65,7 @@ main {
               &__box {
                 text-align: left;
                 padding-bottom: rem(20);
-                border-bottom: rem(1) solid #222222;
+                border-bottom: rem(1) solid #aaaaaa;
                 & + .form__container {
                   margin-top: rem(40);
                 }
