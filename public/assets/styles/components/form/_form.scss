@@ -54,7 +54,7 @@ input {
   &__error {
     position: absolute;
     left: 0;
-    top: 0;
+    top: rem(30);
     display: block;
     font-size: rem(12);
     color: #df3f3f;

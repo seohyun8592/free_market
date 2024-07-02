@@ -71,6 +71,7 @@ export default function JoinForm() {
     userInfo.nickNameCheck,
     userInfo.sendEmail,
     userInfo.phone,
+    address.address,
   ]
 
   const isFormValid = requiredFields.every((field) => field)
@@ -209,6 +210,9 @@ export default function JoinForm() {
           <h2 className="title">회원가입</h2>
           <p className="title__desc">나누는 플레이스, 나누면 플러스</p>
         </div>
+        {/* <div className="join__process">
+            <div className="join__step01"></div>
+        </div> */}
         <div className="contents__box">
           <form onSubmit={handleSubmit(onValid)}>
             <div className="form__box">
@@ -279,10 +283,39 @@ export default function JoinForm() {
                       id="pw"
                       type="password"
                       name="pw"
+                      placeholder="비밀번호를 입력해 주세요."
                     />
                   </div>
                   <span className="input__error">
                     {errors.password ? "필수 입력 항목입니다." : ""}
+                  </span>
+                </div>
+              </div>
+
+              {/* 비밀번호 확인 */}
+              <div className="form__container">
+                <label htmlFor="repw" className="input__title">
+                  비밀번호 확인
+                </label>
+                <div className="form__wrap">
+                  <div className="input__box">
+                    <BaseInput
+                      register={register("rePassword", {
+                        validate: (value) =>
+                          value === userInfo.password ||
+                          "비밀번호가 일치하지 않습니다.",
+                      })}
+                      id="repw"
+                      type="password"
+                      name="repw"
+                      placeholder="비밀번호를 입력해 주세요."
+                    />
+                  </div>
+                  <span className="input__error">
+                    {userInfo.rePassword !== "" &&
+                    userInfo.rePassword !== userInfo.password
+                      ? "비밀번호가 일치 하지 않습니다."
+                      : ""}
                   </span>
                 </div>
               </div>
@@ -301,6 +334,7 @@ export default function JoinForm() {
                       id="name"
                       type="text"
                       name="name"
+                      placeholder="이름을 입력해 주세요."
                     />
                   </div>
                   <span className="input__error">
@@ -321,6 +355,7 @@ export default function JoinForm() {
                       id="phone"
                       type="text"
                       name="phone"
+                      placeholder="휴대폰 번호를 입력해 주세요."
                     />
                   </div>
                   <span className="input__error">
@@ -341,6 +376,7 @@ export default function JoinForm() {
                       name="address"
                       value={address.address}
                       onChange={onChange}
+                      placeholder="주소를 입력해 주세요."
                     />
                   </div>
 
@@ -349,9 +385,6 @@ export default function JoinForm() {
                       주소 찾기
                     </BaseButton>
                   </div>
-                  <span className="input__error">
-                    {errors.address ? "필수 입력 항목입니다." : ""}
-                  </span>
                 </div>
               </div>
 
@@ -373,6 +406,7 @@ export default function JoinForm() {
                         id="nickname"
                         type="text"
                         name="nickname"
+                        placeholder="별명을 입력해 주세요."
                       />
                     </div>
                     <div className="form__btn">
@@ -392,7 +426,8 @@ export default function JoinForm() {
               <div className="title__box">
                 <h2 className="title">추가 정보 입력</h2>
               </div>
-              {/* 아이디 */}
+
+              {/* 생년월일 */}
               <div className="form__container">
                 <label htmlFor="birth" className="input__title">
                   생년월일

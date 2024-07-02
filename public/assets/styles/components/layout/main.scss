@@ -46,12 +46,12 @@ main {
           min-width: rem(600);
           .form__wrap {
             width: 100%;
-            
           }
           .form__box {
-            flex-grow: 1;
+            padding-bottom: rem(40);
+            border-bottom: rem(1) solid #ededed;
             & + .form__box {
-              margin-top: rem(100);
+              margin-top: rem(60);
             }
           }
 
@@ -65,7 +65,7 @@ main {
                 padding-bottom: rem(20);
                 border-bottom: rem(1) solid #222222;
                 & + .form__container {
-                  margin-top: rem(20);
+                  margin-top: rem(40);
                 }
               }
               &__desc {
@@ -85,6 +85,9 @@ main {
             text-align: center;
           }
         }
+        // &__process {
+
+        // }
       }
     }
   }

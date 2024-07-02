@@ -93,7 +93,7 @@ export default function EmailVerificationNum({
             onClick={handleClickEmail}
             // disabled={!userInfo.sendEmail || !userInfo.verificationNum}
           >
-            {isSendSuccess ? "인증번호" : "인증하기"}
+            {isSendSuccess ? "인증번호 입력" : "인증하기"}
           </BaseButton>
         )}
       </div>
