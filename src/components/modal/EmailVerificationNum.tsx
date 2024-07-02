@@ -40,7 +40,7 @@ export default function EmailVerificationNum({
           <label htmlFor="email" className="input__title">
             이메일
           </label>
-          <div className="form__box">
+          <div className="form__wrap">
             <div className="input__box">
               <BaseInput
                 register={register("email", {})}
@@ -93,7 +93,7 @@ export default function EmailVerificationNum({
             onClick={handleClickEmail}
             // disabled={!userInfo.sendEmail || !userInfo.verificationNum}
           >
-            {isSendSuccess ? "인증하기" : "이메일 인증하기"}
+            {isSendSuccess ? "인증번호" : "인증하기"}
           </BaseButton>
         )}
       </div>

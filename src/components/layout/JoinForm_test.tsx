@@ -203,27 +203,27 @@ export default function JoinForm() {
   }
 
   return (
-    <>
-      <div className="join__wrap">
+    <div className="join__wrap">
+      <div className="title__box">
+        <h2 className="title">회원가입</h2>
+        <p className="title__desc">나누는 플레이스, 나누면 플러스</p>
+      </div>
+      <div className="join__contents">
         <div className="title__box">
-          <h2 className="title">회원가입</h2>
-          <p className="title__desc">나누는 플레이스, 나누면 플러스</p>
+          <h2 className="title">필수입력 정보</h2>
+          <p className="title__desc">
+            필수항목이므로 반드시 입력해 주시기 바랍니다.
+          </p>
         </div>
         <div className="contents__box">
           <form onSubmit={handleSubmit(onValid)}>
-            <div className="form__box">
-              <div className="title__box">
-                <h2 className="title">필수입력 정보</h2>
-                <p className="title__desc">
-                  필수항목이므로 반드시 입력해 주시기 바랍니다.
-                </p>
-              </div>
-              {/* 아이디 */}
-              <div className="form__container email">
-                <label htmlFor="id" className="input__title">
-                  아이디
-                </label>
-                <div className="form__wrap">
+            {/* 아이디 */}
+            <div className="form__container">
+              <label htmlFor="id" className="input__title">
+                아이디
+              </label>
+              <div className="form__wrap">
+                <div className="form__box">
                   <div className="input__box">
                     <BaseInput
                       register={register("memberId", {
@@ -242,192 +242,172 @@ export default function JoinForm() {
                       placeholder="영문 숫자 조합 7~11자리"
                     />
                   </div>
-                  <BaseButton
-                    className="btn__email"
-                    type="button"
-                    onClick={handleEmailPop}
-                    disabled={isSendSuccess}
-                  >
-                    이메일 인증하기
+                </div>
+                <div className="form__btn">
+                  <BaseButton type="button" onClick={handleCheckId}>
+                    중복 확인
                   </BaseButton>
-                  <div className="form__btn">
-                    <BaseButton type="button" onClick={handleCheckId}>
-                      중복 확인
-                    </BaseButton>
-                  </div>
-                  <span className="input__error">
-                    {errors.memberId ? errors.memberId.message : ""}
-                  </span>
                 </div>
+                <span className="input__error">
+                  {errors.memberId ? errors.memberId.message : ""}
+                </span>
               </div>
+            </div>
 
-              {/* 비밀번호 */}
-              <div className="form__container">
-                <label htmlFor="pw" className="input__title">
-                  비밀번호
-                </label>
-                <div className="form__wrap">
+            <BaseButton
+              type="button"
+              onClick={handleEmailPop}
+              disabled={isSendSuccess}
+            >
+              이메일 인증하기
+            </BaseButton>
+
+            {/* 비밀번호 */}
+            <div className="form__container">
+              <label htmlFor="pw" className="input__title">
+                비밀번호
+              </label>
+              <div className="form__box">
+                <div className="input__box">
+                  <BaseInput
+                    register={register("password", {
+                      required: true,
+                      maxLength: { value: 16, message: "Should not exceed 16" },
+                    })}
+                    id="pw"
+                    type="password"
+                    name="pw"
+                  />
+                </div>
+                <span className="input__error">
+                  {errors.password ? "필수 입력 항목입니다." : ""}
+                </span>
+              </div>
+            </div>
+
+            {/* 비밀번호 확인 */}
+            <div className="form__container">
+              <label htmlFor="repw" className="input__title">
+                비밀번호 확인
+              </label>
+              <div className="form__box">
+                <div className="input__box">
+                  <BaseInput
+                    register={register("rePassword", {
+                      validate: (value) =>
+                        value === userInfo.password ||
+                        "비밀번호가 일치하지 않습니다.",
+                    })}
+                    id="repw"
+                    type="password"
+                    name="repw"
+                  />
+                </div>
+                <span className="input__error">
+                  {userInfo.rePassword !== "" &&
+                  userInfo.rePassword !== userInfo.password
+                    ? "비밀번호가 일치 하지 않습니다."
+                    : ""}
+                </span>
+              </div>
+            </div>
+
+            {/* 별명 */}
+            <div className="form__container">
+              <label htmlFor="nickname" className="input__title">
+                별명
+              </label>
+              <div className="form__wrap">
+                <div className="form__box">
                   <div className="input__box">
                     <BaseInput
-                      register={register("password", {
-                        required: true,
-                        maxLength: {
-                          value: 16,
-                          message: "Should not exceed 16",
-                        },
+                      register={register("nickname", {
+                        maxLength: { value: 8, message: "Should not exceed 8" },
                       })}
-                      id="pw"
-                      type="password"
-                      name="pw"
-                    />
-                  </div>
-                  <span className="input__error">
-                    {errors.password ? "필수 입력 항목입니다." : ""}
-                  </span>
-                </div>
-              </div>
-
-              {/* 이름 */}
-              <div className="form__container">
-                <label htmlFor="name" className="input__title">
-                  이름
-                </label>
-                <div className="form__wrap">
-                  <div className="input__box">
-                    <BaseInput
-                      register={register("name", {
-                        required: true,
-                      })}
-                      id="name"
+                      id="nickname"
                       type="text"
-                      name="name"
+                      name="nickname"
                     />
                   </div>
                   <span className="input__error">
-                    {errors.name ? "필수 입력 항목입니다." : ""}
+                    {errors.nickname ? "필수 입력 항목입니다." : ""}
                   </span>
                 </div>
-              </div>
-
-              {/* 휴대폰 번호 */}
-              <div className="form__container">
-                <label htmlFor="phone" className="input__title">
-                  휴대폰 번호
-                </label>
-                <div className="form__wrap">
-                  <div className="input__box">
-                    <BaseInput
-                      register={register("phone", {})}
-                      id="phone"
-                      type="text"
-                      name="phone"
-                    />
-                  </div>
-                  <span className="input__error">
-                    {errors.phone ? "필수 입력 항목입니다." : ""}
-                  </span>
-                </div>
-              </div>
-
-              <div className="form__container">
-                <label htmlFor="address" className="input__title">
-                  주소
-                </label>
-                <div className="form__wrap">
-                  <div className="input__box">
-                    <BaseInput
-                      id="address"
-                      type="text"
-                      name="address"
-                      value={address.address}
-                      onChange={onChange}
-                    />
-                  </div>
-
-                  <div className="form__btn">
-                    <BaseButton type="button" onClick={onChangeOpenPost}>
-                      주소 찾기
-                    </BaseButton>
-                  </div>
-                  <span className="input__error">
-                    {errors.address ? "필수 입력 항목입니다." : ""}
-                  </span>
-                </div>
-              </div>
-
-              {/* 별명 */}
-              <div className="form__container">
-                <label htmlFor="nickname" className="input__title">
-                  별명
-                </label>
-                <div className="form__wrap">
-                  <div className="form__wrap">
-                    <div className="input__box">
-                      <BaseInput
-                        register={register("nickname", {
-                          maxLength: {
-                            value: 8,
-                            message: "Should not exceed 8",
-                          },
-                        })}
-                        id="nickname"
-                        type="text"
-                        name="nickname"
-                      />
-                    </div>
-                    <div className="form__btn">
-                      <BaseButton type="button" onClick={handleCheckNickName}>
-                        중복 확인
-                      </BaseButton>
-                    </div>
-                    <span className="input__error">
-                      {errors.nickname ? "필수 입력 항목입니다." : ""}
-                    </span>
-                  </div>
+                <div className="form__btn">
+                  <BaseButton type="button" onClick={handleCheckNickName}>
+                    별명 중복 체크
+                  </BaseButton>
                 </div>
               </div>
             </div>
 
-            <div className="form__box">
-              <div className="title__box">
-                <h2 className="title">추가 정보 입력</h2>
-              </div>
-              {/* 아이디 */}
-              <div className="form__container">
-                <label htmlFor="birth" className="input__title">
-                  생년월일
-                </label>
-                <div className="form__wrap">
-                  <div className="input__box">
-                    <BaseInput
-                      id="birth"
-                      type="text"
-                      name="birth"
-                      placeholder="생년월일을 입력해 주세요"
-                    />
-                  </div>
+            {/* 이름 */}
+            <div className="form__container">
+              <label htmlFor="name" className="input__title">
+                이름
+              </label>
+              <div className="form__box">
+                <div className="input__box">
+                  <BaseInput
+                    register={register("name", {
+                      required: true,
+                    })}
+                    id="name"
+                    type="text"
+                    name="name"
+                  />
                 </div>
+                <span className="input__error">
+                  {errors.name ? "필수 입력 항목입니다." : ""}
+                </span>
               </div>
             </div>
-            <div className="btn__wrap">
-              <BaseButton
-                type="submit"
-                className="btn__submit"
-                disabled={!isFormValid}
-              >
-                가입하기
-              </BaseButton>
+
+            {/* 휴대폰 번호 */}
+            <div className="form__container">
+              <label htmlFor="phone" className="input__title">
+                휴대폰 번호
+              </label>
+              <div className="form__box">
+                <div className="input__box">
+                  <BaseInput
+                    register={register("phone", {})}
+                    id="phone"
+                    type="text"
+                    name="phone"
+                  />
+                </div>
+                <span className="input__error">
+                  {errors.phone ? "필수 입력 항목입니다." : ""}
+                </span>
+              </div>
+            </div>
+
+            {/* 가입하기 버튼 */}
+            <BaseButton type="submit" disabled={!isFormValid}>
+              가입하기
+            </BaseButton>
+            <div className="form__container">
+              <label htmlFor="address" className="input__title">
+                주소
+              </label>
+              <div className="form__box">
+                <div className="input__box">
+                  <BaseInput
+                    id="address"
+                    type="text"
+                    name="address"
+                    value={address.address}
+                    onChange={onChange}
+                  />
+                </div>
+                <span className="input__error">
+                  {errors.address ? "필수 입력 항목입니다." : ""}
+                </span>
+              </div>
             </div>
           </form>
         </div>
-
-        {isOpenPost ? (
-          <DaumPostcode
-            style={postCodeStyle}
-            autoClose
-            onComplete={onCompletePost}
-          />
-        ) : null}
       </div>
       {isOpen && (
         <EmailVerificationNum
@@ -441,6 +421,16 @@ export default function JoinForm() {
           handleClickEmail={handleClickEmail}
         />
       )}
-    </>
+
+      <button onClick={onChangeOpenPost}>주소 찾기</button>
+
+      {isOpenPost ? (
+        <DaumPostcode
+          style={postCodeStyle}
+          autoClose
+          onComplete={onCompletePost}
+        />
+      ) : null}
+    </div>
   )
 }

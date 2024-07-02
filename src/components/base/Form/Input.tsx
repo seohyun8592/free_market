@@ -18,7 +18,7 @@ interface Props {
 }
 
 export default function BaseInput({
-  // onChange,
+  onChange,
   type = "text",
   id,
   name,
@@ -35,6 +35,7 @@ export default function BaseInput({
       name={name}
       disabled={disabled}
       value={value}
+      onChange={onChange}
       {...register}
     />
   )

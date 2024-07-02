@@ -1,17 +1,27 @@
 .form {
   &__container {
-    // width: rem(180);
+    @include onFlex(center, center);
     & + .form__container {
-      margin-top: rem(15);
+      margin-top: rem(30);
+    }
+    &.email {
+      position: relative;
+      align-items: flex-start;
+      height: rem(73);
     }
   }
   &__wrap {
-    @include onFlex(flex-start, flex-start);
+    position: relative;
+    @include onFlex(center, flex-start);
+  }
+  &__btn {
+    margin-left: rem(10);
   }
 }
 
 input {
-  height: rem(28);
+  min-width: rem(150);
+  height: rem(32);
   border: rem(1) solid #999999;
   border-radius: rem(4);
   padding: 0 rem(10);
@@ -29,9 +39,9 @@ input {
 .input {
   &__title {
     display: inline-block;
+    width: rem(200);
     font-size: rem(14);
-    font-weight: 700;
-    padding-bottom: rem(3);
+    font-weight: 500;
   }
   &__box {
     & + .input__box {
@@ -42,6 +52,9 @@ input {
     @include onFlex(center, flex-start);
   }
   &__error {
+    position: absolute;
+    left: 0;
+    top: 0;
     display: block;
     font-size: rem(12);
     color: #df3f3f;

@@ -1,0 +1,91 @@
+.login {
+  @include onFlex(center, flex-start);
+  flex-direction: column;
+  padding-top: rem(100);
+  &__desc {
+    font-size: rem(12);
+    margin-top: rem(5);
+  }
+  .title {
+    padding-bottom: rem(40);
+  }
+}
+
+main {
+  @include onFlex(flex-start, center);
+
+  height: calc(100% - 40px);
+  padding-top: rem(60);
+  overflow: auto;
+  .contents {
+    &__wrap {
+      height: 100%;
+      padding-top: rem(100);
+    }
+    &__form {
+      @include onFlex(center, flex-start);
+      flex-direction: column;
+
+      .title {
+        font-size: rem(32);
+        font-weight: 500;
+        &__box {
+          text-align: center;
+
+          & + .contents__box {
+            margin-top: rem(100);
+          }
+        }
+        &__desc {
+          font-size: rem(14);
+        }
+      }
+      .join {
+        &__wrap {
+          width: calc(100% - 540px);
+          min-width: rem(600);
+          .form__wrap {
+            width: 100%;
+            
+          }
+          .form__box {
+            flex-grow: 1;
+            & + .form__box {
+              margin-top: rem(100);
+            }
+          }
+
+          .contents__box {
+            .title {
+              font-size: rem(24);
+              font-weight: 500;
+              text-align: left;
+              &__box {
+                text-align: left;
+                padding-bottom: rem(20);
+                border-bottom: rem(1) solid #222222;
+                & + .form__container {
+                  margin-top: rem(20);
+                }
+              }
+              &__desc {
+                font-size: rem(12);
+                text-align: left;
+              }
+            }
+
+            .input__box {
+              input {
+                width: rem(300);
+              }
+            }
+          }
+          .btn__wrap {
+            margin-top: rem(60);
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}
