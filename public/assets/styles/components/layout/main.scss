@@ -46,50 +46,50 @@ main {
         &__wrap {
           width: calc(100% - 540px);
           min-width: rem(600);
-          .form__wrap {
-            width: 100%;
-          }
-          .form__box {
-            padding-bottom: rem(40);
-            border-bottom: rem(1) solid #ededed;
-            & + .form__box {
-              margin-top: rem(60);
-            }
-          }
-
-          .contents__box {
-            .title {
-              font-size: rem(24);
-              font-weight: 500;
-              text-align: left;
-              &__box {
-                text-align: left;
-                padding-bottom: rem(20);
-                border-bottom: rem(1) solid #aaaaaa;
-                & + .form__container {
-                  margin-top: rem(40);
-                }
-              }
-              &__desc {
-                font-size: rem(12);
-                text-align: left;
-              }
-            }
-
-            .input__box {
-              input {
-                width: rem(300);
-              }
-            }
-          }
-          .btn__wrap {
-            margin-top: rem(60);
-            text-align: center;
-          }
         }
         // &__process {
 
         // }
+      }
+      .form__wrap {
+        width: 100%;
+      }
+      .form__box {
+        padding-bottom: rem(40);
+        border-bottom: rem(1) solid #ededed;
+        & + .form__box {
+          margin-top: rem(60);
+        }
+      }
+
+      .contents__box {
+        .title {
+          font-size: rem(24);
+          font-weight: 500;
+          text-align: left;
+          &__box {
+            text-align: left;
+            padding-bottom: rem(20);
+            border-bottom: rem(1) solid #aaaaaa;
+            & + .form__container {
+              margin-top: rem(40);
+            }
+          }
+          &__desc {
+            font-size: rem(12);
+            text-align: left;
+          }
+        }
+
+        .input__box {
+          input {
+            width: rem(300);
+          }
+        }
+      }
+      .btn__wrap {
+        margin-top: rem(60);
+        text-align: center;
       }
     }
   }
