@@ -3,11 +3,8 @@
 import React, { ChangeEvent } from "react"
 import { UseFormRegisterReturn } from "react-hook-form"
 
-// import BaseButton from "../Button/Button"
-
 interface Props {
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
-  // value: string
   type?: string
   placeholder?: string
   disabled?: boolean

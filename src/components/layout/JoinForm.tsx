@@ -43,6 +43,8 @@ export default function JoinForm() {
     sigungu: "",
     bname2: "",
   }) // 주소
+
+  const [phoneNum, setPhoneNum] = useState("")
   const {
     register,
     handleSubmit,
@@ -70,8 +72,8 @@ export default function JoinForm() {
     userInfo.name,
     userInfo.nickNameCheck,
     userInfo.sendEmail,
-    userInfo.phone,
     address.address,
+    phoneNum,
   ]
 
   const isFormValid = requiredFields.every((field) => field)
@@ -84,7 +86,7 @@ export default function JoinForm() {
         password: data.password,
         name: data.name,
         nickname: data.nickname,
-        phone: data.phone,
+        phone: phoneNum,
         email: data.email,
       },
       addressDTO: {
@@ -185,13 +187,28 @@ export default function JoinForm() {
   }
 
   const onCompletePost = (data: any) => {
-    console.log(data)
     setAddress({
       address: data.address,
       sido: data.sido,
       sigungu: data.sigungu,
       bname2: data.bname2,
     })
+  }
+
+  const handlePhoneChange = (e) => {
+    let { value } = e.target
+    value = value.replace(/[^0-9]/g, "") // 숫자가 아닌 문자는 제거
+    if (value.length < 4) {
+      setPhoneNum(value)
+    } else if (value.length < 7) {
+      setPhoneNum(`${value.slice(0, 3)}-${value.slice(3)}`)
+    } else if (value.length < 11) {
+      setPhoneNum(`${value.slice(0, 3)}-${value.slice(3, 6)}-${value.slice(6)}`)
+    } else {
+      setPhoneNum(
+        `${value.slice(0, 3)}-${value.slice(3, 7)}-${value.slice(7, 11)}`,
+      )
+    }
   }
 
   const postCodeStyle = {
@@ -351,16 +368,15 @@ export default function JoinForm() {
                 <div className="form__wrap">
                   <div className="input__box">
                     <BaseInput
-                      register={register("phone", {})}
+                      //   register={register("phone", {})}
                       id="phone"
                       type="text"
                       name="phone"
+                      value={phoneNum}
+                      onChange={handlePhoneChange}
                       placeholder="휴대폰 번호를 입력해 주세요."
                     />
                   </div>
-                  <span className="input__error">
-                    {errors.phone ? "필수 입력 항목입니다." : ""}
-                  </span>
                 </div>
               </div>
 
