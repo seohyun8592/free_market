@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form"
 import BaseButton from "@/components/base/Button/Button"
 import BaseInput from "@/components/base/Form/Input"
 import useLogin from "@/hooks/useLogin"
-import { error } from "console"
 
 interface HookFormTypes {
   memberId: string
@@ -17,12 +16,12 @@ export default function LoginForm() {
   const {
     register,
     handleSubmit,
-    watch,
+    // watch,
     reset,
     formState: { errors },
   } = useForm<HookFormTypes>()
-  const idCheck = watch("memberId")
-  const regex = /^[a-z0-9]{7,11}$/
+  // const idCheck = watch("memberId")
+  // const regex = /^[a-z0-9]{7,11}$/
 
   const onValid = async (data: HookFormTypes) => {
     useWebLogin.mutate(data, {
