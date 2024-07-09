@@ -23,8 +23,6 @@ export default function SocialInfoModal({
   isFormValid,
   value,
 }: PropTypes) {
-  console.log(value)
-
   return (
     <div className="pop__container">
       <div className="pop__wrap">
@@ -32,8 +30,8 @@ export default function SocialInfoModal({
           <div className="contents__box">
             <form onSubmit={handleSubmit(onValid)}>
               <div className="form__box">
-                {/* 아이디 */}
-                <div className="form__containe">
+                {/* 이메일 */}
+                <div className="form__container">
                   <BaseInput
                     id="email"
                     type="text"
@@ -43,9 +41,6 @@ export default function SocialInfoModal({
                     value={value}
                   />
                 </div>
-                {/* <span className="input__error">
-                  {errors.memberId ? errors.memberId.message : ""}
-                </span> */}
 
                 {/* 별명 */}
                 <div className="form__container form__group">
@@ -71,17 +66,10 @@ export default function SocialInfoModal({
                       별명 중복확인
                     </BaseButton>
                   </div>
-                  {/* <span className="input__error">
-                    {errors.nickname ? errors.nickname.message : ""}
-                  </span> */}
                 </div>
               </div>
 
-              <BaseButton
-                type="submit"
-                className="btn__submit"
-                disabled={!isFormValid}
-              >
+              <BaseButton type="submit" disabled={!isFormValid}>
                 가입하기
               </BaseButton>
             </form>

@@ -119,7 +119,6 @@ export default function JoinForm() {
     useNickNameCheck.mutate(data, {
       onSuccess: (response) => {
         const code = response.statusCode
-        console.log(response)
         if (code === "200") {
           setNickNameCheck(true)
           alert("사용 가능한 닉네임 입니다.")

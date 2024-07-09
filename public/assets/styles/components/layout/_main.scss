@@ -55,15 +55,6 @@ main {
           }
         }
       }
-      .join {
-        &__wrap {
-          width: rem(360);
-          .contents__box {
-            border-top: 1px dotted #000000;
-            padding-bottom: rem(160);
-          }
-        }
-      }
 
       .contents__box {
         margin-top: rem(40);
@@ -119,6 +110,15 @@ main {
     }
   }
 
+  .join {
+    &__wrap {
+      width: rem(360);
+      .contents__box {
+        border-top: 1px dotted #000000;
+        padding-bottom: rem(160);
+      }
+    }
+  }
   .social__wrap {
     width: rem(360);
     margin-top: rem(48);
