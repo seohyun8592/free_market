@@ -24,13 +24,19 @@ export default function BaseButton({
     }
   }
   return (
-    <button
-      className={classNames(className, BUTTON_THEME[theme], BUTTON_SIZE[size])}
-      onClick={handleClick}
-      disabled={disabled}
-      type={type}
-    >
-      {children}
-    </button>
+    <div className="btn__wrap">
+      <button
+        className={classNames(
+          className,
+          BUTTON_THEME[theme],
+          BUTTON_SIZE[size],
+        )}
+        onClick={handleClick}
+        disabled={disabled}
+        type={type}
+      >
+        {children}
+      </button>
+    </div>
   )
 }

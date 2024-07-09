@@ -12,6 +12,7 @@ interface Props {
   name?: string
   register?: UseFormRegisterReturn
   value?: string
+  label?: string
 }
 
 export default function BaseInput({
@@ -23,17 +24,27 @@ export default function BaseInput({
   disabled,
   register,
   value,
+  label,
 }: Props) {
   return (
-    <input
-      placeholder={placeholder}
-      type={type}
-      id={id}
-      name={name}
-      disabled={disabled}
-      value={value}
-      onChange={onChange}
-      {...register}
-    />
+    <div className="form__wrap">
+      {label && (
+        <label htmlFor={id} className="input__title">
+          {label}
+        </label>
+      )}
+      <div className="input__box">
+        <input
+          placeholder={placeholder}
+          type={type}
+          id={id}
+          name={name}
+          disabled={disabled}
+          value={value}
+          onChange={onChange}
+          {...register}
+        />
+      </div>
+    </div>
   )
 }

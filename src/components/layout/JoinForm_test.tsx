@@ -245,7 +245,7 @@ export default function JoinForm() {
                 </div>
                 <div className="form__btn">
                   <BaseButton type="button" onClick={handleCheckId}>
-                    중복 확인
+                    아이디 중복확인
                   </BaseButton>
                 </div>
                 <span className="input__error">

@@ -1,30 +1,50 @@
 .form {
   &__container {
-    @include onFlex(center, center);
+    @include onFlex(flex-end, flex-start);
     & + .form__container {
-      margin-top: rem(30);
+      margin-top: rem(24);
     }
     &.email {
       position: relative;
-      align-items: flex-start;
+      display: block;
       height: rem(73);
+      input {
+        display: none;
+      }
+      .form__btn {
+        width: rem(360);
+        margin-left: 0;
+      }
+    }
+  }
+  &__group {
+    input {
+      width: rem(240);
+    }
+    button {
+      width: rem(112);
     }
   }
   &__wrap {
     position: relative;
-    @include onFlex(center, flex-start);
+    & + .form__btn {
+      margin-left: rem(8);
+    }
   }
-  &__btn {
-    margin-left: rem(10);
+  &__box {
+    & + .btn__wrap {
+      margin-top: rem(48);
+    }
   }
 }
 
 input {
   min-width: rem(150);
-  height: rem(32);
-  border: rem(1) solid #c9c9c9;
-  border-radius: rem(4);
-  padding: 0 rem(10);
+  width: rem(360);
+  height: rem(40);
+  border: rem(1) solid #e5e5e5;
+  border-radius: rem(8);
+  padding: 0 rem(16);
 
   &[type="text"] {
     &::placeholder {
@@ -41,8 +61,11 @@ input {
     display: inline-block;
     width: rem(200);
     font-size: rem(14);
-    font-weight: 500;
-    color: #4f4f4f;
+    font-weight: 700;
+    color: #000000;
+    & + .input__box {
+      margin-top: rem(8);
+    }
   }
   &__box {
     & + .input__box {

@@ -1,14 +1,19 @@
 .btn {
   min-width: rem(80);
-  height: rem(32);
-  border-radius: rem(4);
+  width: 100%;
+  height: rem(40);
+  font-size: rem(14);
+  font-weight: 700;
+  border-radius: rem(8);
+  padding: 0 rem(12);
+  letter-spacing: rem(-0.1);
   &:disabled {
     background-color: #a2a2a2;
     cursor: not-allowed;
   }
   &__primary {
     color: #ffffff;
-    background-color: rgb(120, 120, 254);
+    background-color: #0d99ff;
   }
   &__small {
   }
@@ -17,13 +22,10 @@
     border: rem(1) solid #666666;
   }
   &__submit {
+    width: rem(360);
+    height: rem(56);
   }
-  &__email {
-    position: absolute;
-    top: rem(41);
-    width: rem(300);
-    background-color: #ccbceb;
-  }
+
   & + .btn {
     margin-left: rem(10);
   }

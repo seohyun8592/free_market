@@ -27,42 +27,81 @@ main {
       flex-direction: column;
 
       .title {
-        font-size: rem(32);
-        font-weight: 500;
-        color: #4f4f4f;
+        font-size: rem(28);
+        font-weight: 700;
+        color: #000000;
         &__box {
           text-align: center;
 
           & + .contents__box {
-            margin-top: rem(100);
+            border-top: rem(1) dotted #000000;
+            margin-top: rem(40);
+          }
+          & + .title__box {
+            margin-top: rem(48);
           }
         }
         &__desc {
           font-size: rem(14);
-          color: #6d6886;
+          font-weight: 400;
+          color: #000000;
+          margin-top: rem(8);
+        }
+        &__sub {
+          .title {
+            font-size: rem(16);
+          }
+          .title__desc {
+            margin-top: rem(4);
+            opacity: 50%;
+          }
         }
       }
       .join {
         &__wrap {
-          width: calc(100% - 540px);
-          min-width: rem(600);
+          width: rem(360);
         }
-        // &__process {
-
-        // }
-      }
-      .form__wrap {
-        width: 100%;
-      }
-      .form__box {
-        padding-bottom: rem(40);
-        border-bottom: rem(1) solid #ededed;
-        & + .form__box {
-          margin-top: rem(60);
+        &__social {
+          margin-top: rem(24);
+          .list {
+            &__item {
+              @include onFlex(center, center);
+              li {
+                width: rem(60);
+                height: rem(60);
+                border-radius: 100%;
+                background-repeat: no-repeat;
+                background-position: 0 0;
+                background-size: 100% 100%;
+                & + li {
+                  margin-left: rem(20);
+                }
+                a {
+                  display: block;
+                  width: 100%;
+                  height: 100%;
+                  text-indent: -9999;
+                }
+              }
+            }
+            &__naver {
+              background-image: url("../../../images/social_naver.png");
+            }
+            &__kakao {
+              background-image: url("../../../images/social_kakao.png");
+            }
+            &__google {
+              background-image: url("../../../images/social_google.png");
+            }
+          }
         }
       }
 
       .contents__box {
+        border-top: 1px dotted #000000;
+        margin-top: rem(40);
+        padding: rem(48) 0 rem(160);
+
         .title {
           font-size: rem(24);
           font-weight: 500;
@@ -80,16 +119,6 @@ main {
             text-align: left;
           }
         }
-
-        .input__box {
-          input {
-            width: rem(300);
-          }
-        }
-      }
-      .btn__wrap {
-        margin-top: rem(60);
-        text-align: center;
       }
     }
   }
