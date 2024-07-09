@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { CSSProperties, useState } from "react"
 import DaumPostcode from "react-daum-postcode"
 import { useForm } from "react-hook-form"
 
@@ -255,9 +255,9 @@ export default function JoinForm() {
   //   }
   // }
 
-  const postCodeStyle = {
+  const postCodeStyle: CSSProperties = {
     display: "block",
-    // Position: "absolute",
+    position: "absolute",
     top: "50%",
     left: "50%",
     width: "360px",
