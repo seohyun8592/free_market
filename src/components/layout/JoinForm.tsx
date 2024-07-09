@@ -5,13 +5,14 @@ import DaumPostcode from "react-daum-postcode"
 import { useForm } from "react-hook-form"
 
 import BaseInput from "@/components/base/Form/Input"
+import EmailVerificationNum from "@/components/modal/EmailVerificationNum"
+import SocialInfoModal from "@/components/modal/SocialInfoModal"
 import useSignUp from "@/hooks/useSignup"
 import { useRouter } from "next/navigation"
 
 import BaseButton from "../base/Button/Button"
-import EmailVerificationNum from "../modal/EmailVerificationNum"
 
-interface HookFormTypes {
+export interface HookFormTypes {
   memberId: string
   password: string
   rePassword: string
@@ -39,6 +40,7 @@ export default function JoinForm() {
   const [isOpenPost, setIsOpenPost] = useState(false)
   const [nickNameCheck, setNickNameCheck] = useState(false)
   const [idCheck, setIdCheck] = useState(false)
+  const [isAddInfo, setIsAddInfo] = useState(false)
   const [address, setAddress] = useState({
     address: "",
     sido: "",
@@ -47,6 +49,7 @@ export default function JoinForm() {
   }) // 주소
 
   const [phoneNum, setPhoneNum] = useState("")
+  const [email, setEmail] = useState("")
   const {
     register,
     handleSubmit,
@@ -56,7 +59,7 @@ export default function JoinForm() {
 
   const regexId = /^[a-z0-9]{7,11}$/ // id 유효성 검사
   const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ // 이메일 유효성 검사
-  const phonNumLeng = phoneNum.replace(/[^0-9]/g, "").length
+  const phoneNumLeng = phoneNum.replace(/[^0-9]/g, "").length
 
   const userInfo = {
     password: watch("password"),
@@ -74,7 +77,7 @@ export default function JoinForm() {
     userInfo.name,
     userInfo.sendEmail,
     address.address,
-    phonNumLeng > 9,
+    phoneNumLeng > 9,
     nickNameCheck,
     idCheck,
     userInfo.rePassword !== "" && userInfo.rePassword === userInfo.password,
@@ -179,6 +182,7 @@ export default function JoinForm() {
 
   const handleClose = () => {
     setIsOpen(false)
+    setIsAddInfo(false)
   }
 
   const handleEmailPop = () => {
@@ -220,7 +224,20 @@ export default function JoinForm() {
 
   const handleSocialSingUp = (type: string) => {
     const externalLink = `https://freeapi.devsj.site/oauth2/authorization/${type}`
-    window.open(externalLink, "externalPopup", "width=600,height=600")
+    const popup = window.open(
+      externalLink,
+      "externalPopup",
+      "width=600,height=600",
+    )
+
+    const interval = setInterval(() => {
+      if (popup.closed) {
+        clearInterval(interval)
+        setEmail(watch("email"))
+
+        setIsAddInfo(true)
+      }
+    }, 1000)
 
     // switch (type) {
     //   case "naver":
@@ -413,9 +430,14 @@ export default function JoinForm() {
                   placeholder="휴대폰 번호를 입력해 주세요."
                   label="휴대폰 번호"
                 />
-                <span className="input__error">
-                  {phonNumLeng < 10 ? "휴대폰 번호를 정확히 입력해 주세요" : ""}
-                </span>
+                {phoneNum === "" ||
+                  (phoneNumLeng < 10 && (
+                    <span className="input__error">
+                      {phoneNum !== "" && phoneNumLeng < 10
+                        ? "휴대폰 번호를 정확히 입력해 주세요"
+                        : ""}
+                    </span>
+                  ))}
               </div>
               <div className="form__container form__group">
                 <BaseInput
@@ -505,6 +527,17 @@ export default function JoinForm() {
           errors={errors}
           onClick={handleClose}
           handleClickEmail={handleClickEmail}
+        />
+      )}
+      {isAddInfo && (
+        <SocialInfoModal
+          handleSubmit={handleSubmit}
+          handleCheckNickName={handleCheckNickName}
+          onValid={onValid}
+          register={register}
+          isFormValid={isFormValid}
+          value={email}
+          onClick={handleClose}
         />
       )}
     </>

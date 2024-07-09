@@ -17,13 +17,14 @@ export default function LoginForm() {
   const {
     register,
     handleSubmit,
-    // watch,
     reset,
     formState: { errors },
   } = useForm<HookFormTypes>()
-  // const idCheck = watch("memberId")
-  // const regex = /^[a-z0-9]{7,11}$/
 
+  const handleSocialSingUp = (type: string) => {
+    const externalLink = `https://freeapi.devsj.site/oauth2/authorization/${type}`
+    window.open(externalLink, "externalPopup", "width=600,height=600")
+  }
   const onValid = async (data: HookFormTypes) => {
     useWebLogin.mutate(data, {
       onSuccess: (response) => {
@@ -103,7 +104,7 @@ export default function LoginForm() {
               <Link href="/signup">회원가입</Link>
             </li>
           </ul>
-          <BaseButton type="submit" className="btn__submit">
+          <BaseButton type="submit" className="btn__submit btn__primary">
             로그인
           </BaseButton>
         </form>
@@ -116,13 +117,13 @@ export default function LoginForm() {
         </div>
         <ul className="list__item">
           <li className="list__naver">
-            <a href="#none">네이버</a>
+            <BaseButton onClick={() => handleSocialSingUp("naver")} />
           </li>
           <li className="list__kakao">
-            <a href="#none">카카오</a>
+            <BaseButton onClick={() => handleSocialSingUp("kakao")} />
           </li>
           <li className="list__google">
-            <a href="#none">구글</a>
+            <BaseButton onClick={() => handleSocialSingUp("google")} />
           </li>
         </ul>
       </div>
