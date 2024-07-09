@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form"
 
 import BaseInput from "@/components/base/Form/Input"
 import EmailVerificationNum from "@/components/modal/EmailVerificationNum"
-import SocialInfoModal from "@/components/modal/SocialInfoModal"
 import useSignUp from "@/hooks/useSignup"
 import { useRouter } from "next/navigation"
 
@@ -286,219 +285,276 @@ export default function JoinForm() {
     <>
       <div className="join__wrap">
         <div className="title__box">
-          <h2 className="title">나플나플 회원가입</h2>
-          <p className="title__desc">나누는 플레이스, 나누면 플러스</p>
+          <h2 className="title">
+            {isAddInfo ? "회원 추가정보 입력" : "나플나플 회원가입"}
+          </h2>
+          {!isAddInfo && (
+            <p className="title__desc">나누는 플레이스, 나누면 플러스</p>
+          )}
         </div>
-        <div className="social__wrap">
-          <div className="title__box title__sub">
-            <h2 className="title">SNS 간편 가입</h2>
-            <p className="title__desc">
-              SNS 계정으로 간편하게 가입할 수 있어요
-            </p>
-          </div>
-          <ul className="list__item">
-            <li className="list__naver">
-              <BaseButton onClick={() => handleSocialSingUp("naver")} />
-            </li>
-            <li className="list__kakao">
-              <BaseButton onClick={() => handleSocialSingUp("kakao")} />
-            </li>
-            <li className="list__google">
-              <BaseButton onClick={() => handleSocialSingUp("google")} />
-            </li>
-          </ul>
-        </div>
-        <div className="contents__box">
-          <form onSubmit={handleSubmit(onValid)}>
-            <div className="form__box">
-              {/* 아이디 */}
-              <div className="form__container form__group">
-                <BaseInput
-                  register={register("memberId", {
-                    required: true,
-                    maxLength: {
-                      value: 11,
-                      message: "7~11자리로 입력해주세요.",
-                    },
-                    validate: () =>
-                      regexId.test(userInfo.idCheck) ||
-                      "영문과 숫자를 조합해 7~11자리로 입력해주세요.",
-                  })}
-                  id="id"
-                  type="text"
-                  name="id"
-                  placeholder="영문 숫자 조합 7~11자리"
-                  label="아이디"
-                />
-
-                <div className="form__btn">
-                  <BaseButton
-                    type="button"
-                    className="btn__primary"
-                    onClick={handleCheckId}
-                  >
-                    아이디 중복확인
-                  </BaseButton>
-                </div>
-                <span className="input__error">
-                  {errors.memberId ? errors.memberId.message : ""}
-                </span>
-              </div>
-
-              {/* 이메일 인증하기 */}
-              <div className="form__container email">
-                <BaseInput label="인증하기" />
-
-                <div className="form__btn">
-                  <BaseButton
-                    className="btn__email btn__primary"
-                    type="button"
-                    onClick={handleEmailPop}
-                    disabled={isSendSuccess}
-                  >
-                    이메일 인증하기
-                  </BaseButton>
-                </div>
-                <span className="input__error">
-                  {errors.memberId ? errors.memberId.message : ""}
-                </span>
-              </div>
-
-              {/* 비밀번호 */}
-              <div className="form__container">
-                <BaseInput
-                  register={register("password", {
-                    required: true,
-                    maxLength: {
-                      value: 16,
-                      message: "Should not exceed 16",
-                    },
-                  })}
-                  id="pw"
-                  type="password"
-                  name="pw"
-                  placeholder="비밀번호를 입력해 주세요."
-                  label="비밀번호"
-                />
-              </div>
-
-              {/* 비밀번호 확인 */}
-              <div className="form__container">
-                <BaseInput
-                  register={register("rePassword", {
-                    validate: (value) =>
-                      value === userInfo.password ||
-                      "비밀번호가 일치하지 않습니다.",
-                  })}
-                  id="repw"
-                  type="password"
-                  name="repw"
-                  placeholder="비밀번호를 한번 더 입력해 주세요."
-                  label="비밀번호 확인"
-                />
-                <span className="input__error">
-                  {userInfo.rePassword !== "" &&
-                  userInfo.rePassword !== userInfo.password
-                    ? "비밀번호가 일치 하지 않습니다."
-                    : ""}
-                </span>
-              </div>
-
-              {/* 이름 */}
-              <div className="form__container">
-                <BaseInput
-                  register={register("name", {
-                    required: true,
-                  })}
-                  id="name"
-                  type="text"
-                  name="name"
-                  placeholder="이름을 입력해 주세요."
-                  label="이름"
-                />
-              </div>
-
-              {/* 휴대폰 번호 */}
-              <div className="form__container">
-                <BaseInput
-                  id="phone"
-                  type="text"
-                  name="phone"
-                  value={phoneNum}
-                  onChange={handlePhoneChange}
-                  placeholder="휴대폰 번호를 입력해 주세요."
-                  label="휴대폰 번호"
-                />
-                {phoneNum === "" ||
-                  (phoneNumLeng < 10 && (
-                    <span className="input__error">
-                      {phoneNum !== "" && phoneNumLeng < 10
-                        ? "휴대폰 번호를 정확히 입력해 주세요"
-                        : ""}
-                    </span>
-                  ))}
-              </div>
-              <div className="form__container form__group">
-                <BaseInput
-                  id="address"
-                  type="text"
-                  name="address"
-                  value={address.address}
-                  onChange={onChangeAdress}
-                  placeholder="주소를 입력해 주세요."
-                  label="주소"
-                />
-
-                <div className="form__btn">
-                  <BaseButton
-                    type="button"
-                    className="btn__primary"
-                    onClick={onChangeOpenPost}
-                  >
-                    주소 찾기
-                  </BaseButton>
-                </div>
-              </div>
-
-              {/* 별명 */}
-              <div className="form__container form__group">
-                <BaseInput
-                  register={register("nickname", {
-                    maxLength: {
-                      value: 8,
-                      message: "Should not exceed 8",
-                    },
-                  })}
-                  id="nickname"
-                  type="text"
-                  name="nickname"
-                  placeholder="사용하실 별명을 입력해 주세요."
-                  label="별명"
-                />
-                <div className="form__btn">
-                  <BaseButton
-                    type="button"
-                    className="btn__primary"
-                    onClick={handleCheckNickName}
-                  >
-                    별명 중복확인
-                  </BaseButton>
-                </div>
-                <span className="input__error">
-                  {errors.nickname ? errors.nickname.message : ""}
-                </span>
-              </div>
+        {!isAddInfo && (
+          <div className="social__wrap">
+            <div className="title__box title__sub">
+              <h2 className="title">SNS 간편 가입</h2>
+              <p className="title__desc">
+                SNS 계정으로 간편하게 가입할 수 있어요
+              </p>
             </div>
+            <ul className="list__item">
+              <li className="list__naver">
+                <BaseButton onClick={() => handleSocialSingUp("naver")} />
+              </li>
+              <li className="list__kakao">
+                <BaseButton onClick={() => handleSocialSingUp("kakao")} />
+              </li>
+              <li className="list__google">
+                <BaseButton onClick={() => handleSocialSingUp("google")} />
+              </li>
+            </ul>
+          </div>
+        )}
 
-            <BaseButton
-              type="submit"
-              className="btn__submit"
-              disabled={!isFormValid}
-            >
-              가입하기
-            </BaseButton>
-          </form>
-        </div>
+        {isAddInfo ? (
+          <div className="contents__box">
+            <form onSubmit={handleSubmit(onValid)}>
+              <div className="form__box">
+                {/* 이메일 */}
+                <div className="form__container">
+                  <BaseInput
+                    id="email"
+                    type="text"
+                    name="email"
+                    disabled
+                    label="이메일"
+                    value={email}
+                  />
+                </div>
+
+                {/* 별명 */}
+                <div className="form__container form__group">
+                  <BaseInput
+                    register={register("nickname", {
+                      maxLength: {
+                        value: 8,
+                        message: "Should not exceed 8",
+                      },
+                    })}
+                    id="nickname"
+                    type="text"
+                    name="nickname"
+                    placeholder="사용하실 별명을 입력해 주세요."
+                    label="별명"
+                  />
+                  <div className="form__btn">
+                    <BaseButton
+                      type="button"
+                      className="btn__primary"
+                      onClick={handleCheckNickName}
+                    >
+                      별명 중복확인
+                    </BaseButton>
+                  </div>
+                </div>
+              </div>
+
+              <BaseButton type="submit" disabled={!isFormValid}>
+                가입하기
+              </BaseButton>
+            </form>
+          </div>
+        ) : (
+          <div className="contents__box">
+            <form onSubmit={handleSubmit(onValid)}>
+              <div className="form__box">
+                {/* 아이디 */}
+                <div className="form__container form__group">
+                  <BaseInput
+                    register={register("memberId", {
+                      required: true,
+                      maxLength: {
+                        value: 11,
+                        message: "7~11자리로 입력해주세요.",
+                      },
+                      validate: () =>
+                        regexId.test(userInfo.idCheck) ||
+                        "영문과 숫자를 조합해 7~11자리로 입력해주세요.",
+                    })}
+                    id="id"
+                    type="text"
+                    name="id"
+                    placeholder="영문 숫자 조합 7~11자리"
+                    label="아이디"
+                  />
+
+                  <div className="form__btn">
+                    <BaseButton
+                      type="button"
+                      className="btn__primary"
+                      onClick={handleCheckId}
+                    >
+                      아이디 중복확인
+                    </BaseButton>
+                  </div>
+                  <span className="input__error">
+                    {errors.memberId ? errors.memberId.message : ""}
+                  </span>
+                </div>
+
+                {/* 이메일 인증하기 */}
+                <div className="form__container email">
+                  <BaseInput label="인증하기" />
+
+                  <div className="form__btn">
+                    <BaseButton
+                      className="btn__email btn__primary"
+                      type="button"
+                      onClick={handleEmailPop}
+                      disabled={isSendSuccess}
+                    >
+                      이메일 인증하기
+                    </BaseButton>
+                  </div>
+                  <span className="input__error">
+                    {errors.memberId ? errors.memberId.message : ""}
+                  </span>
+                </div>
+
+                {/* 비밀번호 */}
+                <div className="form__container">
+                  <BaseInput
+                    register={register("password", {
+                      required: true,
+                      maxLength: {
+                        value: 16,
+                        message: "Should not exceed 16",
+                      },
+                    })}
+                    id="pw"
+                    type="password"
+                    name="pw"
+                    placeholder="비밀번호를 입력해 주세요."
+                    label="비밀번호"
+                  />
+                </div>
+
+                {/* 비밀번호 확인 */}
+                <div className="form__container">
+                  <BaseInput
+                    register={register("rePassword", {
+                      validate: (value) =>
+                        value === userInfo.password ||
+                        "비밀번호가 일치하지 않습니다.",
+                    })}
+                    id="repw"
+                    type="password"
+                    name="repw"
+                    placeholder="비밀번호를 한번 더 입력해 주세요."
+                    label="비밀번호 확인"
+                  />
+                  <span className="input__error">
+                    {userInfo.rePassword !== "" &&
+                    userInfo.rePassword !== userInfo.password
+                      ? "비밀번호가 일치 하지 않습니다."
+                      : ""}
+                  </span>
+                </div>
+
+                {/* 이름 */}
+                <div className="form__container">
+                  <BaseInput
+                    register={register("name", {
+                      required: true,
+                    })}
+                    id="name"
+                    type="text"
+                    name="name"
+                    placeholder="이름을 입력해 주세요."
+                    label="이름"
+                  />
+                </div>
+
+                {/* 휴대폰 번호 */}
+                <div className="form__container">
+                  <BaseInput
+                    id="phone"
+                    type="text"
+                    name="phone"
+                    value={phoneNum}
+                    onChange={handlePhoneChange}
+                    placeholder="휴대폰 번호를 입력해 주세요."
+                    label="휴대폰 번호"
+                  />
+                  {phoneNum === "" ||
+                    (phoneNumLeng < 10 && (
+                      <span className="input__error">
+                        {phoneNum !== "" && phoneNumLeng < 10
+                          ? "휴대폰 번호를 정확히 입력해 주세요"
+                          : ""}
+                      </span>
+                    ))}
+                </div>
+                <div className="form__container form__group">
+                  <BaseInput
+                    id="address"
+                    type="text"
+                    name="address"
+                    value={address.address}
+                    onChange={onChangeAdress}
+                    placeholder="주소를 입력해 주세요."
+                    label="주소"
+                  />
+
+                  <div className="form__btn">
+                    <BaseButton
+                      type="button"
+                      className="btn__primary"
+                      onClick={onChangeOpenPost}
+                    >
+                      주소 찾기
+                    </BaseButton>
+                  </div>
+                </div>
+
+                {/* 별명 */}
+                <div className="form__container form__group">
+                  <BaseInput
+                    register={register("nickname", {
+                      maxLength: {
+                        value: 8,
+                        message: "Should not exceed 8",
+                      },
+                    })}
+                    id="nickname"
+                    type="text"
+                    name="nickname"
+                    placeholder="사용하실 별명을 입력해 주세요."
+                    label="별명"
+                  />
+                  <div className="form__btn">
+                    <BaseButton
+                      type="button"
+                      className="btn__primary"
+                      onClick={handleCheckNickName}
+                    >
+                      별명 중복확인
+                    </BaseButton>
+                  </div>
+                  <span className="input__error">
+                    {errors.nickname ? errors.nickname.message : ""}
+                  </span>
+                </div>
+              </div>
+
+              <BaseButton
+                type="submit"
+                className="btn__submit"
+                disabled={!isFormValid}
+              >
+                가입하기
+              </BaseButton>
+            </form>
+          </div>
+        )}
 
         {isOpenPost ? (
           <div className="pop__container">
@@ -528,7 +584,7 @@ export default function JoinForm() {
           handleClickEmail={handleClickEmail}
         />
       )}
-      {isAddInfo && (
+      {/* {isAddInfo && (
         <SocialInfoModal
           handleSubmit={handleSubmit}
           handleCheckNickName={handleCheckNickName}
@@ -538,7 +594,7 @@ export default function JoinForm() {
           value={email}
           onClick={handleClose}
         />
-      )}
+      )} */}
     </>
   )
 }
