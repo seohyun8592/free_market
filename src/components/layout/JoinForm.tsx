@@ -218,33 +218,26 @@ export default function JoinForm() {
     }
   }
 
-  // const handleSocialSingUp = (type: string) => {
-  //   const externalLink = `https://freeapi.devsj.site/oauth2/authorization/${type}`
-  //   const popup = window.open(
-  //     externalLink,
-  //     "externalPopup",
-  //     "width=600,height=600",
-  //   )
+  const handleSocialSingUp = (type: string) => {
+    const externalLink = `https://freeapi.devsj.site/oauth2/authorization/${type}`
+    window.open(externalLink, "externalPopup", "width=600,height=600")
 
-  //   switch (type) {
-  //     case "naver":
-  //       const interval = setInterval(() => {
-  //         if (popup.closed) {
-  //           clearInterval(interval)
-  //           window.location.origin
-  //         }
-  //       }, 1000)
-  //       break
+    // switch (type) {
+    //   case "naver":
+    //     // window.open(externalLink, "width=600,height=400")
+    //     break
 
-  //     // case "kakao":
-  //     //   window.open(externalLink, "width=600,height=400")
-  //     //   break
-  //     // case "google":
-  //     //   window.open(externalLink, "width=600,height=400")
-  //     //   console.log(window)
-  //     //   break
-  //   }
-  // }
+    //   case "kakao":
+    //     // window.open(externalLink, "width=600,height=400")
+    //     break
+    //   case "google":
+    //     // window.open(externalLink, "width=600,height=400")
+    //     break
+    //   default: {
+    //     break
+    //   }
+    // }
+  }
 
   // const getCookie = (name: string) => {
   //   const value = `; ${document.cookie}`
@@ -289,16 +282,13 @@ export default function JoinForm() {
           </div>
           <ul className="list__item">
             <li className="list__naver">
-              <BaseButton />
-              {/* <BaseButton onClick={() => handleSocialSingUp("naver")} /> */}
+              <BaseButton onClick={() => handleSocialSingUp("naver")} />
             </li>
             <li className="list__kakao">
-              <BaseButton />
-              {/* <BaseButton onClick={() => handleSocialSingUp("kakao")} /> */}
+              <BaseButton onClick={() => handleSocialSingUp("kakao")} />
             </li>
             <li className="list__google">
-              <BaseButton />
-              {/* <BaseButton onClick={() => handleSocialSingUp("google")} /> */}
+              <BaseButton onClick={() => handleSocialSingUp("google")} />
             </li>
           </ul>
         </div>
