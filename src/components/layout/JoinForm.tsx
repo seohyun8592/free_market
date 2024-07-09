@@ -227,13 +227,13 @@ export default function JoinForm() {
           <h2 className="title">나플나플 회원가입</h2>
           <p className="title__desc">나누는 플레이스, 나누면 플러스</p>
         </div>
-        <div className="title__box title__sub">
-          <h2 className="title">SNS 간편 가입</h2>
-          <p className="title__desc">
-          SNS 계정으로 간편하게 가입할 수 있어요
-          </p>
-        </div>
-        <div className="join__social">
+        <div className="social__wrap">
+          <div className="title__box title__sub">
+            <h2 className="title">SNS 간편 가입</h2>
+            <p className="title__desc">
+              SNS 계정으로 간편하게 가입할 수 있어요
+            </p>
+          </div>
           <ul className="list__item">
             <li className="list__naver">
               <a href="#none">네이버</a>
