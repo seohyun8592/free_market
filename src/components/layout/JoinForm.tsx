@@ -37,6 +37,8 @@ export default function JoinForm() {
   const [isVerificationNum, setIsVerificationNum] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenPost, setIsOpenPost] = useState(false)
+  const [nickNameCheck, setNickNameCheck] = useState(false)
+  const [idCheck, setIdCheck] = useState(false)
   const [address, setAddress] = useState({
     address: "",
     sido: "",
@@ -54,6 +56,7 @@ export default function JoinForm() {
 
   const regexId = /^[a-z0-9]{7,11}$/ // id 유효성 검사
   const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ // 이메일 유효성 검사
+  const phonNumLeng = phoneNum.replace(/[^0-9]/g, "").length
 
   const userInfo = {
     password: watch("password"),
@@ -67,13 +70,14 @@ export default function JoinForm() {
   }
 
   const requiredFields = [
-    userInfo.idCheck,
     userInfo.password,
     userInfo.name,
-    userInfo.nickNameCheck,
     userInfo.sendEmail,
     address.address,
-    phoneNum,
+    phonNumLeng > 9,
+    nickNameCheck,
+    idCheck,
+    userInfo.rePassword !== "" && userInfo.rePassword === userInfo.password,
   ]
 
   const isFormValid = requiredFields.every((field) => field)
@@ -112,10 +116,12 @@ export default function JoinForm() {
     useNickNameCheck.mutate(data, {
       onSuccess: (response) => {
         const code = response.statusCode
+        console.log(response)
         if (code === "200") {
+          setNickNameCheck(true)
           alert("사용 가능한 닉네임 입니다.")
         } else {
-          alert(response.data.nickname)
+          alert(response.message)
         }
       },
     })
@@ -131,6 +137,7 @@ export default function JoinForm() {
         const code = response.statusCode
 
         if (code === "200") {
+          setIdCheck(true)
           alert("사용 가능한 아이디 입니다.")
         } else {
           alert(response.data.memberId)
@@ -179,10 +186,10 @@ export default function JoinForm() {
   }
 
   const onChangeOpenPost = () => {
-    setIsOpenPost(!isOpenPost)
+    setIsOpenPost(true)
   }
 
-  const onChange = (e) => {
+  const onChangeAdress = (e) => {
     setAddress((prev) => ({ ...prev, address: e.target.value }))
   }
 
@@ -211,13 +218,59 @@ export default function JoinForm() {
     }
   }
 
+  // const handleSocialSingUp = (type: string) => {
+  //   const externalLink = `https://freeapi.devsj.site/oauth2/authorization/${type}`
+  //   const popup = window.open(
+  //     externalLink,
+  //     "externalPopup",
+  //     "width=600,height=600",
+  //   )
+
+  //   switch (type) {
+  //     case "naver":
+  //       const interval = setInterval(() => {
+  //         if (popup.closed) {
+  //           clearInterval(interval)
+  //           window.location.origin
+  //         }
+  //       }, 1000)
+  //       break
+
+  //     // case "kakao":
+  //     //   window.open(externalLink, "width=600,height=400")
+  //     //   break
+  //     // case "google":
+  //     //   window.open(externalLink, "width=600,height=400")
+  //     //   console.log(window)
+  //     //   break
+  //   }
+  // }
+
+  // const getCookie = (name: string) => {
+  //   const value = `; ${document.cookie}`
+  //   console.dir()
+  //   const parts = value.split(`; ${name}=`)
+  //   if (parts.length === 2) return parts.pop().split(";").shift()
+  // }
+
+  // const checkEmailCookie = () => {
+  //   const email = getCookie("email")
+  //   if (email) {
+  //     console.log(`Email found: ${email}`)
+  //   } else {
+  //     console.log("Email not found")
+  //   }
+  // }
+
   const postCodeStyle = {
     display: "block",
-    // position: 'absolute',
-    top: "0%",
-    width: "400px",
-    height: "400px",
-    padding: "7px",
+    // Position: "absolute",
+    top: "50%",
+    left: "50%",
+    width: "360px",
+    height: "470px",
+    border: "1px solid #eaeaea",
+    transform: "translate(-50%, -50%)",
   }
 
   return (
@@ -236,19 +289,16 @@ export default function JoinForm() {
           </div>
           <ul className="list__item">
             <li className="list__naver">
-              <a href="#none" className="hidden">
-                네이버
-              </a>
+              <BaseButton />
+              {/* <BaseButton onClick={() => handleSocialSingUp("naver")} /> */}
             </li>
             <li className="list__kakao">
-              <a href="#none" className="hidden">
-                카카오
-              </a>
+              <BaseButton />
+              {/* <BaseButton onClick={() => handleSocialSingUp("kakao")} /> */}
             </li>
             <li className="list__google">
-              <a href="#none" className="hidden">
-                구글
-              </a>
+              <BaseButton />
+              {/* <BaseButton onClick={() => handleSocialSingUp("google")} /> */}
             </li>
           </ul>
         </div>
@@ -276,7 +326,11 @@ export default function JoinForm() {
                 />
 
                 <div className="form__btn">
-                  <BaseButton type="button" onClick={handleCheckId}>
+                  <BaseButton
+                    type="button"
+                    className="btn__primary"
+                    onClick={handleCheckId}
+                  >
                     아이디 중복확인
                   </BaseButton>
                 </div>
@@ -291,7 +345,7 @@ export default function JoinForm() {
 
                 <div className="form__btn">
                   <BaseButton
-                    className="btn__email"
+                    className="btn__email btn__primary"
                     type="button"
                     onClick={handleEmailPop}
                     disabled={isSendSuccess}
@@ -320,9 +374,6 @@ export default function JoinForm() {
                   placeholder="비밀번호를 입력해 주세요."
                   label="비밀번호"
                 />
-                <span className="input__error">
-                  {errors.password ? "필수 입력 항목입니다." : ""}
-                </span>
               </div>
 
               {/* 비밀번호 확인 */}
@@ -359,15 +410,11 @@ export default function JoinForm() {
                   placeholder="이름을 입력해 주세요."
                   label="이름"
                 />
-                <span className="input__error">
-                  {errors.name ? "필수 입력 항목입니다." : ""}
-                </span>
               </div>
 
               {/* 휴대폰 번호 */}
               <div className="form__container">
                 <BaseInput
-                  //   register={register("phone", {})}
                   id="phone"
                   type="text"
                   name="phone"
@@ -376,21 +423,27 @@ export default function JoinForm() {
                   placeholder="휴대폰 번호를 입력해 주세요."
                   label="휴대폰 번호"
                 />
+                <span className="input__error">
+                  {phonNumLeng < 10 ? "휴대폰 번호를 정확히 입력해 주세요" : ""}
+                </span>
               </div>
-
               <div className="form__container form__group">
                 <BaseInput
                   id="address"
                   type="text"
                   name="address"
                   value={address.address}
-                  onChange={onChange}
+                  onChange={onChangeAdress}
                   placeholder="주소를 입력해 주세요."
                   label="주소"
                 />
 
                 <div className="form__btn">
-                  <BaseButton type="button" onClick={onChangeOpenPost}>
+                  <BaseButton
+                    type="button"
+                    className="btn__primary"
+                    onClick={onChangeOpenPost}
+                  >
                     주소 찾기
                   </BaseButton>
                 </div>
@@ -412,12 +465,16 @@ export default function JoinForm() {
                   label="별명"
                 />
                 <div className="form__btn">
-                  <BaseButton type="button" onClick={handleCheckNickName}>
+                  <BaseButton
+                    type="button"
+                    className="btn__primary"
+                    onClick={handleCheckNickName}
+                  >
                     별명 중복확인
                   </BaseButton>
                 </div>
                 <span className="input__error">
-                  {errors.nickname ? "필수 입력 항목입니다." : ""}
+                  {errors.nickname ? errors.nickname.message : ""}
                 </span>
               </div>
             </div>
@@ -433,11 +490,19 @@ export default function JoinForm() {
         </div>
 
         {isOpenPost ? (
-          <DaumPostcode
-            style={postCodeStyle}
-            autoClose
-            onComplete={onCompletePost}
-          />
+          <div className="pop__container">
+            <DaumPostcode
+              style={postCodeStyle}
+              autoClose
+              onComplete={onCompletePost}
+            />
+            {/* <BaseButton
+              className="btn__close"
+              onClick={() => handleClose("주소")}
+            >
+              닫기
+            </BaseButton> */}
+          </div>
         ) : null}
       </div>
       {isOpen && (

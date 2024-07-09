@@ -11,7 +11,7 @@ import classNames from "classnames"
 
 export default function BaseButton({
   onClick = undefined,
-  theme = "PRIMARY",
+  theme,
   size = "NONE",
   disabled = false,
   type = "button",
@@ -27,6 +27,7 @@ export default function BaseButton({
     <div className="btn__wrap">
       <button
         className={classNames(
+          "btn",
           className,
           BUTTON_THEME[theme],
           BUTTON_SIZE[size],

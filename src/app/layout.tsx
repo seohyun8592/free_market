@@ -1,7 +1,9 @@
 import React from "react"
 
 import Header from "@/components/layout/header"
+// import BaseModal from "@/components/modal/BaseModal"
 import { AuthProvider } from "@/provider/AuthContext"
+// import { ModalProvider } from "@/provider/ModalContext"
 import type { Metadata } from "next"
 
 import "../../public/assets/styles/style.scss"
@@ -22,13 +24,16 @@ export default function RootLayout({
       <body>
         <QueryProvider>
           <AuthProvider>
+            {/* <ModalProvider> */}
             <div className="root">
               <Header />
               <main>
                 <div className="container">{children}</div>
               </main>
               <footer>푸터 영역</footer>
+              {/* <BaseModal /> */}
             </div>
+            {/* </ModalProvider> */}
           </AuthProvider>
         </QueryProvider>
       </body>

@@ -1,6 +1,6 @@
 export const BUTTON_THEME = {
-  PRIMARY: "btn btn__primary",
-  SECONDARY: "btn btn__secondary",
+  PRIMARY: "btn__primary",
+  SECONDARY: "btn__secondary",
 }
 
 export const BUTTON_SIZE = {

@@ -116,19 +116,13 @@ export default function LoginForm() {
         </div>
         <ul className="list__item">
           <li className="list__naver">
-            <a href="#none" className="hidden">
-              네이버
-            </a>
+            <a href="#none">네이버</a>
           </li>
           <li className="list__kakao">
-            <a href="#none" className="hidden">
-              카카오
-            </a>
+            <a href="#none">카카오</a>
           </li>
           <li className="list__google">
-            <a href="#none" className="hidden">
-              구글
-            </a>
+            <a href="#none">구글</a>
           </li>
         </ul>
       </div>
