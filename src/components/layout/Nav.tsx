@@ -7,9 +7,9 @@ import useAuthContext from "@/provider/AuthContext"
 import Link from "next/link"
 
 const MENULIST = [
-  { name: "메뉴 1", path: "/menu1" },
-  { name: "메뉴 2", path: "/menu2" },
-  { name: "메뉴 3", path: "/menu3" },
+  { name: "물건구경", path: "/store" },
+  { name: "커뮤니티", path: "/community" },
+  { name: "공지사항", path: "/notice" },
   { name: "componentsGuide", path: "/componentsGuide" },
 ]
 
@@ -33,15 +33,15 @@ export default function Nav() {
   // }, [accessToken])
 
   return (
-    <>
-      <ul className="menuList__item">
+    <div className="nav__wrap">
+      <ul className="list__item">
         {MENULIST.map((list) => (
           <li key={`${list.name}}`}>
             <Link href={list.path}>{list.name}</Link>
           </li>
         ))}
       </ul>
-      <ul className="menuList__item subMenu">
+      <ul className="list__item sub__menu">
         <li>
           {!accessToken ? (
             <Link href="/login">로그인</Link>
@@ -53,6 +53,6 @@ export default function Nav() {
           <Link href="/signup">회원가입</Link>
         </li>
       </ul>
-    </>
+    </div>
   )
 }

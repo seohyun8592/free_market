@@ -230,7 +230,7 @@ export default function JoinForm() {
         <div className="title__box title__sub">
           <h2 className="title">SNS 간편 가입</h2>
           <p className="title__desc">
-            필수항목이므로 반드시 입력해 주시기 바랍니다.
+          SNS 계정으로 간편하게 가입할 수 있어요
           </p>
         </div>
         <div className="join__social">

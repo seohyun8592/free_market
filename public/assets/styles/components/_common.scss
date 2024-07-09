@@ -12,8 +12,6 @@
   display: none;
 }
 
-
-
 .pop {
   &__container {
     position: absolute;
@@ -33,5 +31,11 @@
     height: rem(500);
     background-color: rgba(255, 255, 255);
     transform: translate(-50%, -50%);
+  }
+}
+
+@include mobile() {
+  .container {
+    width: rem(360);
   }
 }

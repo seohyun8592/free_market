@@ -6,24 +6,45 @@ header {
   width: 100%;
   height: rem(60);
   font-size: rem(14);
-  // padding: 0 rem(20);
   background-color: #ffffff;
-  border-bottom: 1px solid #222222;
+  border-bottom: 1px solid #e5e5e5;
   z-index: 10;
-  .container {
-    @include onFlex(center, space-between);
-  }
+
   .logo {
     font-size: rem(24);
     font-weight: 700;
+    &__wrap {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
   }
-  .menuList {
-    &__item {
-      @include onFlex();
+}
+
+.nav__wrap {
+  @include onFlex(center, space-between);
+  height: 100%;
+  padding-left: rem(200);
+
+  .list__item {
+    @include onFlex(center, center);
+    height: 100%;
+    &.sub__menu {
       li {
-        & + li {
-          margin-left: rem(15);
+        a {
+          font-size: rem(14);
+          font-weight: 400;
         }
+      }
+    }
+    li {
+      & + li {
+        margin-left: rem(20);
+      }
+      a {
+        font-size: rem(16);
+        font-weight: 700;
+        color: #000000;
       }
     }
   }
@@ -34,5 +55,8 @@ header {
     .logo {
       font-size: rem(18);
     }
+  }
+  .nav__wrap {
+    display: none;
   }
 }

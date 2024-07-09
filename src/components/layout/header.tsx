@@ -12,9 +12,7 @@ export default function Header() {
           <Link href="/" className="logo">
             나플나플
           </Link>
-          <p>나폴레옹 빵집은 맛있다.</p>
         </div>
-
         <Nav />
       </div>
     </header>
