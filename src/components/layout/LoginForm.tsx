@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form"
 import BaseButton from "@/components/base/Button/Button"
 import BaseInput from "@/components/base/Form/Input"
 import useLogin from "@/hooks/useLogin"
+import Link from "next/link"
 
 interface HookFormTypes {
   memberId: string
@@ -99,7 +100,7 @@ export default function LoginForm() {
               <a href="#none">비밀번호 찾기</a>
             </li>
             <li>
-              <a href="/signup">회원가입</a>
+              <Link href="/signup">회원가입</Link>
             </li>
           </ul>
           <BaseButton type="submit" className="btn__submit">

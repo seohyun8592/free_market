@@ -11,7 +11,7 @@ main {
 
   height: calc(100% - 40px);
   padding-top: rem(60);
-  overflow: auto;
+  overflow-y: auto;
   .contents {
     &__wrap {
       height: 100%;
