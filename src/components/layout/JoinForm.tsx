@@ -220,55 +220,46 @@ export default function JoinForm() {
     }
   }
 
+  const getCookieFromString = (name: string, cookieString: object) => {
+    const value = `; ${cookieString}`
+    const parts = value.split(`; ${name}=`)
+    if (parts.length === 2) {
+      return parts.pop().split(";").shift()
+    }
+    return null
+  }
+
   const handleSocialSingUp = (type: string) => {
     const externalLink = `https://freeapi.devsj.site/oauth2/authorization/${type}`
+    // const externalLink = `http://localhost:3000/oauth2/authorization/${type}`
     const popup = window.open(
       externalLink,
       "externalPopup",
       "width=600,height=600",
     )
 
-    const interval = setInterval(() => {
-      if (popup.closed) {
-        clearInterval(interval)
-        setEmail(watch("email"))
+    if (popup && !popup.closed) {
+      console.log("자식창이 열려 있습니다.")
+      popup.opener.postMessage(
+        {
+          type: "cookieData",
+          cookies: document.cookie,
+        },
+        window.location.origin,
+      )
+    }
 
-        setIsAddInfo(true)
+    window.addEventListener("message", function (event) {
+      if (event.origin !== window.location.origin) {
+        return
       }
-    }, 1000)
-
-    // switch (type) {
-    //   case "naver":
-    //     // window.open(externalLink, "width=600,height=400")
-    //     break
-
-    //   case "kakao":
-    //     // window.open(externalLink, "width=600,height=400")
-    //     break
-    //   case "google":
-    //     // window.open(externalLink, "width=600,height=400")
-    //     break
-    //   default: {
-    //     break
-    //   }
-    // }
+      if (event.data.type === "cookieData") {
+        const { cookies } = event.data
+        const username = getCookieFromString("email", { cookies })
+        console.log("자식창으로부터 받은 쿠키:", username)
+      }
+    })
   }
-
-  // const getCookie = (name: string) => {
-  //   const value = `; ${document.cookie}`
-  //   console.dir()
-  //   const parts = value.split(`; ${name}=`)
-  //   if (parts.length === 2) return parts.pop().split(";").shift()
-  // }
-
-  // const checkEmailCookie = () => {
-  //   const email = getCookie("email")
-  //   if (email) {
-  //     console.log(`Email found: ${email}`)
-  //   } else {
-  //     console.log("Email not found")
-  //   }
-  // }
 
   const postCodeStyle: CSSProperties = {
     display: "block",
@@ -327,6 +318,7 @@ export default function JoinForm() {
                     disabled
                     label="이메일"
                     value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
 
@@ -584,17 +576,6 @@ export default function JoinForm() {
           handleClickEmail={handleClickEmail}
         />
       )}
-      {/* {isAddInfo && (
-        <SocialInfoModal
-          handleSubmit={handleSubmit}
-          handleCheckNickName={handleCheckNickName}
-          onValid={onValid}
-          register={register}
-          isFormValid={isFormValid}
-          value={email}
-          onClick={handleClose}
-        />
-      )} */}
     </>
   )
 }
