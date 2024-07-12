@@ -48,7 +48,6 @@ export default function JoinForm() {
   }) // 주소
 
   const [phoneNum, setPhoneNum] = useState("")
-  const [email, setEmail] = useState("")
   const {
     register,
     handleSubmit,
@@ -220,7 +219,7 @@ export default function JoinForm() {
     }
   }
 
-  const getCookieFromString = (name: string, cookieString: object) => {
+  const getCookieFromString = (name: string, cookieString: string) => {
     const value = `; ${cookieString}`
     const parts = value.split(`; ${name}=`)
     if (parts.length === 2) {
@@ -228,10 +227,9 @@ export default function JoinForm() {
     }
     return null
   }
-
+  const [getCookie, setGetCookie] = useState("")
   const handleSocialSingUp = (type: string) => {
     const externalLink = `https://freeapi.devsj.site/oauth2/authorization/${type}`
-    // const externalLink = `http://localhost:3000/oauth2/authorization/${type}`
     const popup = window.open(
       externalLink,
       "externalPopup",
@@ -240,25 +238,9 @@ export default function JoinForm() {
 
     if (popup && !popup.closed) {
       console.log("자식창이 열려 있습니다.")
-      popup.opener.postMessage(
-        {
-          type: "cookieData",
-          cookies: document.cookie,
-        },
-        window.location.origin,
-      )
+      setGetCookie(getCookieFromString("email", document.cookie))
+      window.close()
     }
-
-    window.addEventListener("message", function (event) {
-      if (event.origin !== window.location.origin) {
-        return
-      }
-      if (event.data.type === "cookieData") {
-        const { cookies } = event.data
-        const username = getCookieFromString("email", { cookies })
-        console.log("자식창으로부터 받은 쿠키:", username)
-      }
-    })
   }
 
   const postCodeStyle: CSSProperties = {
@@ -317,8 +299,7 @@ export default function JoinForm() {
                     name="email"
                     disabled
                     label="이메일"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={getCookie}
                   />
                 </div>
 
