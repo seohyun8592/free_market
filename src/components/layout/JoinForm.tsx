@@ -239,7 +239,8 @@ export default function JoinForm() {
     if (popup && !popup.closed) {
       console.log("자식창이 열려 있습니다.")
       setGetCookie(getCookieFromString("email", document.cookie))
-      if (getCookie) window.close()
+
+      window.close()
     }
   }
 
@@ -287,7 +288,7 @@ export default function JoinForm() {
           </div>
         )}
 
-        {isAddInfo ? (
+        {getCookie ? (
           <div className="contents__box">
             <form onSubmit={handleSubmit(onValid)}>
               <div className="form__box">
@@ -536,12 +537,6 @@ export default function JoinForm() {
               autoClose
               onComplete={onCompletePost}
             />
-            {/* <BaseButton
-              className="btn__close"
-              onClick={() => handleClose("주소")}
-            >
-              닫기
-            </BaseButton> */}
           </div>
         ) : null}
       </div>
