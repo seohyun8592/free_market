@@ -219,14 +219,14 @@ export default function JoinForm() {
     }
   }
 
-  const getCookieFromString = (name: string, cookieString: string) => {
-    const value = `; ${cookieString}`
-    const parts = value.split(`; ${name}=`)
-    if (parts.length === 2) {
-      return parts.pop().split(";").shift()
-    }
-    return null
-  }
+  // const getCookieFromString = (name: string, cookieString: string) => {
+  //   const value = `; ${cookieString}`
+  //   const parts = value.split(`; ${name}=`)
+  //   if (parts.length === 2) {
+  //     return parts.pop().split(";").shift()
+  //   }
+  //   return null
+  // }
   const [getCookie, setGetCookie] = useState("")
   const handleSocialSingUp = (type: string) => {
     const externalLink = `https://freeapi.devsj.site/oauth2/authorization/${type}`
