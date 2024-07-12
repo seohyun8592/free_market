@@ -239,10 +239,11 @@ export default function JoinForm() {
     if (popup && !popup.closed) {
       console.log("자식창이 열려 있습니다.")
       // setGetCookie(getCookieFromString("email", document.cookie))
+      setGetCookie(document.cookie)
+      console.log("getCookie", getCookie)
       const test = setInterval(() => {
-        if (popup.closed) {
-          setGetCookie(document.cookie)
-          console.log(getCookie)
+        if (getCookie) {
+          console.log("getCookieeeee121212", getCookie)
           clearInterval(test)
           popup.close()
         }
