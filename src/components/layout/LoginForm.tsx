@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 
 import BaseButton from "@/components/base/Button/Button"
@@ -8,10 +8,25 @@ import BaseInput from "@/components/base/Form/Input"
 import useLogin from "@/hooks/useLogin"
 import Link from "next/link"
 
+import { BaseCheckboxList } from "../base/Form/Checkbox"
+
 interface HookFormTypes {
   memberId: string
   password: string
 }
+
+const checkListData = [
+  {
+    id: "loginStatus",
+    value: "로그인 유지하기",
+    checked: true,
+  },
+  {
+    id: "idSave",
+    value: "아이디 저장",
+    checked: false,
+  },
+]
 export default function LoginForm() {
   const { useWebLogin } = useLogin()
   const {
@@ -20,11 +35,13 @@ export default function LoginForm() {
     reset,
     formState: { errors },
   } = useForm<HookFormTypes>()
+  const [checkListTest, setCheckListTest] = useState(checkListData)
 
   const handleSocialSingUp = (type: string) => {
     const externalLink = `https://freeapi.devsj.site/oauth2/authorization/${type}`
     window.open(externalLink, "externalPopup", "width=600,height=600")
   }
+
   const onValid = async (data: HookFormTypes) => {
     useWebLogin.mutate(data, {
       onSuccess: (response) => {
@@ -40,6 +57,19 @@ export default function LoginForm() {
         console.log(error)
       },
     })
+  }
+
+  const onChangeCheckBox = (id: string) => {
+    const updatedCheckList = checkListTest.map((item) => {
+      if (item.id === id) {
+        return {
+          ...item,
+          checked: !item.checked,
+        }
+      }
+      return item
+    })
+    setCheckListTest(updatedCheckList)
   }
 
   return (
@@ -93,6 +123,15 @@ export default function LoginForm() {
               </span>
             </div>
           </div>
+
+          <BaseCheckboxList
+            checkBoxItemList={checkListTest}
+            onChange={onChangeCheckBox}
+          />
+
+          <BaseButton type="submit" className="btn__submit btn__primary">
+            로그인
+          </BaseButton>
           <ul className="list__item login__root">
             <li>
               <a href="#none">아이디 찾기</a>
@@ -104,9 +143,6 @@ export default function LoginForm() {
               <Link href="/signup">회원가입</Link>
             </li>
           </ul>
-          <BaseButton type="submit" className="btn__submit btn__primary">
-            로그인
-          </BaseButton>
         </form>
       </div>
 

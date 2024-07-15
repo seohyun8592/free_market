@@ -1,6 +1,6 @@
 "use client"
 
-import React, { CSSProperties, useState } from "react"
+import React, { CSSProperties, useEffect, useState } from "react"
 import DaumPostcode from "react-daum-postcode"
 import { useForm } from "react-hook-form"
 
@@ -22,8 +22,11 @@ export interface HookFormTypes {
   verificationNum: string
   address: string
 }
+interface SocialParams {
+  params?: any
+}
 
-export default function JoinForm() {
+export default function JoinForm({ params }: SocialParams) {
   const router = useRouter()
   const {
     useClientsSignUp,
@@ -223,8 +226,7 @@ export default function JoinForm() {
   const [test, setTest] = useState(false)
 
   const handleSocialSingUp = (type: string) => {
-    setTest(true)
-    const externalLink = `https://freeapi.devsj.site/oauth2/authorization/${type}`
+    const externalLink = `${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization?type=${type}`
     window.location.href = externalLink
     // window.open(externalLink)
   }
@@ -239,6 +241,12 @@ export default function JoinForm() {
     border: "1px solid #eaeaea",
     transform: "translate(-50%, -50%)",
   }
+
+  useEffect(() => {
+    if (params.get("code")) {
+      setTest(true)
+    }
+  }, [params])
 
   return (
     <>

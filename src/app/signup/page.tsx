@@ -1,11 +1,15 @@
+"use client"
+
 import React from "react"
 
 import JoinForm from "@/components/layout/JoinForm"
+import { useSearchParams } from "next/navigation"
 
 export default function JoinPage() {
+  const params = useSearchParams()
   return (
     <section className="contents__wrap contents__form">
-      <JoinForm />
+      <JoinForm params={params} />
     </section>
   )
 }
