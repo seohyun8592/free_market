@@ -9,20 +9,20 @@ import type { FetchOptions } from "ofetch"
 
 const fetchCoreConfig = (method: METHOD): FetchOptions<"json"> => {
   const userAuth = localStorage.getItem("accessToken")
+
   /**
    * 여기에다 환경변수를 지정하여 $fetch에 대해 기본 옵션을 정의한다.
    */
   return {
     method,
-    headers: {
-      ...(userAuth ? { Authorization: userAuth } : {}),
-      Origin: window.location.origin, // `Origin` 헤더 추가
-    },
-    mode: "cors",
+    headers: userAuth ? { Authorization: userAuth } : {},
     timeout: 30000,
+    credentials: "include",
+    mode: "cors",
 
     onResponseError: (ctx) => {
       if (ctx.response.status === 401) {
+        console.log("@@")
         // localStorage.removeItem("accessToken")
         // window.location.replace("/")
       }
