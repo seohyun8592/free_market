@@ -132,18 +132,18 @@ export default function LoginForm() {
           <BaseButton type="submit" className="btn__submit btn__primary">
             로그인
           </BaseButton>
-          <ul className="list__item login__root">
-            <li>
-              <a href="#none">아이디 찾기</a>
-            </li>
-            <li>
-              <a href="#none">비밀번호 찾기</a>
-            </li>
-            <li>
-              <Link href="/signup">회원가입</Link>
-            </li>
-          </ul>
         </form>
+        <ul className="list__item login__root">
+          <li>
+            <a href="#none">아이디 찾기</a>
+          </li>
+          <li>
+            <a href="#none">비밀번호 찾기</a>
+          </li>
+          <li>
+            <Link href="/signup">회원가입</Link>
+          </li>
+        </ul>
       </div>
 
       <div className="social__wrap">

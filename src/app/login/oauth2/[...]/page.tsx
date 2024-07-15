@@ -2,14 +2,14 @@
 
 import React, { useEffect } from "react"
 
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 
 export default function Oauth2Page() {
-  const params = useSearchParams()
-  const type = params.get("code")
+  // const params = useSearchParams()
+  // const type = params.get("code")
   const router = useRouter()
   useEffect(() => {
-    router.push(`/signup?code=${type}`)
-  })
+    router.push(`/signup`)
+  },[])
   return <div>test</div>
 }
