@@ -9,7 +9,7 @@ export default function Oauth2Page() {
   // const type = params.get("code")
   const router = useRouter()
   useEffect(() => {
-    router.push(`/signup`)
-  },[])
+    router.push("/signup")
+  }, [router])
   return <div>test</div>
 }

@@ -241,10 +241,19 @@ export default function JoinForm({ params }: SocialParams) {
     transform: "translate(-50%, -50%)",
   }
 
+  const getCookieValue = (name: string) => {
+    const value = `; ${document.cookie}`
+    const parts = value.split(`; ${name}=`)
+    if (parts.length === 2) {
+      return parts.pop().split(";").shift()
+    }
+    return null
+  }
+
   useEffect(() => {
     if (params.get("code")) {
       setTest(true)
-      setSocialEmail(document.cookie)
+      setSocialEmail(getCookieValue("email"))
     }
   }, [params])
 
