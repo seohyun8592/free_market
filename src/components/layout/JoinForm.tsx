@@ -223,6 +223,7 @@ export default function JoinForm({ params }: SocialParams) {
   }
 
   const [test, setTest] = useState(false)
+  const [socialEmail, setSocialEmail] = useState("")
 
   const handleSocialSingUp = (type: string) => {
     const externalLink = `${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization/${type}`
@@ -243,6 +244,7 @@ export default function JoinForm({ params }: SocialParams) {
   useEffect(() => {
     if (params.get("code")) {
       setTest(true)
+      setSocialEmail(document.cookie)
     }
   }, [params])
 
@@ -291,6 +293,7 @@ export default function JoinForm({ params }: SocialParams) {
                     name="email"
                     disabled
                     label="이메일"
+                    value={socialEmail}
                   />
                 </div>
 
