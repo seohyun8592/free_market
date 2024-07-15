@@ -6,10 +6,10 @@ import { useRouter, useSearchParams } from "next/navigation"
 
 export default function Oauth2Page() {
   const params = useSearchParams()
-  const type = params.get("type")
+  const type = params.get("code")
   const router = useRouter()
   useEffect(() => {
-    router.push(`/signup?type=${type}`)
+    router.push(`/signup?code=${type}`)
   })
   return <div>test</div>
 }
