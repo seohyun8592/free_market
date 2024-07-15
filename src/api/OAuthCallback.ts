@@ -1,20 +1,22 @@
-"use client"
+import { getFetch } from "./fetchCore"
+import { Response } from "./types"
 
-import { useEffect } from "react"
+const OAuthCallback = async (code: string) => {
+  try {
+    const response = await getFetch<Response<any>>(
+      `${window.location.origin}/login/oauth2/code/naver?code=${code}`,
+    )
 
-import { useRouter } from "next/router"
+    // 응답 데이터를 콘솔에 출력하거나 다른 방식으로 처리
+    console.log("Response:", response)
 
-const OAuthCallback = () => {
-  const router = useRouter()
-  const { query } = router
-
-  useEffect(() => {
-    // 인증이 성공한 경우, 쿠키 또는 토큰이 쿼리 파라미터에 포함되어 있을 수 있습니다.
-    if (query.response_type) {
-      document.cookie = `oauth_token=${query.response_type}; path=/`
-      router.push("/") // 원래 페이지로 돌아갑니다.
-    }
-  }, [query, router])
+    // 필요시 리턴하거나 추가적인 로직을 수행
+    return response
+  } catch (error) {
+    // 에러 핸들링
+    console.error("Error fetching OAuth callback:", error)
+    throw error
+  }
 }
 
 export default OAuthCallback
