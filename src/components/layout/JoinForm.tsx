@@ -225,7 +225,7 @@ export default function JoinForm({ params }: SocialParams) {
   const [test, setTest] = useState(false)
 
   const handleSocialSingUp = (type: string) => {
-    const externalLink = `${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization?type=${type}`
+    const externalLink = `${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization/${type}`
     window.location.href = externalLink
   }
 
