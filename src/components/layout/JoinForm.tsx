@@ -306,6 +306,64 @@ export default function JoinForm({ params }: SocialParams) {
                   />
                 </div>
 
+                {/* 이름 */}
+                <div className="form__container">
+                  <BaseInput
+                    register={register("name", {
+                      required: true,
+                    })}
+                    id="name"
+                    type="text"
+                    name="name"
+                    placeholder="이름을 입력해 주세요."
+                    label="이름"
+                  />
+                </div>
+
+                {/* 휴대폰 번호 */}
+                <div className="form__container">
+                  <BaseInput
+                    id="phone"
+                    type="text"
+                    name="phone"
+                    value={phoneNum}
+                    onChange={handlePhoneChange}
+                    placeholder="휴대폰 번호를 입력해 주세요."
+                    label="휴대폰 번호"
+                  />
+                  {phoneNum === "" ||
+                    (phoneNumLeng < 10 && (
+                      <span className="input__error">
+                        {phoneNum !== "" && phoneNumLeng < 10
+                          ? "휴대폰 번호를 정확히 입력해 주세요"
+                          : ""}
+                      </span>
+                    ))}
+                </div>
+
+                {/* 주소 */}
+                <div className="form__container form__group">
+                  <BaseInput
+                    id="address"
+                    type="text"
+                    name="address"
+                    value={address.address}
+                    onChange={onChangeAdress}
+                    placeholder="주소를 입력해 주세요."
+                    label="주소"
+                  />
+
+                  <div className="form__btn">
+                    <BaseButton
+                      type="button"
+                      className="btn__primary"
+                      onClick={onChangeOpenPost}
+                    >
+                      주소 찾기
+                    </BaseButton>
+                  </div>
+                </div>
+
                 {/* 별명 */}
                 <div className="form__container form__group">
                   <BaseInput
@@ -469,6 +527,8 @@ export default function JoinForm({ params }: SocialParams) {
                       </span>
                     ))}
                 </div>
+
+                {/* 주소 */}
                 <div className="form__container form__group">
                   <BaseInput
                     id="address"
