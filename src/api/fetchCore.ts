@@ -17,6 +17,7 @@ const fetchCoreConfig = (method: METHOD): FetchOptions<"json"> => {
     method,
     headers: userAuth ? { Authorization: userAuth } : {},
     timeout: 30000,
+    credentials: "include",
 
     onResponseError: (ctx) => {
       if (ctx.response.status === 401) {

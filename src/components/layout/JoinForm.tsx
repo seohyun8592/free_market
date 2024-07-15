@@ -219,36 +219,14 @@ export default function JoinForm() {
     }
   }
 
-  // const getCookieFromString = (name: string, cookieString: string) => {
-  //   const value = `; ${cookieString}`
-  //   const parts = value.split(`; ${name}=`)
-  //   if (parts.length === 2) {
-  //     return parts.pop().split(";").shift()
-  //   }
-  //   return null
-  // }
-  const [getCookie, setGetCookie] = useState("")
-  const handleSocialSingUp = (type: string) => {
-    const externalLink = `https://freeapi.devsj.site/oauth2/authorization/${type}`
-    const popup = window.open(
-      externalLink,
-      "externalPopup",
-      "width=600,height=600",
-    )
+  // const [getCookie, setGetCookie] = useState("")
+  const [test, setTest] = useState(false)
 
-    if (popup && !popup.closed) {
-      console.log("자식창이 열려 있습니다.")
-      // setGetCookie(getCookieFromString("email", document.cookie))
-      setGetCookie(document.cookie)
-      console.log("getCookie", getCookie)
-      const test = setInterval(() => {
-        if (getCookie) {
-          console.log("getCookieeeee121212", getCookie)
-          clearInterval(test)
-          popup.close()
-        }
-      }, 1000)
-    }
+  const handleSocialSingUp = (type: string) => {
+    setTest(true)
+    const externalLink = `https://freeapi.devsj.site/oauth2/authorization/${type}`
+    window.location.href = externalLink
+    // window.open(externalLink)
   }
 
   const postCodeStyle: CSSProperties = {
@@ -295,7 +273,7 @@ export default function JoinForm() {
           </div>
         )}
 
-        {getCookie ? (
+        {test ? (
           <div className="contents__box">
             <form onSubmit={handleSubmit(onValid)}>
               <div className="form__box">
@@ -307,7 +285,6 @@ export default function JoinForm() {
                     name="email"
                     disabled
                     label="이메일"
-                    value={getCookie}
                   />
                 </div>
 

@@ -24,16 +24,13 @@ export default function RootLayout({
       <body>
         <QueryProvider>
           <AuthProvider>
-            {/* <ModalProvider> */}
             <div className="root">
               <Header />
               <main>
                 <div className="container">{children}</div>
               </main>
               <footer>푸터 영역</footer>
-              {/* <BaseModal /> */}
             </div>
-            {/* </ModalProvider> */}
           </AuthProvider>
         </QueryProvider>
       </body>

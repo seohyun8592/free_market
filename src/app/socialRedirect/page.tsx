@@ -1,5 +1,5 @@
 import React from "react"
 
-export default function SocialRedirect() {
-  return <>hi</>
+export default function Page() {
+  return <>jhio</>
 }
