@@ -15,7 +15,11 @@ const fetchCoreConfig = (method: METHOD): FetchOptions<"json"> => {
    */
   return {
     method,
-    headers: userAuth ? { Authorization: userAuth } : {},
+    // headers: userAuth ? { Authorization: userAuth } : {},
+    headers: {
+      ...(userAuth ? { Authorization: userAuth } : {}),
+      Origin: window.location.origin, // `Origin` 헤더 추가
+    },
     timeout: 30000,
     credentials: "include",
     mode: "cors",
