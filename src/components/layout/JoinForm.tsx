@@ -358,7 +358,11 @@ export default function JoinForm({ params }: SocialParams) {
                 </div>
               </div>
 
-              <BaseButton type="submit" disabled={!isAddFormValid}>
+              <BaseButton
+                type="submit"
+                className="btn__submit btn__primary"
+                disabled={!isAddFormValid}
+              >
                 가입하기
               </BaseButton>
             </form>
@@ -550,7 +554,7 @@ export default function JoinForm({ params }: SocialParams) {
 
               <BaseButton
                 type="submit"
-                className="btn__submit"
+                className="btn__submit btn__primary"
                 disabled={!isFormValid}
               >
                 가입하기
