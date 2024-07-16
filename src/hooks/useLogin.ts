@@ -30,9 +30,7 @@ export default function useLogin() {
         localStorage.removeItem("accessToken")
       }
     },
-    onError: (error) => {
-      console.log(error)
-    },
+    onError: () => {},
   })
 
   return {

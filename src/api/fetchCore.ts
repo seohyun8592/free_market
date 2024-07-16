@@ -26,7 +26,6 @@ const fetchCoreConfig = (method: METHOD): FetchOptions<"json"> => {
 
     onResponseError: (ctx) => {
       if (ctx.response.status === 401) {
-        console.log("@@")
         // localStorage.removeItem("accessToken")
         // window.location.replace("/")
       }

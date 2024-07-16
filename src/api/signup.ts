@@ -17,6 +17,11 @@ interface SignUPRequest {
   }
 }
 
+interface SignUPAddRequest {
+  nickname: string
+  email: string
+}
+
 interface NickNameRequest {
   nickname: string
 }
@@ -37,6 +42,12 @@ interface IdCheckRequest {
 const signup = {
   postFetchSignUp(payload: SignUPRequest) {
     return postFetch<Response<any>>("/api/v1/account/join", {
+      body: payload,
+    })
+  },
+
+  postFetchSocialSignUp(payload: SignUPAddRequest) {
+    return postFetch<Response<any>>("/api/v1/account/social-use-join", {
       body: payload,
     })
   },

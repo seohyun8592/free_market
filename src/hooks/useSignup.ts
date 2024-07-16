@@ -17,6 +17,11 @@ interface SignUPRequest {
   }
 }
 
+interface SignUPAddRequest {
+  nickname: string
+  email: string
+}
+
 interface NickNameRequest {
   nickname: string
 }
@@ -36,6 +41,11 @@ interface VerificationNumRequest {
 export default function useSignUp() {
   const useClientsSignUp = useMutation({
     mutationFn: (payload: SignUPRequest) => signup.postFetchSignUp(payload),
+  })
+
+  const useSocialSignUp = useMutation({
+    mutationFn: (payload: SignUPAddRequest) =>
+      signup.postFetchSocialSignUp(payload),
   })
 
   const useNickNameCheck = useMutation({
@@ -58,6 +68,7 @@ export default function useSignUp() {
 
   return {
     useClientsSignUp,
+    useSocialSignUp,
     useNickNameCheck,
     useEmailVerification,
     useEmailVerificationNum,

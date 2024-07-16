@@ -22,6 +22,11 @@ export interface HookFormTypes {
   verificationNum: string
   address: string
 }
+
+export interface HookAddFormTypes {
+  nickname: string
+  email: string
+}
 interface SocialParams {
   params?: any
 }
@@ -30,6 +35,7 @@ export default function JoinForm({ params }: SocialParams) {
   const router = useRouter()
   const {
     useClientsSignUp,
+    useSocialSignUp,
     useNickNameCheck,
     useEmailVerification,
     useEmailVerificationNum,
@@ -42,7 +48,7 @@ export default function JoinForm({ params }: SocialParams) {
   const [isOpenPost, setIsOpenPost] = useState(false)
   const [nickNameCheck, setNickNameCheck] = useState(false)
   const [idCheck, setIdCheck] = useState(false)
-  const [isAddInfo, setIsAddInfo] = useState(false)
+  // const [isAddInfo, setIsAddInfo] = useState(false)
   const [address, setAddress] = useState({
     address: "",
     sido: "",
@@ -51,6 +57,8 @@ export default function JoinForm({ params }: SocialParams) {
   }) // 주소
 
   const [phoneNum, setPhoneNum] = useState("")
+  const [socialEmail, setSocialEmail] = useState("")
+
   const {
     register,
     handleSubmit,
@@ -84,9 +92,12 @@ export default function JoinForm({ params }: SocialParams) {
     userInfo.rePassword !== "" && userInfo.rePassword === userInfo.password,
   ]
 
-  const isFormValid = requiredFields.every((field) => field)
+  const requiredAddFields = [nickNameCheck, socialEmail]
 
-  // 회원 가입하기 (유효성 검사)
+  const isFormValid = requiredFields.every((field) => field)
+  const isAddFormValid = requiredAddFields.every((field) => field)
+
+  // 일반 회원 가입하기 (유효성 검사)
   const onValid = (data: HookFormTypes) => {
     const reqData = {
       userDTO: {
@@ -104,6 +115,21 @@ export default function JoinForm({ params }: SocialParams) {
       },
     }
     useClientsSignUp.mutate(reqData, {
+      onSuccess: (response) => {
+        if (response.statusCode === "200") {
+          router.push("/login")
+        }
+      },
+    })
+  }
+
+  // 소셜 추가 회원 가입하기 (유효성 검사)
+  const onAddValid = (data: HookAddFormTypes) => {
+    const reqData = {
+      email: socialEmail,
+      nickname: data.nickname,
+    }
+    useSocialSignUp.mutate(reqData, {
       onSuccess: (response) => {
         if (response.statusCode === "200") {
           router.push("/login")
@@ -182,7 +208,7 @@ export default function JoinForm({ params }: SocialParams) {
 
   const handleClose = () => {
     setIsOpen(false)
-    setIsAddInfo(false)
+    // setIsAddInfo(false)
   }
 
   const handleEmailPop = () => {
@@ -223,7 +249,6 @@ export default function JoinForm({ params }: SocialParams) {
   }
 
   const [test, setTest] = useState(false)
-  const [socialEmail, setSocialEmail] = useState("")
 
   const handleSocialSingUp = (type: string) => {
     const externalLink = `${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization/${type}`
@@ -251,7 +276,7 @@ export default function JoinForm({ params }: SocialParams) {
   }
 
   useEffect(() => {
-    if (params.get("code")) {
+    if (params.get("type")) {
       setTest(true)
       setSocialEmail(getCookieValue("email"))
     }
@@ -262,13 +287,13 @@ export default function JoinForm({ params }: SocialParams) {
       <div className="join__wrap">
         <div className="title__box">
           <h2 className="title">
-            {isAddInfo ? "회원 추가정보 입력" : "나플나플 회원가입"}
+            {test ? "회원 추가정보 입력" : "나플나플 회원가입"}
           </h2>
-          {!isAddInfo && (
+          {!test && (
             <p className="title__desc">나누는 플레이스, 나누면 플러스</p>
           )}
         </div>
-        {!isAddInfo && (
+        {!test && (
           <div className="social__wrap">
             <div className="title__box title__sub">
               <h2 className="title">SNS 간편 가입</h2>
@@ -292,7 +317,7 @@ export default function JoinForm({ params }: SocialParams) {
 
         {test ? (
           <div className="contents__box">
-            <form onSubmit={handleSubmit(onValid)}>
+            <form onSubmit={handleSubmit(onAddValid)}>
               <div className="form__box">
                 {/* 이메일 */}
                 <div className="form__container">
@@ -304,64 +329,6 @@ export default function JoinForm({ params }: SocialParams) {
                     label="이메일"
                     value={socialEmail}
                   />
-                </div>
-
-                {/* 이름 */}
-                <div className="form__container">
-                  <BaseInput
-                    register={register("name", {
-                      required: true,
-                    })}
-                    id="name"
-                    type="text"
-                    name="name"
-                    placeholder="이름을 입력해 주세요."
-                    label="이름"
-                  />
-                </div>
-
-                {/* 휴대폰 번호 */}
-                <div className="form__container">
-                  <BaseInput
-                    id="phone"
-                    type="text"
-                    name="phone"
-                    value={phoneNum}
-                    onChange={handlePhoneChange}
-                    placeholder="휴대폰 번호를 입력해 주세요."
-                    label="휴대폰 번호"
-                  />
-                  {phoneNum === "" ||
-                    (phoneNumLeng < 10 && (
-                      <span className="input__error">
-                        {phoneNum !== "" && phoneNumLeng < 10
-                          ? "휴대폰 번호를 정확히 입력해 주세요"
-                          : ""}
-                      </span>
-                    ))}
-                </div>
-
-                {/* 주소 */}
-                <div className="form__container form__group">
-                  <BaseInput
-                    id="address"
-                    type="text"
-                    name="address"
-                    value={address.address}
-                    onChange={onChangeAdress}
-                    placeholder="주소를 입력해 주세요."
-                    label="주소"
-                  />
-
-                  <div className="form__btn">
-                    <BaseButton
-                      type="button"
-                      className="btn__primary"
-                      onClick={onChangeOpenPost}
-                    >
-                      주소 찾기
-                    </BaseButton>
-                  </div>
                 </div>
 
                 {/* 별명 */}
@@ -391,7 +358,7 @@ export default function JoinForm({ params }: SocialParams) {
                 </div>
               </div>
 
-              <BaseButton type="submit" disabled={!isFormValid}>
+              <BaseButton type="submit" disabled={!isAddFormValid}>
                 가입하기
               </BaseButton>
             </form>

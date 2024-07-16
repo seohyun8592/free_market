@@ -49,13 +49,10 @@ export default function LoginForm() {
         if (resData.statusCode === "200") {
           window.location.replace("/")
         } else {
-          alert(resData.message)
           reset()
         }
       },
-      onError: (error) => {
-        console.log(error)
-      },
+      onError: () => {},
     })
   }
 

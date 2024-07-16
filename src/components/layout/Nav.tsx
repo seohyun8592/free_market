@@ -22,9 +22,7 @@ export default function Nav() {
       onSuccess: () => {
         window.location.replace("/")
       },
-      onError: () => {
-        console.log("@@")
-      },
+      onError: () => {},
     })
   }
 
