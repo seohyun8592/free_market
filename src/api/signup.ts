@@ -47,7 +47,7 @@ const signup = {
   },
 
   postFetchSocialSignUp(payload: SignUPAddRequest) {
-    return postFetch<Response<any>>("/api/v1/account/social-use-join", {
+    return postFetch<Response<any>>("/api/v1/account/social-user-join", {
       body: payload,
     })
   },
