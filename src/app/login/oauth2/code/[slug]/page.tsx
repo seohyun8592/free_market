@@ -23,6 +23,7 @@ export default function Oauth2Page({ params }: Oauth2PageProps) {
 
   useEffect(() => {
     if (code && params) {
+      console.log(code, params)
       kakaoLogin({ code, slug: params.slug })
     }
   }, [code, params])

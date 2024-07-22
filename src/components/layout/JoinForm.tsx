@@ -274,7 +274,6 @@ export default function JoinForm({ params }: SocialParams) {
   }
 
   useEffect(() => {
-    console.log(params.get("code"))
     if (params.get("type")) {
       setSocialCheck(true)
       setSocialEmail(getCookieValue("email"))

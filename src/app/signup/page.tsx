@@ -7,7 +7,6 @@ import { useSearchParams } from "next/navigation"
 
 export default function JoinPage() {
   const params = useSearchParams()
-  console.log("params", params.get("code"))
 
   return (
     <section className="contents__wrap contents__form">
