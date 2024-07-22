@@ -8,10 +8,11 @@ export default function Oauth2Page() {
   const params = useSearchParams()
   const router = useRouter()
 
-  const code = params.get("code")
   useEffect(() => {
+    const code = params.get("code")
+
     router.push(`/signup?code=${code}`)
-  }, [code, router])
+  }, [params, router])
 
   return <div>test</div>
 }
