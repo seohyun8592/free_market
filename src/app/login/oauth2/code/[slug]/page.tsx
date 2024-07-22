@@ -41,7 +41,7 @@ export default function Oauth2Page() {
     const handleLogin = async () => {
       try {
         const response = await fetch(
-          `https://freeapi.devsj.site/login/oauth2/code/kakao?code=${code}`,
+          `http//localhost:3000/login/oauth2/code/kakao?code=${code}`,
         )
 
         // 상태 코드 확인
