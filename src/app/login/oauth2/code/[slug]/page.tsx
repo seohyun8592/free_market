@@ -34,7 +34,7 @@ export default function Oauth2Page({ params }: Oauth2PageProps) {
 
   useEffect(() => {
     console.log("22")
-    if (code) redirect(`/signup/type=${params.slug}`)
+    if (code) redirect(`/signup?type=${params.slug}`)
   }, [params, code])
 
   //   useEffect(() => {
