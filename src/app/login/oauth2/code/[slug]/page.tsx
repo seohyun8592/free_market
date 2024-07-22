@@ -19,7 +19,7 @@ export interface Oauth2PageProps {
 export default function Oauth2Page({ params }: Oauth2PageProps) {
   // 인가코드
   const code = new URL(window.location.href).searchParams.get("code")
-  console.log(new URL("111", window.location.href), code)
+  console.log(new URL(window.location.href), "code", code)
   //   useEffect(() => {
   //     console.log("@@", code, params)
   //     if (code && params) {
@@ -39,10 +39,10 @@ export default function Oauth2Page({ params }: Oauth2PageProps) {
 
   useEffect(() => {
     const handleLogin = async () => {
-      const url = `${window.location.href}/${params.slug}`
+      const url = `${window.origin}/login/oauth2/code/${params.slug}?code=${code}`
       console.log("url", url)
 
-      const response = await fetch(`${window.location.href}/${params.slug}`)
+      const response = await fetch(url)
       console.log("response", response)
 
       //   try {
