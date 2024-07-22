@@ -14,5 +14,5 @@ export default function Oauth2Page() {
     router.push(`/signup?code=${code}`)
   }, [params, router])
 
-  return <div>test</div>
+  return <div>리다이렉트 페이지 입니다.</div>
 }
