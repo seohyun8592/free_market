@@ -16,7 +16,7 @@ export interface Oauth2PageProps {
 //   code: string
 // }
 
-export default function Oauth2Page() {
+export default function Oauth2Page({ params }: Oauth2PageProps) {
   // 인가코드
   const code = new URL(window.location.href).searchParams.get("code")
   console.log(new URL("111", window.location.href), code)
@@ -40,9 +40,7 @@ export default function Oauth2Page() {
   useEffect(() => {
     const handleLogin = async () => {
       try {
-        const response = await fetch(
-          `http//localhost:3000/login/oauth2/code/kakao?code=${code}`,
-        )
+        const response = await fetch(`/${params.slug}/?code=${code}`)
 
         // 상태 코드 확인
         if (!response.ok) {
@@ -71,7 +69,7 @@ export default function Oauth2Page() {
     }
 
     handleLogin()
-  }, [code])
+  }, [params, code])
 
   return <div>test</div>
 }
