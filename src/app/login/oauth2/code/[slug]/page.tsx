@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react"
 
-import { redirect } from "next/navigation"
+// import { redirect } from "next/navigation"
 
 interface Oauth2PageProps {
   params: {
@@ -12,7 +12,8 @@ interface Oauth2PageProps {
 
 export default function Oauth2Page({ params }: Oauth2PageProps) {
   useEffect(() => {
-    redirect(`/signup?type=${params.slug}`)
+    console.log("22")
+    // redirect(`/signup?type=${params.slug}`)
   }, [params])
   return <div>test</div>
 }

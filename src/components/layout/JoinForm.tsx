@@ -48,7 +48,6 @@ export default function JoinForm({ params }: SocialParams) {
   const [isOpenPost, setIsOpenPost] = useState(false)
   const [nickNameCheck, setNickNameCheck] = useState(false)
   const [idCheck, setIdCheck] = useState(false)
-  // const [isAddInfo, setIsAddInfo] = useState(false)
   const [address, setAddress] = useState({
     address: "",
     sido: "",
@@ -58,6 +57,7 @@ export default function JoinForm({ params }: SocialParams) {
 
   const [phoneNum, setPhoneNum] = useState("")
   const [socialEmail, setSocialEmail] = useState("")
+  const [socialCheck, setSocialCheck] = useState(false)
 
   const {
     register,
@@ -248,13 +248,6 @@ export default function JoinForm({ params }: SocialParams) {
     }
   }
 
-  const [test, setTest] = useState(false)
-
-  const handleSocialSingUp = (type: string) => {
-    const externalLink = `${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization/${type}`
-    window.location.href = externalLink
-  }
-
   const postCodeStyle: CSSProperties = {
     display: "block",
     position: "absolute",
@@ -264,6 +257,11 @@ export default function JoinForm({ params }: SocialParams) {
     height: "470px",
     border: "1px solid #eaeaea",
     transform: "translate(-50%, -50%)",
+  }
+
+  const handleSocialSingUp = (type: string) => {
+    const externalLink = `${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization/${type}`
+    window.location.href = externalLink
   }
 
   const getCookieValue = (name: string) => {
@@ -276,8 +274,9 @@ export default function JoinForm({ params }: SocialParams) {
   }
 
   useEffect(() => {
+    console.log(params.get("code"))
     if (params.get("type")) {
-      setTest(true)
+      setSocialCheck(true)
       setSocialEmail(getCookieValue("email"))
     }
   }, [params])
@@ -287,13 +286,13 @@ export default function JoinForm({ params }: SocialParams) {
       <div className="join__wrap">
         <div className="title__box">
           <h2 className="title">
-            {test ? "회원 추가정보 입력" : "나플나플 회원가입"}
+            {socialCheck ? "회원 추가정보 입력" : "나플나플 회원가입"}
           </h2>
-          {!test && (
+          {!socialCheck && (
             <p className="title__desc">나누는 플레이스, 나누면 플러스</p>
           )}
         </div>
-        {!test && (
+        {!socialCheck && (
           <div className="social__wrap">
             <div className="title__box title__sub">
               <h2 className="title">SNS 간편 가입</h2>
@@ -315,7 +314,7 @@ export default function JoinForm({ params }: SocialParams) {
           </div>
         )}
 
-        {test ? (
+        {socialCheck ? (
           <div className="contents__box">
             <form onSubmit={handleSubmit(onAddValid)}>
               <div className="form__box">

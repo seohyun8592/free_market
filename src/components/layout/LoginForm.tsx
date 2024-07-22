@@ -15,6 +15,10 @@ interface HookFormTypes {
   password: string
 }
 
+// interface SocialParams {
+//   params?: any
+// }
+
 const checkListData = [
   {
     id: "loginStatus",
@@ -27,6 +31,7 @@ const checkListData = [
     checked: false,
   },
 ]
+
 export default function LoginForm() {
   const { useWebLogin } = useLogin()
   const {
@@ -36,10 +41,11 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm<HookFormTypes>()
   const [checkListTest, setCheckListTest] = useState(checkListData)
-
+  // const [socialCheck, setSocialCheck] = useState(false)
+  // const [socialEmail, setSocialEmail] = useState("")
   const handleSocialSingUp = (type: string) => {
-    const externalLink = `https://freeapi.devsj.site/oauth2/authorization/${type}`
-    window.open(externalLink, "externalPopup", "width=600,height=600")
+    const externalLink = `${process.env.NEXT_PUBLIC_BASE_URL}/oauth2/authorization/${type}`
+    window.location.href = externalLink
   }
 
   const onValid = async (data: HookFormTypes) => {
@@ -68,6 +74,22 @@ export default function LoginForm() {
     })
     setCheckListTest(updatedCheckList)
   }
+
+  // const getCookieValue = (name: string) => {
+  //   const value = `; ${document.cookie}`
+  //   const parts = value.split(`; ${name}=`)
+  //   if (parts.length === 2) {
+  //     return parts.pop().split(";").shift()
+  //   }
+  //   return null
+  // }
+
+  // useEffect(() => {
+  //   if (params.get("type")) {
+  //     setSocialCheck(true)
+  //     setSocialEmail(getCookieValue("email"))
+  //   }
+  // }, [params])
 
   return (
     <div className="login__wrap">
