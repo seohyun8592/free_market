@@ -3,7 +3,8 @@
 import React, { useEffect } from "react"
 
 // import kakaoLogin from "@/api/kakaoLogin"
-import { redirect } from "next/navigation"
+// import { redirect } from "next/navigation"
+// import { useRouter } from "next/navigation"
 
 export interface Oauth2PageProps {
   params: {
@@ -17,6 +18,7 @@ export interface Oauth2PageProps {
 // }
 
 export default function Oauth2Page({ params }: Oauth2PageProps) {
+  // const router = useRouter()
   // 인가코드
   const code = new URL(window.location.href).searchParams.get("code")
   console.log(new URL(window.location.href), "code", code)
@@ -45,7 +47,7 @@ export default function Oauth2Page({ params }: Oauth2PageProps) {
       const response = await fetch(url)
       console.log("response", response)
 
-      redirect(`/signup?code=${code}`)
+      // router.push(`/signup/${params.slug}?code=${code}`)
 
       //   try {
       //     const response =  fetch(`/${params.slug}/?code=${code}`)
