@@ -39,33 +39,39 @@ export default function Oauth2Page({ params }: Oauth2PageProps) {
 
   useEffect(() => {
     const handleLogin = async () => {
-      try {
-        const response = await fetch(`/${params.slug}/?code=${code}`)
+      const url = `${window.location.href}/${params.slug}`
+      console.log("url", url)
 
-        // 상태 코드 확인
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
+      const response = await fetch(`${window.location.href}/${params.slug}`)
+      console.log("response", response)
 
-        // JSON 응답인지 확인
-        const contentType = response.headers.get("content-type")
-        if (!contentType || !contentType.includes("application/json")) {
-          throw new TypeError("Received content is not JSON")
-        }
+      //   try {
+      //     const response =  fetch(`/${params.slug}/?code=${code}`)
 
-        const data = await response.json()
-        console.log("Response Data:", data)
+      //     // 상태 코드 확인
+      //     if (!response.ok) {
+      //       throw new Error(`HTTP error! status: ${response.status}`)
+      //     }
 
-        // 로컬 스토리지에 토큰 저장 (예시)
-        localStorage.setItem("token", data.token)
+      //     // JSON 응답인지 확인
+      //     const contentType = response.headers.get("content-type")
+      //     if (!contentType || !contentType.includes("application/json")) {
+      //       throw new TypeError("Received content is not JSON")
+      //     }
 
-        // 로그인 성공 후 메인 페이지로 리다이렉트
-        //   router.replace("/main");
-      } catch (error) {
-        console.error("Fetch error:", error)
-        alert("로그인에 실패하였습니다.")
-        //   router.replace("/login");
-      }
+      //     const data = await response.json()
+      //     console.log("Response Data:", data)
+
+      //     // 로컬 스토리지에 토큰 저장 (예시)
+      //     localStorage.setItem("token", data.token)
+
+      //     // 로그인 성공 후 메인 페이지로 리다이렉트
+      //     //   router.replace("/main");
+      //   } catch (error) {
+      //     console.error("Fetch error:", error)
+      //     alert("로그인에 실패하였습니다.")
+      //     //   router.replace("/login");
+      //   }
     }
 
     handleLogin()
