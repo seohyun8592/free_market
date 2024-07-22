@@ -2,8 +2,7 @@
 
 import React, { useEffect } from "react"
 
-import kakaoLogin from "@/api/kakaoLogin"
-
+// import kakaoLogin from "@/api/kakaoLogin"
 // import { redirect } from "next/navigation"
 
 export interface Oauth2PageProps {
@@ -17,20 +16,62 @@ export interface Oauth2PageProps {
 //   code: string
 // }
 
-export default function Oauth2Page({ params }: Oauth2PageProps) {
+export default function Oauth2Page() {
   // 인가코드
   const code = new URL(window.location.href).searchParams.get("code")
+  console.log(new URL("111", window.location.href), code)
+  //   useEffect(() => {
+  //     console.log("@@", code, params)
+  //     if (code && params) {
+  //       kakaoLogin({ code, slug: params.slug })
 
-  useEffect(() => {
-    if (code && params) {
-      console.log(code, params)
-      kakaoLogin({ code, slug: params.slug })
-    }
-  }, [code, params])
+  //       console.log("@@", code, params)
+  //     }
+  //     // else {
+  //     //   redirect(`/signup?type=${params.slug}`)
+  //     // }
+  //   }, [code, params])
 
   //     useEffect(() => {
   //     console.log("22")
   //     // redirect(`/signup?type=${params.slug}`)
   //   }, [params])
+
+  useEffect(() => {
+    const handleLogin = async () => {
+      try {
+        const response = await fetch(
+          `https://freeapi.devsj.site/login/oauth2/code/kakao?code=${code}`,
+        )
+
+        // 상태 코드 확인
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        // JSON 응답인지 확인
+        const contentType = response.headers.get("content-type")
+        if (!contentType || !contentType.includes("application/json")) {
+          throw new TypeError("Received content is not JSON")
+        }
+
+        const data = await response.json()
+        console.log("Response Data:", data)
+
+        // 로컬 스토리지에 토큰 저장 (예시)
+        localStorage.setItem("token", data.token)
+
+        // 로그인 성공 후 메인 페이지로 리다이렉트
+        //   router.replace("/main");
+      } catch (error) {
+        console.error("Fetch error:", error)
+        alert("로그인에 실패하였습니다.")
+        //   router.replace("/login");
+      }
+    }
+
+    handleLogin()
+  }, [code])
+
   return <div>test</div>
 }
